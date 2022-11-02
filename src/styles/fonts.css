@@ -1,76 +1,13 @@
 @font-face {
-	font-family: 'Switzer-Thin';
-	src: url('../assets/fonts/Switzer-Thin.woff2') format('woff2');
-				font-weight: 100;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'Switzer-Extralight';
-	src: url('../assets/fonts/Switzer-Extralight.woff2') format('woff2');
-				font-weight: 200;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'Switzer-Light';
-	src: url('../assets/fonts/Switzer-Light.woff2') format('woff2');
-				font-weight: 300;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
 	font-family: 'Switzer-Regular';
-	src: url('../assets/fonts/Switzer-Regular.woff2') format('woff2');
+	src: local('Switzer-Regular'), url('../assets/fonts/Switzer-Regular.woff2') format('woff2');
 				font-weight: 400;
 				font-display: swap;
 				font-style: normal;
 }
 @font-face {
-	font-family: 'Switzer-Medium';
-	src: url('../assets/fonts/Switzer-Medium.woff2') format('woff2');
-				font-weight: 500;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'Switzer-Semibold';
-	src: url('../assets/fonts/Switzer-Semibold.woff2') format('woff2');
-				font-weight: 600;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
 	font-family: 'Switzer-Bold';
-	src: url('../assets/fonts/Switzer-Bold.woff2') format('woff2');
-				font-weight: 700;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'Switzer-Extrabold';
-	src: url('../assets/fonts/Switzer-Extrabold.woff2') format('woff2');
-				font-weight: 800;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'Switzer-Black';
-	src: url('../assets/fonts/Switzer-Black.woff2') format('woff2');
-				font-weight: 900;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'SFMono-Regular';
-	src: url('../assets/fonts/SFMono-Regular.otf') format('otf');
-				font-weight: 300;
-				font-display: swap;
-				font-style: normal;
-}
-@font-face {
-	font-family: 'SFMono-Bold';
-	src: url('../assets/fonts/SFMono-Bold.otf') format('otf');
+	src: local('Switzer-Bold'), url('../assets/fonts/Switzer-Bold.woff2') format('woff2');
 				font-weight: 700;
 				font-display: swap;
 				font-style: normal;

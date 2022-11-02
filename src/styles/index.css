@@ -18,25 +18,25 @@ code {
 
 /* Text styling */
 body {
-    font-family: Switzer-Regular;
+    font-family: 'Switzer-Regular';
     line-height: 1.1;
 }
 p, span {
-    font-size: 16px;
+    font-size: 14px;
 }
 h1 {
+	font-family: 'Switzer-Bold';
     font-size: 26px;
-    font-weight: 700;
     margin-bottom: 0;
 }
 h2 {
+	font-family: 'Switzer-Bold';
     font-size: 18px;
-    font-weight: 600;
     margin-bottom: 8px;
 }
 h3 {
+	font-family: 'Switzer-Bold';
     font-size: 18px;
-    font-weight: 600;
     margin-bottom: 20px;
 }
 
