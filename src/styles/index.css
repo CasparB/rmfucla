@@ -1,0 +1,221 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+/* Text styling */
+body {
+    font-family: Switzer-Regular;
+    line-height: 1.1;
+}
+p, span {
+    font-size: 16px;
+}
+h1 {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Reusable styles */
+body {
+	background-color: white;
+}
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+.frame {
+    width: 282px;
+    height: 583px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 55px;
+}
+.iphone {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10000;
+    top: 0px;
+    pointer-events: none;
+}
+.center-wrapper {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+button {
+    background-color: lightgrey;
+    padding: 8px 12px;
+}
+button.primary {
+    width: 100%;
+}
+button.actionable {
+    height: 30px;
+    background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+	margin: 0 0 7px 0;
+}
+button.actionable span {
+    font-size: 10px;
+}
+button.icon {
+	margin: 0;
+	width: 30px;
+    height: 30px;
+}
+button:hover {
+	background-color: lightblue;
+}
+.data-placeholder {
+	background-color: lightgrey;
+    width: 100%;
+    height: 100px;
+}
+.fullwidth-component {
+    margin: 20px 0 20px 0;
+}
+.divider {
+    width: 100%;
+    height: 1.5px;
+    background-color: lightgrey;
+    margin: 20px 0 20px 0;
+}
+.sticky-top {
+    position: sticky;
+    top: 0;
+}
+.sticky-bottom {
+    position: sticky;
+    bottom: 0;
+}
+.gesture-section {
+    width: 100%;
+    height: 44px;
+	border-top: 1.5px solid lightgrey;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+.gesture-bar {
+    width: 40%;
+    height: 3px;
+    background-color: black;
+    border-radius: 1.5px;
+    margin-bottom: 25px;
+}
+.space-between {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+.page {
+    background-color: white;
+    border-radius: 65px;
+    height: calc(100% - 44px);
+    overflow-y: scroll;
+    padding: 0 30px 44px 30px;
+}
+.no-border {
+	border: none;
+}
+
+/* ---------- */
+/* Components */
+/* ---------- */
+
+/* DiningHalls */
+.grid-2 button {
+    height: 50px;
+}
+
+/* Recommendations */
+
+/* PostList */
+.post {
+    background-color: lightgrey;
+    margin-bottom: 10px;
+    width: calc(100% - 24px);
+    height: 70px;
+    padding: 8px 12px;
+}
+
+/* ---------- */
+/* Pages            */
+/* ---------- */
+
+/* SignInPage */
+.signin-wrapper {
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+	padding-top: 100px;
+	padding-bottom: 70px;
+	height: calc(100% - 185px);
+}
+.logo {
+    width: 80px;
+    height: 80px;
+    background-color: lightgrey;
+    margin-bottom: 15px;
+}
+
+/* HomePage */
+.home-hero {
+    display: flex;
+    justify-content: space-between;
+	padding: 55px 20px 7px 20px;
+	margin: 0 -20px 0 -20px;
+	align-items: flex-end;
+    background: rgb(255,255,255);
+    border-bottom: 1.5px solid lightgrey;
+}
+
+/* ProfilePage */
+
+.back-hero {
+    display: flex;
+	padding: 55px 20px 7px 20px;
+	margin: 0 -20px 0 -20px;
+	align-items: flex-end;
+    background: rgb(255,255,255);
+    border-bottom: 1.5px solid lightgrey;
+}
+.back-hero h1 {
+	margin-left: 10px;
+}
