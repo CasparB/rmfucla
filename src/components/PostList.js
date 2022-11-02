@@ -1,6 +1,6 @@
 const PostList = ({posts}) => {
     // PostList takes an array of posts and renders each
-    // post in an specific order. The PostList component 
+    // post in a specific order. The PostList component 
     // should have a filter option, where posts can be
     // filtered based on a selectable criteria e.g. rating
     return (

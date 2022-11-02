@@ -1,6 +1,7 @@
 import Recommendations from '../components/Recommendations';
 import DiningHalls from '../components/DiningHalls'
 import PostList from '../components/PostList';
+import PostButton from '../components/PostButton';
 
 const HomePage = () => {
     const username = 'Borborick';
@@ -44,6 +45,7 @@ const HomePage = () => {
                 <PostList posts={posts} />
             </div>
             <div className='sticky-bottom'>
+                <PostButton />
                 <div className='gesture-section'>
                     <div className='gesture-bar' />
                 </div>
