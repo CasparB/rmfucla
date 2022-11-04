@@ -2,27 +2,16 @@ import PostList from '../components/PostList';
 import HallStats from '../components/HallStats';
 import Menu from '../components/Menu';
 import PostButton from '../components/PostButton';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { posts } from '../script/helpers';
+
+// Icons
+import { MdArrowBackIos } from 'react-icons/md';
 
 const DiningHallPage = () => {
-    const dininghall = 'Epicuria';
-    const posts = [
-        {
-            location: 'Epicuria',
-            body: 'Post 1 blah blah'
-        },
-        {
-            location: 'De Neve',
-            body: 'Post 2 blah blah'
-        },
-        {
-            location: 'Bruin Plate',
-            body: 'Post 3 blah blah'
-        },
-        {
-            location: 'Rendezvous',
-            body: 'Post 4 blah blah'
-        }
-    ]
+    const location = useLocation();
+    const name = location.state;
 
     return (
         <div className='frame'>
@@ -30,10 +19,12 @@ const DiningHallPage = () => {
             <div className='page'>
                 <div className='sticky-top'>
                     <div className='back-hero'>
-                         <button className='actionable icon'>
-                            <span>Back</span>
-                        </button>
-                        <h1>{dininghall}</h1>
+                        <Link to='/home'>
+                            <button className='actionable icon-wrapper'>
+                                <MdArrowBackIos className='back-icon'/>
+                            </button>
+                        </Link>
+                        <h1>{ name }</h1>
                     </div>
                 </div>
                 {/* Display user statistics */}

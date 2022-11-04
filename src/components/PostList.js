@@ -16,7 +16,7 @@ const PostList = ({posts}) => {
             {/* Cool syntax to iterate over each item in an array */}
             { posts.map((post, i) => (
                 <div key={i}>
-                    <div class='post'>
+                    <div className='post'>
                         <p>{post.location}</p>
                         <p>{post.body}</p>
                     </div>

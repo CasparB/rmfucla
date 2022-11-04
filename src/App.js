@@ -14,14 +14,16 @@ function App() {
 
 	return (
     <Router>
-      <div className='App'>
-        <Routes>
-          <Route exact path="/" element={<SignInPage />} />
-          <Route exact path="/home" element={<Protected><HomePage /></Protected>} />
-          <Route exact path="/profile" element={<Protected><ProfilePage /></Protected>} />
-          <Route exact path="/dininghall" element={<Protected><DiningHallPage /></Protected>} />
-        </Routes>
-      </div>
+      <AuthContextProvider>
+        <div className='App'>
+          <Routes>
+            <Route exact path="/" element={<SignInPage />} />
+            <Route exact path="/home" element={<Protected><HomePage /></Protected>} />
+            <Route exact path="/profile" element={<Protected><ProfilePage /></Protected>} />
+            <Route exact path="/dininghall" element={<Protected><DiningHallPage /></Protected>} />
+          </Routes>
+        </div>
+      </AuthContextProvider>
     </Router>
 	);
 }

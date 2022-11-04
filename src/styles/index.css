@@ -20,6 +20,7 @@ code {
 body {
     font-family: 'Switzer-Regular';
     line-height: 1.1;
+    color: rgb(23, 27, 35);
 }
 p, span {
     font-size: 14px;
@@ -79,8 +80,9 @@ button {
     background-color: lightgrey;
     padding: 8px 12px;
 }
-button.primary {
+button.primary, button.secondary {
     width: 100%;
+    margin-bottom: 20px;
 }
 button.actionable {
     height: 30px;
@@ -93,10 +95,19 @@ button.actionable {
 button.actionable span {
     font-size: 10px;
 }
-button.icon {
+button.icon-wrapper {
 	margin: 0;
-	width: 30px;
-    height: 30px;
+    padding: 0;
+    background-color: transparent;
+}
+.profile-icon {
+    width: 22px;
+    height: 22px;
+}
+.back-icon {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
 }
 button.add-post {
 	right: 30px;
@@ -111,9 +122,6 @@ button.add-post {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-button:hover {
-	background-color: lightblue;
 }
 .data-placeholder {
 	background-color: lightgrey;
@@ -176,6 +184,11 @@ button:hover {
 /* DiningHalls */
 .grid-2 button {
     height: 50px;
+    width: 1fr;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 /* Recommendations */
@@ -221,7 +234,6 @@ button:hover {
 }
 
 /* ProfilePage */
-
 .back-hero {
     display: flex;
 	padding: 55px 20px 7px 20px;
@@ -231,5 +243,5 @@ button:hover {
     border-bottom: 1.5px solid lightgrey;
 }
 .back-hero h1 {
-	margin-left: 10px;
+	margin-left: 3px;
 }

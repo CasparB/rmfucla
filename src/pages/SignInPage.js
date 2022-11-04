@@ -7,17 +7,17 @@ const SignInPage = () => {
     const navigate = useNavigate();
 
     const handleGoogleSignIn = async () => {
-		// try {
-		// 	await googleSignIn();
-		// } catch (error) {
-		// 	console.log(error);
-		// }
+		try {
+			await googleSignIn();
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
-    // useEffect(() => {
-	// 	if (user != null)
-	// 		navigate('/home')
-	// }, [user]);
+    useEffect(() => {
+		if (user != null)
+			navigate('/home');
+	}, [user]);
 
     return (
         <div className='frame'>

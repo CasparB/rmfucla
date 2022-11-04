@@ -1,28 +1,25 @@
 import Recommendations from '../components/Recommendations';
-import DiningHalls from '../components/DiningHalls'
+import DiningHallList from '../components/DiningHallList'
 import PostList from '../components/PostList';
 import PostButton from '../components/PostButton';
+import { UserAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { posts } from '../script/helpers';
+
+// Icons
+import { IoPersonCircleOutline } from 'react-icons/io5';
 
 const HomePage = () => {
-    const username = 'Borborick';
-    const posts = [
-        {
-            location: 'Epicuria',
-            body: 'Post 1 blah blah'
-        },
-        {
-            location: 'De Neve',
-            body: 'Post 2 blah blah'
-        },
-        {
-            location: 'Bruin Plate',
-            body: 'Post 3 blah blah'
-        },
-        {
-            location: 'Rendezvous',
-            body: 'Post 4 blah blah'
-        }
-    ]
+    const { user } = UserAuth();
+    const [name, setName] = useState('');
+    const navigate = useNavigate;
+
+    useEffect(() => {
+        if (user.displayName)
+            setName(user.displayName.replace(/ .*/,''));
+    }, [user]);
 
     return (
         <div className='frame'>
@@ -30,16 +27,18 @@ const HomePage = () => {
             <div className='page'>
                 <div className='sticky-top'>
                     <div className='home-hero'>
-                        <h1>Hi {username}!</h1>
-                        <button className='actionable icon'>
-                            <span>Prof</span>
-                        </button>
+                        <h1>Hi {name}!</h1>
+                        <Link to='/profile'>
+                            <button className='actionable icon-wrapper'>
+                                <IoPersonCircleOutline className='profile-icon'/>
+                            </button>
+                        </Link>
                     </div>
                 </div>
                 {/* Display food recommendations */}
                 <Recommendations />
                 {/* Display dining halls */}
-                <DiningHalls />
+                <DiningHallList />
                 <div className='divider'></div>
                 {/* Display general posts */}
                 <PostList posts={posts} />
