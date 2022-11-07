@@ -1,6 +1,11 @@
 //imports.
 const axios = require('axios');
 const cheerio = require('cheerio');
+const fs = require('fs');
+const writeStream = fs.createWriteStream('post.csv');
+
+//write headers
+writeStream.write('Hall, Meals');
 
 //urls to parse from. 
 const uclamenuURL = 'https://menu.dining.ucla.edu/Menus';
@@ -17,16 +22,29 @@ const test = axios(uclamenuURL, {params: {
   'render': render
 }})
   .then(response => {
-    let halldata = [];
+    let halldata = {};
+    let foods = [];
     const html = response.data; 
     const $ = cheerio.load(html)
-    $('.col-header').each(function(i, elem) {
-      halldata.push($(this).text());
-    })
+    $('.menu-block.third-col').each((i, elem) => {
+      const halls = $(elem)
+        .find('.col-header')
+        .text()
+      
+      $(elem).find('.recipelink').each((idx, el) => {
+        foods.push($(el).text());
+      });
+      
+    halldata[halls] = foods;
+      
+    });
+    
+return halldata;
 
-    return halldata;
   }).catch(console.error);
 
 const logResponse = async () => {
   console.log( await test );
 }
+
+console.log(logResponse());
