@@ -22,24 +22,23 @@ const test = axios(uclamenuURL, {params: {
   'render': render
 }})
   .then(response => {
-    let halldata = {};
     let foods = [];
     const html = response.data; 
     const $ = cheerio.load(html)
-    $('.menu-block.third-col').each((i, elem) => {
-      const halls = $(elem)
-        .find('.col-header')
-        .text()
-      
-      $(elem).find('.recipelink').each((idx, el) => {
-        foods.push($(el).text());
-      });
-      
-    halldata[halls] = foods;
-      
+    $('.menu-block').each((i, elem) => {
+    const hall = $(elem).text();  
+    const hallfood = $(elem).find('.recipelink').each((i, el) => {
+      let hallfood = {
+        name: $(el).text(),
+        location: $(elem).find('.col-header').text(),
+        type: 
+      }
+
+      foods.push(hallfood)
+    });
     });
     
-return halldata;
+return foods;
 
   }).catch(console.error);
 
