@@ -193,8 +193,8 @@ button.add-post {
 
 /* Recommendations */
 
-/* PostList */
-.post {
+/* ReviewList */
+.review {
     background-color: lightgrey;
     margin-bottom: 10px;
     width: calc(100% - 24px);

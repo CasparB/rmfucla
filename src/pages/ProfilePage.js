@@ -1,33 +1,16 @@
-import PostList from '../components/PostList';
+import ReviewList from '../components/ReviewList';
 import UserStats from '../components/UserStats';
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { reviews } from '../script/helpers';
 
 // Icons
 import { MdArrowBackIos } from 'react-icons/md';
 
 const ProfilePage = () => {
     const { logOut, user } = UserAuth();
-    const posts = [
-        {
-            location: 'Epicuria',
-            body: 'Post 1 blah blah'
-        },
-        {
-            location: 'De Neve',
-            body: 'Post 2 blah blah'
-        },
-        {
-            location: 'Bruin Plate',
-            body: 'Post 3 blah blah'
-        },
-        {
-            location: 'Rendezvous',
-            body: 'Post 4 blah blah'
-        }
-    ]
 
     const handleLogOut = async () => {
         try {
@@ -55,7 +38,7 @@ const ProfilePage = () => {
                 <UserStats />
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <PostList posts={posts} />
+                <ReviewList reviews={reviews} />
                 {/* Sign out button */}
                 <div className='divider'></div>
                 <button className='secondary'

@@ -1,12 +1,12 @@
 import Recommendations from '../components/Recommendations';
 import DiningHallList from '../components/DiningHallList'
-import PostList from '../components/PostList';
+import ReviewList from '../components/ReviewList';
 import PostButton from '../components/PostButton';
 import { UserAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { posts } from '../script/helpers';
+import { reviews } from '../script/helpers';
 
 // Icons
 import { IoPersonCircleOutline } from 'react-icons/io5';
@@ -41,7 +41,7 @@ const HomePage = () => {
                 <DiningHallList />
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <PostList posts={posts} />
+                <ReviewList reviews={reviews} />
             </div>
             <div className='sticky-bottom'>
                 <PostButton />

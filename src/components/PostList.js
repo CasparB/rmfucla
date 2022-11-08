@@ -1,6 +1,6 @@
-const PostList = ({posts}) => {
-    // PostList takes an array of posts and renders each
-    // post in a specific order. The PostList component 
+const ReviewList = ({reviews}) => {
+    // ReviewList takes an array of posts and renders each
+    // post in a specific order. The ReviewList component 
     // should have a filter option, where posts can be
     // filtered based on a selectable criteria e.g. rating
     return (
@@ -14,11 +14,11 @@ const PostList = ({posts}) => {
                 </button>
             </div>
             {/* Cool syntax to iterate over each item in an array */}
-            { posts.map((post, i) => (
+            { reviews.map((review, i) => (
                 <div key={i}>
-                    <div className='post'>
-                        <p>{post.location}</p>
-                        <p>{post.body}</p>
+                    <div className='review'>
+                        <p>{review.location}</p>
+                        <p>{review.body}</p>
                     </div>
                 </div> 
             ))}
@@ -26,4 +26,4 @@ const PostList = ({posts}) => {
     )
 }
 
-export default PostList;
+export default ReviewList;

@@ -1,10 +1,10 @@
-import PostList from '../components/PostList';
+import ReviewList from '../components/ReviewList';
 import HallStats from '../components/HallStats';
 import Menu from '../components/Menu';
 import PostButton from '../components/PostButton';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { posts } from '../script/helpers';
+import { reviews } from '../script/helpers';
 
 // Icons
 import { MdArrowBackIos } from 'react-icons/md';
@@ -33,7 +33,7 @@ const DiningHallPage = () => {
                 <Menu />
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <PostList posts={posts} />
+                <ReviewList reviews={reviews} />
             </div>
             <div className='sticky-bottom'>
                 <PostButton />
