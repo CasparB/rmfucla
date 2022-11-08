@@ -1,5 +1,4 @@
 import { db } from './firebase';
-import { UserAuth } from '../context/AuthContext';
 import {
   collection,
   getDocs,
@@ -28,21 +27,22 @@ export const addFood = async (food) => {
     const docSnap = await getDoc(ref);
 
     var data;
-    const today = new Date();
+    const td = new Date();
+    td.setHours(0, 0, 0, 0);
     if (docSnap.exists()) {
         data = docSnap.data();
         const mostRecentUploadDate = data.dates[data.dates.length-1].toDate();
-        if (sameDate(mostRecentUploadDate, today)) {
+        if (sameDate(mostRecentUploadDate, td)) {
             console.log('FOOD ALREADY UPLOADED TODAY');
             return false;
         }
-        const dates = data.dates.concat( [today] )
+        const dates = data.dates.concat( [ td ] )
         await updateDoc(ref, { dates: dates });
     } else {
         const newFood = {
             ...food,
             reviews: [],
-            dates: [ today ]
+            dates: [ td ]
         }
         await setDoc(ref, newFood);
     }
@@ -53,6 +53,8 @@ export const addFood = async (food) => {
 // - if food does not exist, return false
 // - if user review already exist today, return false
 // Add short form review to the Foods database
+
+// BUG: Short form reviews can be added multiple times
 export const addReview = async (review) => {
     if (!validReview(review) || !validFood(review.food))
         return false;
@@ -64,7 +66,6 @@ export const addReview = async (review) => {
         console.log('FOOD DOES NOT EXIST');
         return false;
     }
-
     const td = new Date();
     td.setHours(0, 0, 0, 0);
     const reviewsRef = collection(db, 'reviews');
@@ -80,6 +81,15 @@ export const addReview = async (review) => {
         return false;
     }
 
+    const data = foodDocSnap.data();
+    const reviews = data.reviews.concat( [
+        {
+            date: review.date,
+            rating: review.rating
+        }
+    ] );
+    await updateDoc(foodRef, { reviews: reviews });
+
     const newReview = {
         ...review,
         foodid: fid
@@ -87,7 +97,7 @@ export const addReview = async (review) => {
     const rid = hexID();
     const reviewRef = doc(db, 'reviews', rid)
     await setDoc(reviewRef, newReview);
-    console.log('upload')
+
     return true;
 }
 
@@ -113,8 +123,33 @@ export const getReviews = async (location) => {
     qSnap.forEach((doc) => {
         reviews.push(doc.data());
     });
-    console.log(reviews);
     return reviews;
+}
+
+// Get foods for display in DiningHallPage
+// - location is the dining hall to fetch foods for
+// - if location is blank, return all foods
+export const getFoods = async (location) => {
+    const td = new Date();
+    td.setHours(0, 0, 0, 0);
+    const ref = collection(db, 'foods');
+
+    let q;
+    if (!location)
+        q = query(ref, where('dates', 'array-contains', td));
+    else {
+        q = query(ref, 
+            where('dates', 'array-contains', td),
+            where('location', '==', location)
+        );
+    }
+    const qSnap = await getDocs(q);
+    const foods = [];
+    qSnap.forEach((doc) => {
+        foods.push(doc.data());
+    });
+    console.log(foods);
+    return foods;
 }
 
 // Below: API helper functions
