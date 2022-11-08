@@ -7,7 +7,7 @@ const ReviewList = ({reviews}) => {
         <div className='fullwidth-component'>
             <div className='space-between'>
                 <h2>
-                    Posts
+                    Reviews
                 </h2>
                 <button className='actionable'>
                     <span>Filter by</span>
