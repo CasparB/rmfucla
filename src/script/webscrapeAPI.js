@@ -8,8 +8,8 @@ const writeStream = fs.createWriteStream('post.csv');
 writeStream.write('Hall, Meals');
 
 //urls to parse from. 
-const uclamenusURLS = ['https://menu.dining.ucla.edu/Menus/DeNeve','https://menu.dining.ucla.edu/Menus/BruinPlate','https://menu.dining.ucla.edu/Menus/Epicuria'];
-const menuOrder = ['DeNeve', 'Bruin Plate', 'Epicuria']
+const uclamenusURLS = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.dining.ucla.edu/Menus/BruinPlate/Today','https://menu.dining.ucla.edu/Menus/Epicuria/Today'];
+
 
 //global data structures / variables. 
 const API_KEY = '35L-american-aussies';
