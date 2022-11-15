@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 // Icons
 import { AiOutlinePlus } from 'react-icons/ai'
 
-const ReviewButton = () => {
+const ReviewButton = ({ location }) => {
     return (
         <div>
-            <Link to='/newreview'>
+            <Link to='/newreview' state={ location }>
                 <button className='new-review'>
                     <AiOutlinePlus className='profile-icon'/>
                 </button>

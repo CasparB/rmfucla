@@ -7,15 +7,28 @@ import { useState, useEffect } from 'react';
 import { reviews } from '../script/helpers';
 import ProfileButton from '../components/ProfileButton';
 import ReviewButton from '../components/ReviewButton';
+import { doMenuSync } from '../script/fbAPI';
+
+// import { cafeteriaFood } from '../script/webscrapeAPI';
 
 const HomePage = () => {
     const { user } = UserAuth();
     const [name, setName] = useState('');
     const navigate = useNavigate;
 
+    const attemptMenuSync = async () => {
+        // if (await doMenuSync()) {
+        //     const foods = cafeteriaFood();
+        //     console.log(foods);
+        // }
+    }
+
     useEffect(() => {
+        // Set user name
         if (user.displayName)
             setName(user.displayName.replace(/ .*/,''));
+        // Attempt menu sync
+        attemptMenuSync();
     }, [user]);
 
     return (

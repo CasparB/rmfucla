@@ -6,14 +6,14 @@ export const sameDate = (date1, date2) => {
     )
 }
 
-export const foodID = (str) => {
-    let docID = '';
+export const docID = (str) => {
+    let id = '';
     for (let i = 0; i < str.length; i++) {
-        docID += str[i].replace(/[^A-Z0-9]/ig, '-');
+        id += str[i].replace(/[^A-Z0-9]/ig, '-');
         if (i !== str.length-1)
-            docID += '-'
+            id += '-'
     }
-    return docID;
+    return id;
 }
 
 export const hexID = () => {

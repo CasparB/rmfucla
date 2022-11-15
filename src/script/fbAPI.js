@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 import { 
     sameDate,
-    foodID,
+    docID,
     hexID
 } from './helpers';
 
@@ -22,7 +22,7 @@ export const addFood = async (food) => {
     if (!validFood(food))
         return false;
 
-    const id = foodID( [food.name, food.location, food.type] );
+    const id = docID( [food.name, food.location, food.type] );
     const ref = doc(db, 'foods', id);
     const docSnap = await getDoc(ref);
 
@@ -59,7 +59,7 @@ export const addReview = async (review) => {
     if (!validReview(review) || !validFood(review.food))
         return false;
     
-    const fid = foodID( [review.food.name, review.food.location, review.food.type] );
+    const fid = docID( [review.food.name, review.food.location, review.food.type] );
     const foodRef = doc(db, 'foods', fid);
     const foodDocSnap = await getDoc(foodRef);
     if (!foodDocSnap.exists()) {
@@ -152,11 +152,23 @@ export const getFoods = async (location) => {
     return foods;
 }
 
-// Below: API helper functions
+export const doMenuSync = async () => {
+    const ref = doc(db, 'config', 'sync-dates');
+    const docSnap = await getDoc(ref);
+    if (!docSnap.exists()) {
+        console.log('DATABASE ERROR: NO sync-dates DOC');
+        return false;
+    }
+    const data = docSnap.data();
+    const latest = data.dates[data.dates.length-1].toDate();
+    const td = new Date();
+    td.setHours(0, 0, 0, 0);
+    return latest < td;
+}
 
 // validFood returns true if a food object 
 // is valid, and false if it is not
-const validFood = (food) => {
+export const validFood = (food) => {
     if (
         !food ||
         !food.name ||
@@ -171,7 +183,7 @@ const validFood = (food) => {
 
 // validFood returns true if a review object 
 // is valid, and false if it is not
-const validReview = (review) => {
+export const validReview = (review) => {
     if (
         !review ||
         !review.author ||

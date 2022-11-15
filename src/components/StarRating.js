@@ -3,11 +3,11 @@ import { useState } from 'react';
 // Icons
 import { IoMdStarOutline, IoMdStar } from 'react-icons/io'
 
-const StarRating = () => {
-    const [rating, setRating] = useState(0);
+const StarRating = (props) => {
+    const rating = props.rating ?? 0;
 
     const handleStarDrag = i => {
-        setRating(i+1);
+        props.onChange(i+1);
     }
 
     return (

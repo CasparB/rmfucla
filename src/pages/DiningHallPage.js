@@ -30,7 +30,7 @@ const DiningHallPage = () => {
                 <ReviewList reviews={reviews} />
             </div>
             <div className='sticky-bottom'>
-                <ReviewButton />
+                <ReviewButton location={ name }/>
                 <div className='gesture-section'>
                     <div className='gesture-bar' />
                 </div>
