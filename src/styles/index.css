@@ -83,6 +83,12 @@ button {
 button.primary, button.secondary {
     width: 100%;
     margin-bottom: 20px;
+    border: 1px solid lightgrey;
+    transition: border-color 1s;
+    transition-timing-function: ease-out;
+}
+button.invalid {
+    border: 1px solid red;
 }
 button.actionable {
     height: 30px;
