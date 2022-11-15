@@ -139,7 +139,7 @@ export const get_times = async () => {
             }else if(i == 1){
                 let str = $(el).find('.hours-range').text();
                 if(str == ''){
-                  breakfast = 0;
+                  breakfast = [];
                 }else{
                   const ans = cast(str);
                   breakfast = ans;
@@ -147,7 +147,7 @@ export const get_times = async () => {
             }else if(i == 2){
               let str = $(el).find('.hours-range').text();
                 if(str == ''){
-                  lunch = 0;
+                  lunch = [];
                 }else{
                   const ans = cast(str);
                   lunch = ans;
@@ -155,7 +155,7 @@ export const get_times = async () => {
               }else if(i == 3){
                 let str = $(el).find('.hours-range').text();
                 if(str == ''){
-                  dinner = 0;
+                  dinner = [];
                 }else{
                   const ans = cast(str);
                   dinner = ans;
@@ -163,7 +163,7 @@ export const get_times = async () => {
               }else if(i == 4){
                 let str = $(el).find('.hours-range').text();
                 if(str == ''){
-                  extended_dinner = 0;
+                  extended_dinner = [];
                 }else{
                   const ans = cast(str);
                   extended_dinner = ans;
