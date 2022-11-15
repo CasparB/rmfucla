@@ -11,6 +11,7 @@ export const cafeteriaFood = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
 const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.dining.ucla.edu/Menus/BruinPlate/Today','https://menu.dining.ucla.edu/Menus/Epicuria/Today', 'https://menu.dining.ucla.edu/Menus/Rendezvous/Today', 'https://menu.dining.ucla.edu/Menus/FeastAtRieber/Today'];
+  const halls_food = []
   for(let index = 0; index < list.length; index++){
     const test = axios(list[index], {params: {
       'url': list[index],
@@ -44,16 +45,17 @@ const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.di
       return ( await test );
     }
 
-    return logResponse();
+    halls_food.push(logResponse());
 
   }
-
+  return halls_food;
 }
 
 export const otherFoods = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
   const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
+  const hall_food = [];
   for(let index = 0; index < list.length; index++){
     const test = axios(list[index], {params: {
       'url': list[index],
@@ -90,9 +92,10 @@ export const otherFoods = async () => {
       return ( await test );
     }
 
-    return logResponse();
+    hall_food.push(logResponse());
 
   }
+  return hall_food;
 }
 
 
