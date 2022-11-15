@@ -28,29 +28,25 @@ function cafeteriaFood(list){
       'render': render
     }})
       .then(response => {
-        let totalInfo = [];
-        let data = {};
         let foods = [];
         const html = response.data; 
         const $ = cheerio.load(html)
         const locationInfo = $('#page-header').text();
         const info = locationInfo.split(',');
         const name = (info[0]).split('Menu');
+        foods = [];
         $('.menu-block').each((i, elem) => {
-          foods = [];
           $(elem).find('.recipelink').each((i, el) => {
-            foods.push( $(el).text());
+            const obj = {
+              name: $(el).text(),
+              location: name[0],
+              type: $(elem).find('.col-header').text(),
+            }
+            foods.push(obj);
           });
-          data = {
-            diningHallLocation: name[0],
-            date: info[1]+info[2],
-            mealPeriod: $(elem).find('.col-header').text(),
-            foodOptions: foods,
-          };
-          totalInfo.push(data);
         });
         
-    return totalInfo;
+    return foods;
 
       }).catch(console.error);
 
@@ -72,31 +68,28 @@ function otherFoods(list){
       'render': render
     }})
       .then(response => {
-        let totalInfo = [];
-        let data = {};
         let foods = [];
         const html = response.data; 
         const $ = cheerio.load(html)
         const info = list[index].split('/');
         const name = (info[info.length-1]);
+        foods = [];
         $('.menu-block').each((i, elem) => {
-          foods = [];
           $(elem).find('.recipelink').each((i, el) => {
-            foods.push( $(el).text());
+            let sections = $(elem).find('h2').text();
+            if(sections.length === 0){
+              sections = $(elem).find('h3').text();
+            }
+            const obj = {
+              name: $(el).text(),
+              location: name,
+              type: sections,
+            }
+            foods.push(obj);
           });
-          let sections = $(elem).find('h2').text();
-          if(sections.length === 0){
-            sections = $(elem).find('h3').text();
-          }
-          data = {
-            diningHallLocation: name,
-            foodSections: sections,
-            foodOptions: foods,
-          };
-          totalInfo.push(data);
         });
         
-    return totalInfo;
+    return foods;
 
       }).catch(console.error);
 
@@ -112,5 +105,4 @@ function otherFoods(list){
 
 //Drivers
 cafeteriaFood(currentUclamenusURLS);
-cafeteriaFood(tomorrowUclamenusURLS);
 otherFoods(currentUclaOtherMenuURLS);
