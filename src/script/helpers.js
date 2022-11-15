@@ -9,7 +9,7 @@ export const sameDate = (date1, date2) => {
 export const docID = (str) => {
     let id = '';
     for (let i = 0; i < str.length; i++) {
-        id += str[i].replace(/[^A-Z0-9]/ig, '-');
+        id += str[i].replace(/[^A-Z0-9]/ig, '-').replace(/-{2,}/g,"-");
         if (i !== str.length-1)
             id += '-'
     }

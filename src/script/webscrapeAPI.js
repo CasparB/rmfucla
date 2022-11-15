@@ -4,16 +4,43 @@ const cheerio = require('cheerio');
 
 //global data structures / variables. 
 
+const condenseData = (arr) => {
+  const sorted = arr.sort(function(x, y) {
+    if (x.name < y.name) {
+      return -1;
+    }
+    if (x.name > y.name) {
+      return 1;
+    }
+    return 0;
+  });
+  let condensed = [];
+  let currentName = '';
+  for (var i = 0; i < sorted.length; i++) {
+    if (currentName != sorted[i].name) {
+      const newFood = {
+        ...sorted[i],
+        type: [sorted[i].type]
+      }
+      condensed.push(newFood);
+      currentName = sorted[i].name;
+    }
+    else {
+      condensed[condensed.length-1].type = condensed[condensed.length-1].type.concat(sorted[i].type);
+    }
+  }
+  return condensed;
+};
 
 export const cafeteriaFood = async () => {
   //parsing in the HTML website. 
   //Every hall urls to parse from. 
   const API_KEY = '35L-american-aussies';
   const render = true;
-const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.dining.ucla.edu/Menus/BruinPlate/Today','https://menu.dining.ucla.edu/Menus/Epicuria/Today', 'https://menu.dining.ucla.edu/Menus/Rendezvous/Today', 'https://menu.dining.ucla.edu/Menus/FeastAtRieber/Today'];
-  const halls_food = []
+  const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.dining.ucla.edu/Menus/BruinPlate/Today','https://menu.dining.ucla.edu/Menus/Epicuria/Today', 'https://menu.dining.ucla.edu/Menus/Rendezvous/Today', 'https://menu.dining.ucla.edu/Menus/FeastAtRieber/Today'];
+  let halls_food = [];
   for(let index = 0; index < list.length; index++){
-    const test = axios(list[index], {params: {
+    const test = await axios(list[index], {params: {
       'url': list[index],
       'api_key': API_KEY,
       'render': render
@@ -30,7 +57,7 @@ const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.di
           $(elem).find('.recipelink').each((i, el) => {
             const obj = {
               name: $(el).text(),
-              location: name[0],
+              location: name[0].slice(0, -1),
               type: $(elem).find('.col-header').text(),
             }
             foods.push(obj);
@@ -40,15 +67,9 @@ const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.di
     return foods;
 
       }).catch(console.error);
-
-    const logResponse = async () => {
-      return ( await test );
-    }
-
-    halls_food.push(logResponse());
-
+    halls_food = halls_food.concat(test);
   }
-  return halls_food;
+  return condenseData(halls_food);
 }
 
 export const otherFoods = async () => {
@@ -108,10 +129,10 @@ export const get_times = async () => {
     let v2s = v2.split(':');
     let ans1 = parseInt(v1);
     let ans2 = parseInt(v2);
-    if(vs.length != 1){
+    if(vs.length !== 1){
       ans1 += 0.5;
     }
-    if(v2s.length != 1){
+    if(v2s.length !== 1){
       ans2 += 0.5;
     }
     return [ans1, ans2];
@@ -135,37 +156,37 @@ export const get_times = async () => {
         let dinner;
         let extended_dinner;
         $('tr').each((io, elem) => {
-        if(io<10 && io!=0){
+        if(io<10 && io!==0){
           $(elem).find('td').each((i, el) => {
-            if(i == 0){
+            if(i === 0){
               location = $(el).find('.hours-location').text()
-            }else if(i == 1){
+            }else if(i === 1){
                 let str = $(el).find('.hours-range').text();
-                if(str == ''){
+                if(str === ''){
                   breakfast = [];
                 }else{
                   const ans = cast(str);
                   breakfast = ans;
                 }
-            }else if(i == 2){
+            }else if(i === 2){
               let str = $(el).find('.hours-range').text();
-                if(str == ''){
+                if(str === ''){
                   lunch = [];
                 }else{
                   const ans = cast(str);
                   lunch = ans;
                 }
-              }else if(i == 3){
+              }else if(i === 3){
                 let str = $(el).find('.hours-range').text();
-                if(str == ''){
+                if(str === ''){
                   dinner = [];
                 }else{
                   const ans = cast(str);
                   dinner = ans;
                 }
-              }else if(i == 4){
+              }else if(i === 4){
                 let str = $(el).find('.hours-range').text();
-                if(str == ''){
+                if(str === ''){
                   extended_dinner = [];
                 }else{
                   const ans = cast(str);

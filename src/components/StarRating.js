@@ -7,7 +7,8 @@ const StarRating = (props) => {
     const rating = props.rating ?? 0;
 
     const handleStarDrag = i => {
-        props.onChange(i+1);
+        if (!props.viewOnly)
+            props.onChange(i+1);
     }
 
     return (

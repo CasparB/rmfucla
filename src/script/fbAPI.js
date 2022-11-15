@@ -7,6 +7,7 @@ import {
   getDoc,
   updateDoc,
   query,
+  arrayUnion,
   where
 } from 'firebase/firestore';
 import { 
@@ -22,7 +23,11 @@ export const addFood = async (food) => {
     if (!validFood(food))
         return false;
 
-    const id = docID( [food.name, food.location, food.type] );
+    let types = [];
+    for (var i = 0; i < food.type.length; i++)
+        types.push(food.type[i]);
+
+    const id = docID( [food.name, food.location].concat(types) );
     const ref = doc(db, 'foods', id);
     const docSnap = await getDoc(ref);
 
@@ -53,8 +58,6 @@ export const addFood = async (food) => {
 // - if food does not exist, return false
 // - if user review already exist today, return false
 // Add short form review to the Foods database
-
-// BUG: Short form reviews can be added multiple times
 export const addReview = async (review) => {
     if (!validReview(review) || !validFood(review.food))
         return false;
@@ -148,10 +151,12 @@ export const getFoods = async (location) => {
     qSnap.forEach((doc) => {
         foods.push(doc.data());
     });
-    console.log(foods);
     return foods;
 }
 
+// Check whether the menus have been synced with
+// our database today. Return true if the current
+// user should perform a menu sync, false if not
 export const doMenuSync = async () => {
     const ref = doc(db, 'config', 'sync-dates');
     const docSnap = await getDoc(ref);
@@ -166,6 +171,20 @@ export const doMenuSync = async () => {
     return latest < td;
 }
 
+// Update the config db, setting last sync to today
+export const didMenuSync = async () => {
+    const td = new Date();
+    td.setHours(0, 0, 0, 0);
+    const ref = doc(db, 'config', 'sync-dates');
+    const docSnap = await getDoc(ref);
+    if (!docSnap.exists()) {
+        console.log('DATABASE ERROR: NO sync-dates DOC');
+        return false;
+    }
+    const data = docSnap.data();
+    await updateDoc(ref, { dates: arrayUnion(td) });
+}
+
 // validFood returns true if a food object 
 // is valid, and false if it is not
 export const validFood = (food) => {
@@ -173,7 +192,8 @@ export const validFood = (food) => {
         !food ||
         !food.name ||
         !food.location ||
-        !food.type
+        !food.type ||
+        !(food.type.length)
     ) {
         console.log('INVALID FOOD OBJECT')
         return false;

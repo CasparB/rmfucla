@@ -11,8 +11,6 @@ import Protected from './components/Protected';
 
 function App() {
 
-  let test = "123";
-
 	return (
     <Router>
       <AuthContextProvider>

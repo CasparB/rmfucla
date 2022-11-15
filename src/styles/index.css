@@ -11,7 +11,7 @@ body {
     height: 100vh;
 }
 
-code {
+code, .mono {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
 }
@@ -182,6 +182,9 @@ button.new-review {
 .no-border {
 	border: none;
 }
+.blur {
+    filter: none;
+}
 
 /* ---------- */
 /* Components */
@@ -221,8 +224,38 @@ button.new-review {
     justify-content: space-between;
 }
 
+/* SyncModal */
+.sync-modal-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sync-modal {
+    z-index: 10010;
+}
+.prog-container {
+    margin-top: 5px;
+    background-color: lightgrey;
+    width: 100px;
+    height: 3px;
+}
+.prog-bar {
+    background-color: black;
+    height: 100%;
+}
+
+/* Dropdown */
+.Dropdown-disabled {
+    opacity: 0.5;
+}
+
 /* ---------- */
-/* Pages            */
+/* Pages      */
 /* ---------- */
 
 /* SignInPage */
