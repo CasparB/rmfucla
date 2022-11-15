@@ -3,6 +3,7 @@ import SignInPage     from './pages/SignInPage';
 import HomePage       from './pages/HomePage';
 import ProfilePage    from './pages/ProfilePage';
 import DiningHallPage from './pages/DiningHallPage';
+import NewReviewPage from './pages/NewReviewPage';
 // Components and Script
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
@@ -21,6 +22,7 @@ function App() {
             <Route exact path="/home" element={<Protected><HomePage /></Protected>} />
             <Route exact path="/profile" element={<Protected><ProfilePage /></Protected>} />
             <Route exact path="/dininghall" element={<Protected><DiningHallPage /></Protected>} />
+            <Route exact path="/newreview" element={<Protected><NewReviewPage /></Protected>} />
           </Routes>
         </div>
       </AuthContextProvider>

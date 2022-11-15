@@ -1,13 +1,11 @@
 import ReviewList from '../components/ReviewList';
 import HallStats from '../components/HallStats';
 import Menu from '../components/Menu';
-import PostButton from '../components/PostButton';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { reviews } from '../script/helpers';
-
-// Icons
-import { MdArrowBackIos } from 'react-icons/md';
+import BackButton from '../components/BackButton';
+import ReviewButton from '../components/ReviewButton';
 
 const DiningHallPage = () => {
     const location = useLocation();
@@ -19,11 +17,7 @@ const DiningHallPage = () => {
             <div className='page'>
                 <div className='sticky-top'>
                     <div className='back-hero'>
-                        <Link to='/home'>
-                            <button className='actionable icon-wrapper'>
-                                <MdArrowBackIos className='back-icon'/>
-                            </button>
-                        </Link>
+                        <BackButton />
                         <h1>{ name }</h1>
                     </div>
                 </div>
@@ -36,7 +30,7 @@ const DiningHallPage = () => {
                 <ReviewList reviews={reviews} />
             </div>
             <div className='sticky-bottom'>
-                <PostButton />
+                <ReviewButton />
                 <div className='gesture-section'>
                     <div className='gesture-bar' />
                 </div>
