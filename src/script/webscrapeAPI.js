@@ -1,26 +1,17 @@
 //imports.
-const axios = require('axios');
+import axios, * as others from 'axios';
 const cheerio = require('cheerio');
-const fs = require('fs');
-const writeStream = fs.createWriteStream('post.csv');
-
-//write headers
-writeStream.write('Hall, Meals');
-
-//Every hall urls to parse from. 
-const currentUclamenusURLS = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.dining.ucla.edu/Menus/BruinPlate/Today','https://menu.dining.ucla.edu/Menus/Epicuria/Today', 'https://menu.dining.ucla.edu/Menus/Rendezvous/Today', 'https://menu.dining.ucla.edu/Menus/FeastAtRieber/Today'];
-const currentUclaOtherMenuURLS = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
-
-//urls to parse from that change daily (gets tomorrow's food)
-const tomorrowUclamenusURLS = ['https://menu.dining.ucla.edu/Menus/DeNeve/Tomorrow','https://menu.dining.ucla.edu/Menus/BruinPlate/Tomorrow','https://menu.dining.ucla.edu/Menus/Epicuria/Tomorrow', 'https://menu.dining.ucla.edu/Menus/Rendezvous/Tomorrow', 'https://menu.dining.ucla.edu/Menus/FeastAtRieber/Tomorrow'];
-
 
 //global data structures / variables. 
-const API_KEY = '35L-american-aussies';
-const render = true;
 
-function cafeteriaFood(list){
+
+export const cafeteriaFood = async () => {
   //parsing in the HTML website. 
+  //Every hall urls to parse from. 
+  const API_KEY = '35L-american-aussies';
+  const render = true;
+const list = ['https://menu.dining.ucla.edu/Menus/DeNeve/Today','https://menu.dining.ucla.edu/Menus/BruinPlate/Today','https://menu.dining.ucla.edu/Menus/Epicuria/Today', 'https://menu.dining.ucla.edu/Menus/Rendezvous/Today', 'https://menu.dining.ucla.edu/Menus/FeastAtRieber/Today'];
+  const halls_food = []
   for(let index = 0; index < list.length; index++){
     const test = axios(list[index], {params: {
       'url': list[index],
@@ -51,16 +42,20 @@ function cafeteriaFood(list){
       }).catch(console.error);
 
     const logResponse = async () => {
-      console.log( await test );
+      return ( await test );
     }
 
-    console.log(logResponse());
+    halls_food.push(logResponse());
 
   }
-
+  return halls_food;
 }
 
-function otherFoods(list){
+export const otherFoods = async () => {
+  const API_KEY = '35L-american-aussies';
+  const render = true;
+  const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
+  const hall_food = [];
   for(let index = 0; index < list.length; index++){
     const test = axios(list[index], {params: {
       'url': list[index],
@@ -94,15 +89,109 @@ function otherFoods(list){
       }).catch(console.error);
 
     const logResponse = async () => {
-      console.log( await test );
+      return ( await test );
     }
 
-    console.log(logResponse());
+    hall_food.push(logResponse());
 
   }
+  return hall_food;
 }
 
 
-//Drivers
-cafeteriaFood(currentUclamenusURLS);
-otherFoods(currentUclaOtherMenuURLS);
+export const get_times = async () => {
+  function cast(str){
+    str = str.split(' ');
+    let v1 = str[0];
+    let v2 = str[3];
+    let vs = v1.split(':');
+    let v2s = v2.split(':');
+    let ans1 = parseInt(v1);
+    let ans2 = parseInt(v2);
+    if(vs.length != 1){
+      ans1 += 0.5;
+    }
+    if(v2s.length != 1){
+      ans2 += 0.5;
+    }
+    return [ans1, ans2];
+  }
+  const API_KEY = '35L-american-aussies';
+  const render = true;
+    const link = "http://menu.dining.ucla.edu/Hours";
+    const test = axios(link, {params: {
+      'url': link,
+      'api_key': API_KEY,
+      'render': render
+    }})
+      .then(response => {
+        let done = 0;
+        let hours = [];
+        const html = response.data; 
+        const $ = cheerio.load(html);
+        let location;
+        let breakfast;
+        let lunch;
+        let dinner;
+        let extended_dinner;
+        $('tr').each((io, elem) => {
+        if(io<10 && io!=0){
+          $(elem).find('td').each((i, el) => {
+            if(i == 0){
+              location = $(el).find('.hours-location').text()
+            }else if(i == 1){
+                let str = $(el).find('.hours-range').text();
+                if(str == ''){
+                  breakfast = [];
+                }else{
+                  const ans = cast(str);
+                  breakfast = ans;
+                }
+            }else if(i == 2){
+              let str = $(el).find('.hours-range').text();
+                if(str == ''){
+                  lunch = [];
+                }else{
+                  const ans = cast(str);
+                  lunch = ans;
+                }
+              }else if(i == 3){
+                let str = $(el).find('.hours-range').text();
+                if(str == ''){
+                  dinner = [];
+                }else{
+                  const ans = cast(str);
+                  dinner = ans;
+                }
+              }else if(i == 4){
+                let str = $(el).find('.hours-range').text();
+                if(str == ''){
+                  extended_dinner = [];
+                }else{
+                  const ans = cast(str);
+                  extended_dinner = ans;
+                }
+            }
+          });
+          const obj = {
+            location: location,
+            breakfast: breakfast,
+            lunch:  lunch,
+            dinner: dinner,
+            extended_dinner: extended_dinner,
+          };
+            hours.push(obj);
+
+      }
+        });
+    
+    return hours;
+
+      }).catch(console.error);
+
+    const logResponse = async () => {
+      return( await test );
+    }
+
+    return logResponse();
+}

@@ -7,9 +7,9 @@ import { useState, useEffect } from 'react';
 import { reviews } from '../script/helpers';
 import ProfileButton from '../components/ProfileButton';
 import ReviewButton from '../components/ReviewButton';
-import { doMenuSync } from '../script/fbAPI';
-
-// import { cafeteriaFood } from '../script/webscrapeAPI';
+import { cafeteriaFood } from '../script/webscrapeAPI';
+import { otherFoods } from '../script/webscrapeAPI';
+import { get_times } from '../script/webscrapeAPI';
 
 const HomePage = () => {
     const { user } = UserAuth();
