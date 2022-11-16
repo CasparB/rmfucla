@@ -17,8 +17,14 @@ const ReviewList = ({reviews}) => {
             { reviews.map((review, i) => (
                 <div key={i}>
                     <div className='review'>
-                        <p>{review.location}</p>
-                        <p>{review.body}</p>
+                        <img src={require('../assets/images/pasta.jpeg')} />
+                        <div>
+                            <h3>{review.food.name}</h3>
+                            <p className="dininghallname"> {review.food.loc}</p>
+                            <p className="dateoffood">{review.dateof}</p>
+                            <p>{review.rating} / 5</p>
+
+                        </div>
                     </div>
                 </div> 
             ))}

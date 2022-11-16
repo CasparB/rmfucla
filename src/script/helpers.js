@@ -26,22 +26,48 @@ export const hexID = () => {
 	return result;
 }
 
+const date = new Date().toDateString().split(' ');
+var dateFormat = date[2] + ' ' + date[1] + ' ' + date[3];
 export const reviews = [
     {
-        location: 'Epicuria',
-        body: 'Post 1 blah blah'
+        author: 'borborickzhu@g.ucla.edu',
+        rating: 4,
+        dateof: dateFormat,
+        food: {
+            name: 'Grilled Chicken',
+            loc: 'B-Plate'
+        },
+        imageSrc: '../assets/images/pasta.jpeg'
     },
     {
-        location: 'De Neve',
-        body: 'Post 2 blah blah'
+        author: 'casparbroekhuizen@g.ucla.edu',
+        rating: 3,
+        dateof: dateFormat,
+        food: {
+            name: 'Grilled Pork',
+            loc: 'De Neve'
+        },
+        imageSrc: '../assets/images/pasta.jpeg'
     },
     {
-        location: 'Bruin Plate',
-        body: 'Post 3 blah blah'
+        author: 'michaelreed@g.ucla.edu',
+        rating: 2,
+        dateof: dateFormat,
+        food: {
+            name: 'Grilled Beef',
+            loc: 'Epicuria'
+        },
+        imageSrc: '../assets/images/pasta.jpeg'
     },
     {
-        location: 'Rendezvous',
-        body: 'Post 4 blah blah'
+        author: 'akashbanerjee@g.ucla.edu',
+        rating: 1,
+        dateof: dateFormat,
+        food: {
+            name: 'Grilled Shrimp',
+            loc: 'Rendezvous'
+        },
+        imageSrc: '../assets/images/pasta.jpeg'
     }
 ]
 

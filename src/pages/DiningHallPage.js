@@ -24,7 +24,7 @@ const DiningHallPage = () => {
                 {/* Display user statistics */}
                 <HallStats />
                 {/* Display menu */}
-                <Menu />
+                <Menu location={name}/>
                 <div className='divider'></div>
                 {/* Display general posts */}
                 <ReviewList reviews={reviews} />
