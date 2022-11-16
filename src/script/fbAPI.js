@@ -105,22 +105,32 @@ export const addReview = async (review) => {
 }
 
 // Get reviews for display in ReviewList
-// - location is the dining hall to fetch reviews for
-// - if location is blank, return all reviews
-export const getReviews = async (location) => {
+// - accepts options object
+//      - options.location is the dining hall to fetch reviews for (fetch from all locations if blank)
+//      - options.author is the author to fetch reviews from (fetch from all authors if blank)
+//      - options.from is the date to fetch reviews from (fetch today's reviews if blank)
+export const getReviews = async (options) => {
     const td = new Date();
     td.setHours(0, 0, 0, 0);
     const ref = collection(db, 'reviews');
 
     let q;
-    if (!location)
+    if (!options)
         q = query(ref, where('date', '>', td));
     else {
-        q = query(ref, 
-            where('date', '>', td),
-            where('location', '==', location)
-        );
+        const constraints = [];
+        if (options.location)
+            constraints.push( where('location', '==', options.location) );
+        if (options.author)
+            constraints.push( where('author', '==', options.author) );
+        if (options.from && isValidDate(options.from))
+            constraints.push( where('date', '>', options.from) );
+        else 
+            constraints.push( where('date', '>', td) );
+
+        q = query(ref, ...constraints);
     }
+    
     const qSnap = await getDocs(q);
     const reviews = [];
     qSnap.forEach((doc) => {
@@ -215,4 +225,8 @@ export const validReview = (review) => {
         return false;
     }
     return true;
+}
+
+const isValidDate = (d) => {
+    return d instanceof Date && !isNaN(d);
 }

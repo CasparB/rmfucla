@@ -11,7 +11,7 @@ import { cafeteriaFood } from '../script/webscrapeAPI';
 import { otherFoods } from '../script/webscrapeAPI';
 import { get_times } from '../script/webscrapeAPI';
 import { doMenuSync, didMenuSync } from '../script/fbAPI';
-import { addFood } from '../script/fbAPI';
+import { addFood, getReviews } from '../script/fbAPI';
 import SyncModal from '../components/SyncModal';
 
 const HomePage = () => {
@@ -52,6 +52,7 @@ const HomePage = () => {
             setName(user.displayName.replace(/ .*/,''));
         // Attempt menu sync
         attemptMenuSync();
+        
     }, [user]);
 
     return (
