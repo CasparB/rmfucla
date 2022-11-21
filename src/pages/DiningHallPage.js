@@ -27,7 +27,7 @@ const DiningHallPage = () => {
                 <Menu location={name}/>
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <ReviewList reviews={reviews} />
+                <ReviewList location={name} />
             </div>
             <div className='sticky-bottom'>
                 <ReviewButton location={ name }/>
