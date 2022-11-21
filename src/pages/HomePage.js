@@ -72,7 +72,7 @@ const HomePage = () => {
                 <DiningHallList />
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <ReviewList reviews={reviews} />
+                <ReviewList />
             </div>
             <div className='sticky-bottom blur'>
                 <ReviewButton />
