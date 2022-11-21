@@ -1,5 +1,6 @@
 import { getReviews } from '../script/fbAPI';
 import { useState, useEffect } from 'react';
+import StarRating from './StarRating';
 
 const ReviewList = ({location}) => {
     // ReviewList takes an array of posts and renders each
@@ -28,7 +29,24 @@ const ReviewList = ({location}) => {
     // <p className="dininghallname"> {review.food.loc}</p>
     //                         <p className="dateoffood">{review.dateof}</p>
     //                         <p>{review.rating} / 5</p>
+    function convertDate(str) {
+        const date = str.toDate();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var formattedTime = "";
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        if (hours >= 12) {
+            hours = hours % 12;
+            formattedTime = hours + ":" + minutes + " PM";
+        } else {
+            formattedTime = hours + ":" + minutes + " AM";
+        }
+        return formattedTime;
 
+    }
+    
     return (
         <div className='fullwidth-component'>
             <div className='space-between'>
@@ -45,9 +63,11 @@ const ReviewList = ({location}) => {
             reviews.map((review, i) => (
                 <div key={i}>
                     <div className='review'>
-                        <img src={require('../assets/images/pasta.jpeg')} />
                         <div>
                             <h3>{review.food.name}</h3>
+                            <p>{convertDate(review.date)}</p>
+                            <StarRating rating={3}/>
+                            
             
                         </div>
                     </div>
