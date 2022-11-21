@@ -4,7 +4,7 @@ import StarRating from '../components/StarRating';
 import { validReview } from '../script/fbAPI';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getFoods, addReview } from '../script/fbAPI';
+import { getFoods, addReview, getShortFormReviews } from '../script/fbAPI';
 import Dropdown from 'react-dropdown';
 import SyncModal from '../components/SyncModal';
 import 'react-dropdown/style.css';
@@ -114,6 +114,7 @@ const NewReviewPage = () => {
             setTimeout(() => setClasses(''), 1500);
             return false;
         }
+        console.log(getShortFormReviews(food));
         attemptAddReview(draft);
     }
 

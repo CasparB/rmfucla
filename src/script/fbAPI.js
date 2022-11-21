@@ -196,6 +196,23 @@ export const didMenuSync = async () => {
     await updateDoc(ref, { dates: arrayUnion(td) });
 }
 
+export const getShortFormReviews = async (food) => {
+    if (!validFood(food))
+        return false;
+    let types = [];
+    for (var i = 0; i < food.type.length; i++)
+        types.push(food.type[i]);
+    const id = docID( [food.name, food.location].concat(types) );
+    const ref = doc(db, 'foods', id);
+    const docSnap = await getDoc(ref);
+    if (!docSnap.exists()) {
+        console.log('FOOD DOES NOT EXIST');
+        return false;
+    }
+    const data = docSnap.data();
+    return data.reviews;
+}
+
 // validFood returns true if a food object 
 // is valid, and false if it is not
 export const validFood = (food) => {
