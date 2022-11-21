@@ -1,6 +1,7 @@
 import { getReviews } from '../script/fbAPI';
 import { useState, useEffect } from 'react';
 import StarRating from './StarRating';
+import { getShortFormReviews } from '../script/fbAPI';
 
 const ReviewList = ({location}) => {
     // ReviewList takes an array of posts and renders each
@@ -8,11 +9,22 @@ const ReviewList = ({location}) => {
     // should have a filter option, where posts can be
     // filtered based on a selectable criteria e.g. rating
     const [reviews, setReviews] = useState([]);
+    const [ratings, setRatings] = useState([]);
 
     const attemptSetReviews = async (options) => {
         const data = await getReviews(options);
-        if (data)
+        if (data) {
             setReviews(data);
+            const temp = [];
+            for (var i = 0; i < data.length; i++) {
+                const rating = await getShortFormReviews(data[i].food);
+                if (rating)
+                    temp.push(rating);
+                else
+                    temp.push([]);
+            }
+            setRatings(temp);
+        }
     }
 
     useEffect(() => {
@@ -23,8 +35,8 @@ const ReviewList = ({location}) => {
     }, []);
 
     useEffect(() => {
-        console.log('reviews', reviews);
-    }, [reviews]);
+        console.log('ratings', ratings);
+    }, [ratings]);
 
     // <p className="dininghallname"> {review.food.loc}</p>
     //                         <p className="dateoffood">{review.dateof}</p>
@@ -46,6 +58,17 @@ const ReviewList = ({location}) => {
         return formattedTime;
 
     }
+
+    function average (arr) {
+        if (!arr || !arr.length)
+            return 0;
+        var sum = 0; 
+        for (var i = 0; i < arr.length; i++) {
+            sum += arr[i].rating;
+        }
+
+        return parseInt(sum / arr.length);
+    }
     
     return (
         <div className='fullwidth-component'>
@@ -66,9 +89,7 @@ const ReviewList = ({location}) => {
                         <div>
                             <h3>{review.food.name}</h3>
                             <p>{convertDate(review.date)}</p>
-                            <StarRating rating={3}/>
-                            
-            
+                            <StarRating rating={average(ratings[i])}/>
                         </div>
                     </div>
                 </div> 
