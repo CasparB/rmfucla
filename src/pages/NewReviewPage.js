@@ -44,7 +44,6 @@ const NewReviewPage = () => {
     const retrieveMenu = async () => {
         setSyncing(true);
         const foods = await getFoods();
-        console.log(foods);
         setMenu(foods);
         const data = [];
         for (var i = 0; i < foods.length; i++) {
@@ -59,7 +58,7 @@ const NewReviewPage = () => {
         const data = [];
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location &&
-                menu[i].type === review.type) {
+                menu[i].type.includes(review.type)) {
                 data.push(menu[i].name);
             }
         }
@@ -94,13 +93,14 @@ const NewReviewPage = () => {
         setSyncing(true);
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location &&
-                menu[i].type === review.type &&
+                menu[i].type.includes(review.type) &&
                 menu[i].name === review.name) {
                 food = {
                     name: menu[i].name,
                     location: menu[i].location,
                     type: menu[i].type
                 }
+                break;
             }
         }
         const draft = {

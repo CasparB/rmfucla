@@ -26,7 +26,6 @@ export const addFood = async (food) => {
     let types = [];
     for (var i = 0; i < food.type.length; i++)
         types.push(food.type[i]);
-
     const id = docID( [food.name, food.location].concat(types) );
     const ref = doc(db, 'foods', id);
     const docSnap = await getDoc(ref);
@@ -61,8 +60,10 @@ export const addFood = async (food) => {
 export const addReview = async (review) => {
     if (!validReview(review) || !validFood(review.food))
         return false;
-    
-    const fid = docID( [review.food.name, review.food.location, review.food.type] );
+    let types = [];
+    for (var i = 0; i < review.food.type.length; i++)
+        types.push(review.food.type[i]);
+    const fid = docID( [review.food.name, review.food.location].concat(types) );
     const foodRef = doc(db, 'foods', fid);
     const foodDocSnap = await getDoc(foodRef);
     if (!foodDocSnap.exists()) {
@@ -219,7 +220,8 @@ export const validReview = (review) => {
         !review.author ||
         !review.rating ||
         !review.date ||
-        !review.food
+        !review.food ||
+        !validFood(review.food)
     ) {
         console.log('INVALID REVIEW OBJECT')
         return false;
