@@ -2,8 +2,9 @@ import { getReviews } from '../script/fbAPI';
 import { useState, useEffect } from 'react';
 import StarRating from './StarRating';
 import { getShortFormReviews } from '../script/fbAPI';
+import LikeButton from './LikeButton';
 
-const ReviewList = ({location}) => {
+const ReviewList = ({location, author}) => {
     // ReviewList takes an array of posts and renders each
     // post in a specific order. The ReviewList component 
     // should have a filter option, where posts can be
@@ -31,16 +32,10 @@ const ReviewList = ({location}) => {
         let options = {};
         if (location)
             options.location = location;
+            options.author = author;
         attemptSetReviews(options);
     }, []);
 
-    useEffect(() => {
-        console.log('ratings', ratings);
-    }, [ratings]);
-
-    // <p className="dininghallname"> {review.food.loc}</p>
-    //                         <p className="dateoffood">{review.dateof}</p>
-    //                         <p>{review.rating} / 5</p>
     function convertDate(str) {
         const date = str.toDate();
         var hours = date.getHours();
@@ -49,11 +44,11 @@ const ReviewList = ({location}) => {
         if (minutes < 10) {
             minutes = "0" + minutes;
         }
-        if (hours >= 12) {
+        if (hours > 12) {
             hours = hours % 12;
-            formattedTime = hours + ":" + minutes + " PM";
-        } else {
             formattedTime = hours + ":" + minutes + " AM";
+        } else {
+            formattedTime = hours + ":" + minutes + " PM";
         }
         return formattedTime;
 
@@ -67,7 +62,7 @@ const ReviewList = ({location}) => {
             sum += arr[i].rating;
         }
 
-        return parseInt(sum / arr.length);
+        return (sum / arr.length);
     }
     
     return (
@@ -80,8 +75,6 @@ const ReviewList = ({location}) => {
                     <span>Filter by</span>
                 </button>
             </div>
-            {/* Cool syntax to iterate over each item in an array */}
-            {console.log(reviews)}
             { 
             reviews.map((review, i) => (
                 <div key={i}>
@@ -89,7 +82,15 @@ const ReviewList = ({location}) => {
                         <div>
                             <h3>{review.food.name}</h3>
                             <p>{convertDate(review.date)}</p>
-                            <StarRating rating={average(ratings[i])}/>
+                            {ratings[i] &&
+                                <div className='review-footer'>
+                                    <div className='rating-wrapper'>
+                                        <StarRating rating={average(ratings[i])}/>
+                                        <p className='count-text'>{`(${ratings[i].length})`}</p>
+                                    </div>
+                                    <LikeButton review={review} />
+                                </div>
+                            }
                         </div>
                     </div>
                 </div> 

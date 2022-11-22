@@ -19,6 +19,7 @@ const NewReviewPage = () => {
     const [syncing, setSyncing] = useState(false);
     const [locations, setLocations] = useState([]);
     const [locVal, setLocVal] = useState(false);
+    const [message, setMessage] = useState(null);
     const [foods, setFoods] = useState([]);
     const { user } = UserAuth();
 
@@ -42,6 +43,7 @@ const NewReviewPage = () => {
     }, []);
 
     const retrieveMenu = async () => {
+        setMessage('Downloading Menus');
         setSyncing(true);
         const foods = await getFoods();
         setMenu(foods);
@@ -90,6 +92,7 @@ const NewReviewPage = () => {
     const handleSubmit = () => {
         const now = new Date();
         let food;
+        setMessage('Uploading Review');
         setSyncing(true);
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location &&
@@ -114,13 +117,12 @@ const NewReviewPage = () => {
             setTimeout(() => setClasses(''), 1500);
             return false;
         }
-        console.log(getShortFormReviews(food));
         attemptAddReview(draft);
     }
 
     return (
         <div className='frame'>
-            <SyncModal visible={ syncing } />
+            <SyncModal visible={ syncing } message={ message } />
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
             <div className='page blur'>
                 <div className='sticky-top'>
@@ -152,7 +154,10 @@ const NewReviewPage = () => {
                     }
                     <div className='form-section'>
                         <h3>Rating</h3>
-                        <StarRating rating={ review.rating } onChange={ handleRatingChange }/>
+                        <div className='review-rating-wrapper'>
+                            <StarRating rating={ review.rating } 
+                                onChange={ handleRatingChange }/>
+                        </div>
                     </div>
                     <button className={ `primary ${classes}`} type="submit"
                             onClick={ handleSubmit }>

@@ -8,6 +8,7 @@ import {
   updateDoc,
   query,
   arrayUnion,
+  orderBy,
   where
 } from 'firebase/firestore';
 import { 
@@ -96,7 +97,8 @@ export const addReview = async (review) => {
 
     const newReview = {
         ...review,
-        foodid: fid
+        foodid: fid,
+        likes: []
     }
     const rid = hexID();
     const reviewRef = doc(db, 'reviews', rid)
@@ -117,7 +119,7 @@ export const getReviews = async (options) => {
 
     let q;
     if (!options)
-        q = query(ref, where('date', '>', td));
+        q = query(ref, orderBy('date'), where('date', '>', td));
     else {
         const constraints = [];
         if (options.location)
@@ -129,7 +131,7 @@ export const getReviews = async (options) => {
         else 
             constraints.push( where('date', '>', td) );
 
-        q = query(ref, ...constraints);
+        q = query(ref, orderBy('date', 'desc'), ...constraints);
     }
     
     const qSnap = await getDocs(q);
@@ -196,6 +198,8 @@ export const didMenuSync = async () => {
     await updateDoc(ref, { dates: arrayUnion(td) });
 }
 
+// Gets short form reviews (just the reviewer and date)
+// stored in 'foods' db
 export const getShortFormReviews = async (food) => {
     if (!validFood(food))
         return false;
@@ -211,6 +215,62 @@ export const getShortFormReviews = async (food) => {
     }
     const data = docSnap.data();
     return data.reviews;
+}
+
+// Add/remove like for a given review
+export const performLikeAction = async (user, review) => {
+    if (!validReview(review) || !user)
+        return false;
+    let types = [];
+    for (var i = 0; i < review.food.type.length; i++)
+        types.push(review.food.type[i]);
+    const fid = docID( [review.food.name, review.food.location].concat(types) );
+    const ref = collection(db, 'reviews');
+    const q = query(ref,
+        where('author', '==', review.author), 
+        where('foodid', '==', fid));
+
+    const qSnap = await getDocs(q);
+    if (qSnap.empty) {
+        console.log('REVIEW DOES NOT EXIST');
+        return false;
+    }
+    qSnap.forEach((doc) => {
+        const data = doc.data();
+        let likes = [];
+        if (data.likes && data.likes.includes(user)) {
+            const index = data.likes.indexOf(user);
+            likes = data.likes;
+            likes.splice(index, 1);
+        } else
+            likes = data.likes.concat( [ user ] );
+        updateDoc(doc.ref, { likes: likes });
+    });
+    return true;
+}
+
+// Gets likes for a given review
+export const getLikes = async (review) => {
+    if (!validReview(review))
+        return false;
+    let types = [];
+    for (var i = 0; i < review.food.type.length; i++)
+        types.push(review.food.type[i]);
+    const fid = docID( [review.food.name, review.food.location].concat(types) );
+    const ref = collection(db, 'reviews');
+    const q = query(ref,
+        where('author', '==', review.author), 
+        where('foodid', '==', fid));
+    const qSnap = await getDocs(q);
+    if (qSnap.empty) {
+        console.log('REVIEW DOES NOT EXIST');
+        return false;
+    }
+    let data;
+    qSnap.forEach((doc) => {
+        data = doc.data();
+    });
+    return data.likes;
 }
 
 // validFood returns true if a food object 

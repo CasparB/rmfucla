@@ -57,7 +57,7 @@ const HomePage = () => {
 
     return (
         <div className='frame'>
-            <SyncModal visible={ syncing } progress={ progress }/>
+            <SyncModal visible={ syncing } progress={ progress } message='Downloading Menus' />
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
             <div className='page blur'>
                 <div className='sticky-top'>

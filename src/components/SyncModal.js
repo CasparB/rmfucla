@@ -14,7 +14,7 @@ const SyncModal = (props) => {
             <div className='sync-modal'>
                 { (props.progress == 0 || props.progress == null) &&
                     <div className='center-wrapper'>
-                        <h3>Downloading Menus</h3>
+                        {props.message && <h3>{props.message}</h3> }
                         <Puff stroke='black'/>
                     </div>
                 }

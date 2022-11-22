@@ -1,11 +1,12 @@
 import ReviewList from '../components/ReviewList';
 import UserStats from '../components/UserStats';
 import { UserAuth } from '../context/AuthContext';
-import { reviews } from '../script/helpers';
 import BackButton from '../components/BackButton';
 import LogOutButton from '../components/LogOutButton';
 
 const ProfilePage = () => {
+    const { user } = UserAuth();
+
     return (
         <div className='frame'>
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
@@ -20,7 +21,7 @@ const ProfilePage = () => {
                 <UserStats />
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <ReviewList reviews={reviews} />
+                <ReviewList author={user.email} />
                 
                 <div className='divider'></div>
                 {/* Log out button */}
