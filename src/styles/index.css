@@ -17,29 +17,30 @@ code, .mono {
 }
 
 /* Text styling */
-body {
-    font-family: 'Switzer-Regular';
-    line-height: 1.1;
-    color: rgb(23, 27, 35);
-}
-p, span {
-    font-size: 14px;
-}
-h1 {
-	font-family: 'Switzer-Bold';
-    font-size: 23px;
-    margin-bottom: 0;
-}
-h2 {
-	font-family: 'Switzer-Bold';
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-h3 {
-	font-family: 'Switzer-Bold';
-    font-size: 14px;
-    margin-bottom: 6px;
-}
+    body {
+        font-family: 'Switzer-Regular';
+        line-height: 1.1;
+        color: black;
+    
+    }
+    p, span {
+        font-size: 14px;
+    }
+    h1 {
+        font-family: 'Switzer-Bold';
+        font-size: 23px;
+        margin-bottom: 0;
+    }
+    h2 {
+        font-family: 'Switzer-Bold';
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+    h3 {
+        font-family: 'Switzer-Bold';
+        font-size: 14px;
+        margin-bottom: 6px;
+    }
 
 /* Reusable styles */
 body {
@@ -167,18 +168,21 @@ button.new-review {
     border-radius: 1.5px;
     margin-bottom: 25px;
 }
+
 .space-between {
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-end;
 }
+
 .page {
-    background-color: white;
+    background-color: white ;
     border-radius: 65px;
     height: calc(100% - 44px);
     overflow-y: scroll;
     padding: 0 30px 44px 30px;
 }
+
 .no-border {
 	border: none;
 }
@@ -203,13 +207,15 @@ button.new-review {
 /* Recommendations */
 
 /* ReviewList */
-.review {
+
+ .review {
     background-color: lightgrey;
     margin-bottom: 10px;
     width: calc(100% - 24px);
     padding: 8px 12px;
     display:flex;
 }
+
 .review > div {
     width: 100%;
 }
@@ -272,7 +278,7 @@ button.new-review {
 }
 .prog-container {
     margin-top: 5px;
-    background-color: lightgrey;
+    background-color: black;
     width: 100px;
     height: 3px;
 }
@@ -326,6 +332,7 @@ button.new-review {
     background: rgb(255,255,255);
     border-bottom: 1.5px solid lightgrey;
 }
+
 .back-hero h1 {
 	margin-left: 3px;
 }
@@ -348,4 +355,9 @@ button.new-review {
 /* MenuPage */
 .menu-item {
     margin-top: 5px;
+}
+.tswitch {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

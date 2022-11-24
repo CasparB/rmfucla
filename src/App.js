@@ -5,15 +5,15 @@ import ProfilePage    from './pages/ProfilePage';
 import DiningHallPage from './pages/DiningHallPage';
 import NewReviewPage from './pages/NewReviewPage';
 import MenuPage from './pages/MenuPage';
-
+import DarkMode from "./components/DarkMode"
 
 // Components and Script
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import Protected from './components/Protected';
-
+import { createContext, useState } from 'react';
+import { HiCurrencyBangladeshi } from 'react-icons/hi';
 function App() {
-
 	return (
     <Router>
       <AuthContextProvider>

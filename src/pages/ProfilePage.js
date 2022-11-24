@@ -3,7 +3,6 @@ import UserStats from '../components/UserStats';
 import { UserAuth } from '../context/AuthContext';
 import BackButton from '../components/BackButton';
 import LogOutButton from '../components/LogOutButton';
-
 const ProfilePage = () => {
     const { user } = UserAuth();
 
