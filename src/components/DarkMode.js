@@ -1,6 +1,6 @@
 import React from "react";
 import { IoEllipseSharp } from "react-icons/io5";
-import "../styles/DarkMode.css"
+import "./DarkMode.css"
 const DarkMode = () => {
     
         let clickedClass = "clicked";
@@ -30,11 +30,11 @@ const DarkMode = () => {
             }
         }
             return (
+                <div id="darkMode">
                 <button
                 className={theme==="dark" ? clickedClass : ""}
-                id="darkMode"
                 onClick={(e) => switchTheme(e)}
-                ></button>
+            >Change Theme</button></div>
             );
 };
 

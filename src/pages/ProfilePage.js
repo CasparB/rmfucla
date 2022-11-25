@@ -3,6 +3,7 @@ import UserStats from '../components/UserStats';
 import { UserAuth } from '../context/AuthContext';
 import BackButton from '../components/BackButton';
 import LogOutButton from '../components/LogOutButton';
+import DarkMode from '../components/DarkMode';
 const ProfilePage = () => {
     const { user } = UserAuth();
 
@@ -25,7 +26,7 @@ const ProfilePage = () => {
                 <div className='divider'></div>
                 {/* Log out button */}
                 <LogOutButton />
-
+                <DarkMode />
             </div>
             <div className='sticky-bottom'>
                 <div className='gesture-section'>

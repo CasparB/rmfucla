@@ -1,3 +1,60 @@
+:root{
+--text-light: black;
+--webback-light: white;
+--buttonback-light: pink;
+--pageback-light: blue  ;
+--reviewback-light: red;
+--phonebar-light: black;
+--ratingwrapper-light: lightgrey;
+--placeholder-light: lightgrey;
+--topbar-light:lightgrey;
+--sync-light: white;
+--homebar-light: white;
+--text-dark: white;
+--webback-dark: black;
+--buttonback-dark: lightblue;
+--pageback-dark: black;
+--reviewback-dark: black;
+--phonebar-dark: white;
+--ratingwrapper-dark:black;
+--placeholder-dark:black;
+--topbar-dark: black;
+--sync-dark: black;
+--homebar-dark:black;
+}
+
+@media(prefers-color-scheme: dark){
+    :root{
+        --text: var(--text-dark);
+        --webback:  var(--webback-dark);
+        --buttonback: var(--buttonback-dark);
+        --pageback: var(--pageback-dark);
+        --reviewback: var(--reviewback-dark);
+        --phonebar: var(--phonebar-dark);
+        --ratingwrapper: var(--ratingwrapper-dark);
+        --placeholder: var(--placeholder-dark);
+        --topbar: var(--topbar-dark);
+        --sync: var(--sync-dark);
+        --homebar: var(--homebar-dark);
+        }
+} 
+@media(prefers-color-scheme: light){
+    :root{
+        --text: var(--text-light);
+        --webback:  var(--webback-light);
+        --buttonback: var(--buttonback-light);
+        --pageback: var(--pageback-light);
+        --reviewback: var(--reviewback-light);
+        --phonebar: var(--phonebar-light);
+        --topbar: var(--topbar-light);
+        --sync: var(--sync-light);
+        --homebar: var(--homebar-light);
+    }
+}
+
+
+
+
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -20,32 +77,32 @@ code, .mono {
     body {
         font-family: 'Switzer-Regular';
         line-height: 1.1;
-        color: black;
-    
+        color: var(--text);
     }
     p, span {
         font-size: 14px;
     }
-    h1 {
+    h1{
         font-family: 'Switzer-Bold';
         font-size: 23px;
         margin-bottom: 0;
     }
-    h2 {
+    h2{
         font-family: 'Switzer-Bold';
         font-size: 18px;
         margin-bottom: 8px;
     }
-    h3 {
+    h3{
         font-family: 'Switzer-Bold';
         font-size: 14px;
         margin-bottom: 6px;
     }
 
 /* Reusable styles */
-body {
-	background-color: white;
+body{
+	background-color:var(--webback);
 }
+
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -77,14 +134,16 @@ body {
     align-items: center;
     flex-direction: column;
 }
-button {
-    background-color: lightgrey;
+
+button{
+    background-color:var(--buttonback);
     padding: 8px 12px;
 }
-button.primary, button.secondary {
+
+button.primary, button.secondary{
     width: 100%;
     margin-bottom: 20px;
-    border: 1px solid lightgrey;
+    border: 1px solid var(--buttonback);
     transition: border-color 1s;
     transition-timing-function: ease-out;
 }
@@ -93,7 +152,7 @@ button.invalid {
 }
 button.actionable {
     height: 30px;
-    background-color: lightgrey;
+    background-color: var(--buttonback);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,7 +190,7 @@ button.new-review {
     justify-content: center;
 }
 .data-placeholder {
-	background-color: lightgrey;
+	background-color: var(--placeholder);
     width: 100%;
     height: 100px;
 }
@@ -141,7 +200,7 @@ button.new-review {
 .divider {
     width: 100%;
     height: 1.5px;
-    background-color: lightgrey;
+    background-color: var(--phonebar);
     margin: 20px 0 20px 0;
 }
 .sticky-top {
@@ -155,16 +214,16 @@ button.new-review {
 .gesture-section {
     width: 100%;
     height: 44px;
-	border-top: 1.5px solid lightgrey;
-    background-color: white;
+	border-top: 1.5px solid var(--phonebar);
+    background-color: var(--pageback);
     display: flex;
     justify-content: center;
     align-items: flex-end;
 }
-.gesture-bar {
+.gesture-bar{
     width: 40%;
     height: 3px;
-    background-color: black;
+    background-color: var(--phonebar);
     border-radius: 1.5px;
     margin-bottom: 25px;
 }
@@ -176,7 +235,7 @@ button.new-review {
 }
 
 .page {
-    background-color: white ;
+    background-color: var(--pageback) ;
     border-radius: 65px;
     height: calc(100% - 44px);
     overflow-y: scroll;
@@ -209,7 +268,7 @@ button.new-review {
 /* ReviewList */
 
  .review {
-    background-color: lightgrey;
+    background-color: var(--reviewback);
     margin-bottom: 10px;
     width: calc(100% - 24px);
     padding: 8px 12px;
@@ -257,7 +316,7 @@ button.new-review {
     justify-content: space-between;
 }
 .review-rating-wrapper {
-    background-color: lightgrey;
+    background-color: var(--ratingwrapper);
     padding: 8px 20px 8px 20px;
     width: calc(100% - 40px);
 }
@@ -267,7 +326,7 @@ button.new-review {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: var(--sync);
     z-index: 10000;
     display: flex;
     align-items: center;
@@ -278,12 +337,12 @@ button.new-review {
 }
 .prog-container {
     margin-top: 5px;
-    background-color: black;
+    background-color: white;
     width: 100px;
     height: 3px;
 }
 .prog-bar {
-    background-color: black;
+    background-color: white;
     height: 100%;
 }
 
@@ -319,8 +378,8 @@ button.new-review {
 	padding: 55px 20px 7px 20px;
 	margin: 0 -20px 0 -20px;
 	align-items: flex-end;
-    background: rgb(255,255,255);
-    border-bottom: 1.5px solid lightgrey;
+    background: var(--homebar);
+    border-bottom: 1.5px solid var(--phonebar);
 }
 
 /* ProfilePage */
@@ -329,8 +388,8 @@ button.new-review {
 	padding: 55px 20px 7px 20px;
 	margin: 0 -20px 0 -20px;
 	align-items: flex-end;
-    background: rgb(255,255,255);
-    border-bottom: 1.5px solid lightgrey;
+    background: var(--topbar);
+    border-bottom: 1.5px solid var(--phonebar);
 }
 
 .back-hero h1 {
@@ -355,9 +414,4 @@ button.new-review {
 /* MenuPage */
 .menu-item {
     margin-top: 5px;
-}
-.tswitch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
