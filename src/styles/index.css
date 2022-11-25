@@ -1,13 +1,13 @@
 :root{
 --text-light: black;
 --webback-light: white;
---buttonback-light: pink;
---pageback-light: blue  ;
+--buttonback-light: lightgrey;
+--pageback-light: white ;
 --reviewback-light: red;
 --phonebar-light: black;
 --ratingwrapper-light: lightgrey;
---placeholder-light: lightgrey;
---topbar-light:lightgrey;
+--place-light: lightgrey;
+--topbar-light:white;
 --sync-light: white;
 --homebar-light: white;
 --text-dark: white;
@@ -17,7 +17,7 @@
 --reviewback-dark: black;
 --phonebar-dark: white;
 --ratingwrapper-dark:black;
---placeholder-dark:black;
+--place-dark:black;
 --topbar-dark: black;
 --sync-dark: black;
 --homebar-dark:black;
@@ -32,7 +32,7 @@
         --reviewback: var(--reviewback-dark);
         --phonebar: var(--phonebar-dark);
         --ratingwrapper: var(--ratingwrapper-dark);
-        --placeholder: var(--placeholder-dark);
+        --place: var(--place-dark);
         --topbar: var(--topbar-dark);
         --sync: var(--sync-dark);
         --homebar: var(--homebar-dark);
@@ -46,10 +46,38 @@
         --pageback: var(--pageback-light);
         --reviewback: var(--reviewback-light);
         --phonebar: var(--phonebar-light);
+        --ratingwrapper: var(--ratingwrapper-light);
+        --place: var(--place-light);
         --topbar: var(--topbar-light);
         --sync: var(--sync-light);
         --homebar: var(--homebar-light);
     }
+}
+[color-scheme="light"] {
+    --text: var(--text-light);
+    --webback:  var(--webback-light);
+    --buttonback: var(--buttonback-light);
+    --pageback: var(--pageback-light);
+    --reviewback: var(--reviewback-light);
+    --phonebar: var(--phonebar-light);
+    --topbar: var(--topbar-light);
+    --sync: var(--sync-light);
+    --homebar: var(--homebar-light);
+    --place: var(--place-light);
+}
+
+[color-scheme="dark"]{
+    --text: var(--text-dark);
+    --webback:  var(--webback-dark);
+    --buttonback: var(--buttonback-dark);
+    --pageback: var(--pageback-dark);
+    --reviewback: var(--reviewback-dark);
+    --phonebar: var(--phonebar-dark);
+    --ratingwrapper: var(--ratingwrapper-dark);
+    --place: var(--place-dark);
+    --topbar: var(--topbar-dark);
+    --sync: var(--sync-dark);
+    --homebar: var(--homebar-dark);
 }
 
 
@@ -190,7 +218,7 @@ button.new-review {
     justify-content: center;
 }
 .data-placeholder {
-	background-color: var(--placeholder);
+	background-color: var(--place);
     width: 100%;
     height: 100px;
 }
@@ -414,4 +442,9 @@ button.new-review {
 /* MenuPage */
 .menu-item {
     margin-top: 5px;
+}
+.themebtn{
+    display: flex;
+    justify-content: center;    
+    justify-items: center;
 }

@@ -5,16 +5,17 @@ import ProfilePage    from './pages/ProfilePage';
 import DiningHallPage from './pages/DiningHallPage';
 import NewReviewPage from './pages/NewReviewPage';
 import MenuPage from './pages/MenuPage';
-import DarkMode from "./components/DarkMode"
-
 // Components and Script
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './context/AuthContext';
 import Protected from './components/Protected';
 import { createContext, useState } from 'react';
 import { HiCurrencyBangladeshi } from 'react-icons/hi';
+document.documentElement.setAttribute('color-scheme', 'light');
+
 function App() {
 	return (
+    
     <Router>
       <AuthContextProvider>
         <div className='App'>
@@ -29,7 +30,8 @@ function App() {
         </div>
       </AuthContextProvider>
     </Router>
-	);
+
+  );
 }
 
 export default App;
