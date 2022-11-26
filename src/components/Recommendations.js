@@ -43,10 +43,6 @@ const Recommendations = () => {
     return (
         <div className='fullwidth-component'>
             <h2>For You!</h2>
-
-            // these are static recomendations that will stand in place for 
-            // recomendations that are dynamically computed from user reviews
-
             <div className="scrollable-div">
             Epicuria's pasta dish!
             <img src={require('../assets/images/pasta.jpeg')} width={150} height={150}/>
