@@ -51,7 +51,7 @@ const HomePage = () => {
         if (user.displayName)
             setName(user.displayName.replace(/ .*/,''));
         // Attempt menu sync
-        attemptMenuSync();
+        //attemptMenuSync();
         
     }, [user]);
 
