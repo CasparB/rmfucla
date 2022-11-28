@@ -3,14 +3,18 @@ import { useState, useEffect } from 'react';
 import StarRating from './StarRating';
 import { getShortFormReviews } from '../script/fbAPI';
 import LikeButton from './LikeButton';
+import Dropdown from 'react-dropdown';
 
 const ReviewList = ({location, author}) => {
-    // ReviewList takes an array of posts and renders each
-    // post in a specific order. The ReviewList component 
-    // should have a filter option, where posts can be
-    // filtered based on a selectable criteria e.g. rating
     const [reviews, setReviews] = useState([]);
     const [ratings, setRatings] = useState([]);
+    const [filter, setFilter] = useState('');
+
+    const options = [
+        'Time',
+        'Rating',
+        'Likes'
+    ]
 
     const attemptSetReviews = async (options) => {
         const data = await getReviews(options);
@@ -36,7 +40,7 @@ const ReviewList = ({location, author}) => {
         attemptSetReviews(options);
     }, []);
 
-    function convertDate(str) {
+    const convertDate = (str) => {
         const date = str.toDate();
         var hours = date.getHours();
         var minutes = date.getMinutes();
@@ -51,10 +55,9 @@ const ReviewList = ({location, author}) => {
             formattedTime = hours + ":" + minutes + " PM";
         }
         return formattedTime;
-
     }
 
-    function average (arr) {
+    const average = (arr) => {
         if (!arr || !arr.length)
             return 0;
         var sum = 0; 
@@ -64,6 +67,10 @@ const ReviewList = ({location, author}) => {
 
         return (sum / arr.length);
     }
+
+    const handleFilterChange = () => {
+
+    }
     
     return (
         <div className='fullwidth-component'>
@@ -71,9 +78,8 @@ const ReviewList = ({location, author}) => {
                 <h2>
                     Reviews
                 </h2>
-                <button className='actionable'>
-                    <span>Filter by</span>
-                </button>
+                <Dropdown className='filter' options={options} value={options[0]}
+                        onChange={e => handleFilterChange(e.value)} />
             </div>
             { 
             reviews.map((review, i) => (
@@ -81,7 +87,7 @@ const ReviewList = ({location, author}) => {
                     <div className='review'>
                         <div>
                             <h3>{review.food.name}</h3>
-                            <p>{`${convertDate(review.date)}at${review.food.location}`}</p>
+                            <p>{`${convertDate(review.date)} at ${review.food.location}`}</p>
                             {ratings[i] &&
                                 <div className='review-footer'>
                                     <div className='rating-wrapper'>

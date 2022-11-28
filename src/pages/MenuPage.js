@@ -4,7 +4,6 @@ import { useLocation } from 'react-router-dom';
 const MenuPage = () => {
     const location = useLocation();
     const menu = location.state[0];
-    console.log(menu);
     return (
         <div className='frame'>
             <img className='iphone' src={require('../assets/images/iphone14.png')} />

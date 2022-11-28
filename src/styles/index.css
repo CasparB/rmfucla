@@ -8,18 +8,19 @@
 --ratingwrapper-light: lightgrey;
 --place-light: lightgrey;
 --topbar-light:white;
---sync-light: white;
+--sync-light: rgba(255, 255, 255, 0.8);
 --homebar-light: white;
+
 --text-dark: white;
 --webback-dark: black;
---buttonback-dark: lightblue;
+--buttonback-dark: rgb(50, 62, 66);
 --pageback-dark: black;
---reviewback-dark: black;
+--reviewback-dark: rgb(50, 62, 66);
 --phonebar-dark: white;
 --ratingwrapper-dark:black;
---place-dark:black;
+--place-dark:rgb(50, 62, 66);
 --topbar-dark: black;
---sync-dark: black;
+--sync-dark: rgba(0, 0, 0, 0.8);;
 --homebar-dark:black;
 }
 
@@ -134,6 +135,11 @@ body{
 .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
 }
 .grid-4 {
@@ -281,13 +287,18 @@ button.new-review {
 /* Components */
 /* ---------- */
 
-/* DiningHalls */
-.grid-2 button {
-    height: 50px;
+/* DiningHallList */
+.grid-3 button {
+    height: 60px;
     width: 1fr;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    background-color: transparent;
+    padding: 5px;
+}
+.dininghall-logo {
     width: 100%;
 }
 
@@ -409,6 +420,23 @@ button.new-review {
 	align-items: flex-end;
     background: var(--homebar);
     border-bottom: 1.5px solid var(--phonebar);
+}
+.filter {
+    font-size: 13px;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+.Dropdown-control, .Dropdown-option {
+    padding: 3px 20px 3px 5px !important;
+}
+.Dropdown-arrow {
+    top: 9px !important;
+    right: 7px !important;
+    border-width: 4px 4px 0 !important;
+}
+.is-open .Dropdown-arrow {
+    border-color: transparent transparent #999 !important;
+    border-width: 0 4px 4px !important;
 }
 
 /* ProfilePage */
