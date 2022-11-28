@@ -59,6 +59,7 @@ export const cafeteriaFood = async () => {
               name: $(el).text(),
               location: name[0].slice(0, -1),
               type: $(elem).find('.col-header').text(),
+              category: '',
             }
             foods.push(obj);
           });
@@ -90,21 +91,62 @@ export const otherFoods = async () => {
         const info = list[index].split('/');
         const name = (info[info.length-1]);
         foods = [];
-        $('.menu-block').each((i, elem) => {
-          $(elem).find('.recipelink').each((i, el) => {
-            let sections = $(elem).find('h2').text();
-            if(sections.length === 0){
-              sections = $(elem).find('h3').text();
-            }
-            const obj = {
-              name: $(el).text(),
-              location: name,
-              type: sections,
-            }
-            foods.push(obj);
-          });
-        });
-        
+        if(index == 0){
+        $('.swiper-slide').each((i,e) => {
+          let type_period = $(e).find('h1').text();
+          $('.menu-block').each((i, elem) => {
+            $(elem).find('.recipelink').each((i, el) => {
+              let sections = $(elem).find('h2').text();
+              if(sections.length === 0){
+                sections = $(elem).find('h3').text();
+              }
+              const obj = {
+                name: $(el).text(),
+                location: name,
+                type: type_period,
+                category: sections,
+              }
+              foods.push(obj);
+            });
+          });
+        });
+      }else if(index != 4){
+        let type_dine = ['Lunch', 'Dinner'];
+        for(let i = 0; i < 2; i++){
+              const cur_type = type_dine[i]
+              $('.menu-block').each((i, elem) => {
+                $(elem).find('.recipelink').each((i, el) => {
+                  let sections = $(elem).find('h2').text();
+                  if(sections.length === 0){
+                    sections = $(elem).find('h3').text();
+                  }
+                  const obj = {
+                    name: $(el).text(),
+                    location: name,
+                    type: cur_type,
+                    category: sections,
+                  }
+                  foods.push(obj);
+                });
+              });
+        }
+  }else{
+    $('.menu-block').each((i, elem) => {
+      $(elem).find('.recipelink').each((i, el) => {
+        let sections = $(elem).find('h2').text();
+        if(sections.length === 0){
+          sections = $(elem).find('h3').text();
+        }
+        const obj = {
+          name: $(el).text(),
+          location: name,
+          type: 'Extended Dinner',
+          category: sections,
+        }
+        foods.push(obj);
+      });
+    });
+  }
     return foods;
 
       }).catch(console.error);
