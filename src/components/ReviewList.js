@@ -81,7 +81,7 @@ const ReviewList = ({location, author}) => {
                     <div className='review'>
                         <div>
                             <h3>{review.food.name}</h3>
-                            <p>{convertDate(review.date)}</p>
+                            <p>{`${convertDate(review.date)}at${review.food.location}`}</p>
                             {ratings[i] &&
                                 <div className='review-footer'>
                                     <div className='rating-wrapper'>
