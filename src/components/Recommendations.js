@@ -6,15 +6,15 @@ import { UserAuth } from '../context/AuthContext'
 import { cafeteriaFood } from '../script/webscrapeAPI'
 
 /*
-OUTLINE OF A VERY SIMPLE RECOMENDATION ALGORITHM
+OUTLINE OF A SIMPLE RECOMENDATION ALGORITHM
 
 get all the food offerings available today as an array
 
 get all the reviews for the current user as an array
 
-  create a (nested) food scores array that. The food scores array 
+  create a (nested) recs array. The recs array 
 will be used to find the best foods for the current user.
-An example food scores array could be:
+An example recs array could be:
 
     [[apples, 4], [chicken, 3], [pizza, 5]]
 
@@ -24,19 +24,19 @@ either the rating this user has previously given this food item
 or a randomly generated score (to encourage the user to sometimes)
 try new things. 
 
-
-
-loop through todays foods to creat the food scores array,
+ALGORITHM PSEUDO-CODE
+loop through todays foods to creat the recs array,
     for each item in todays foods see if user has already reviewed it
         if yes, use that (most recent) rating as score
         if not, give food a random score
+    push [food_name, score] to the recs array
 
-loop through the food scores array a second time pushing the highest
-rated food items to a recomendations array. Return from the loop once
-the recomendations array reaches 3 (arbitrary value can easily change).
+loop through the recs array a second time pushing the highest
+rated food items to a user_recomendations array. Return from the loop once
+the recomendations array reaches 5 (arbitrary value can easily change).
 
-The recomendations array will now contain the three best foods for the user
-from todays menu offerings across the dining halls.  
+The user_recomendations array will now contain the five best foods for the user
+from todays menu offerings across the dining halls. 
 */
 const Recommendations =  () => {
     // Recommendations will use the user context to determine
@@ -109,12 +109,11 @@ const Recommendations =  () => {
         <div className='fullwidth-component'>
             <h2>For You!</h2>
             <div className="scrollable-div">
-            Epicuria's pasta dish!
-            <img src={require('../assets/images/pasta.jpeg')} width={150} height={150}/>
-            De Neve hot pizza!
-            <img src={require("../assets/images/pizza.jpeg")} width={150} height={150}/>
-            Rendezvous fresh blueberries!
-            <img src={require("../assets/images/blueberries.jpg")} width={150} height={150} />
+            chicken pasta dish!
+            pizza!
+            fresh blueberries!
+            Chicken Tenders!
+            Meatball Sub!
             </div>
 
         </div>
