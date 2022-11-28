@@ -77,9 +77,9 @@ export const otherFoods = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
   const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
-  const hall_food = [];
+  let halls_food = [];
   for(let index = 0; index < list.length; index++){
-    const test = axios(list[index], {params: {
+    const test = await axios(list[index], {params: {
       'url': list[index],
       'api_key': API_KEY,
       'render': render
@@ -217,19 +217,13 @@ export const otherFoods = async () => {
     return foods;
 
       }).catch(console.error);
-
-    const logResponse = async () => {
-      return ( await test );
-    }
-
-    hall_food.push(logResponse());
-
+    halls_food = halls_food.concat(test);
   }
-  return hall_food;
+  return condenseData(halls_food);
 }
 
 
-export const get_times = async () => {
+export const getTimes = async () => {
   function cast(str){
     str = str.split(' ');
     let v1 = str[0];
