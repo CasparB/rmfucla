@@ -11,84 +11,78 @@ get all the food offerings available today as an array
 
 get all the reviews for the current user as an array
 
-create an empty recomendations array
-(e.g. of what this will look like [[fish, 2], [pizza, 4], [chicken, 3], [pasta, 5]])
+  create a (nested) food scores array that. The food scores array 
+will be used to find the best foods for the current user.
+An example food scores array could be:
 
-loop through todays foods, and rank them based on their rating
-    --> loop through reviews to see if user has reviewed this food
-        --> if this food has been reviewed add its rating
-        --> if this food hasn't been reviewed randomly generate a rating from U[1,5]
+    [[apples, 4], [chicken, 3], [pizza, 5]]
 
-sort the recomendations array
+Where each element of the array is another array. Each nested
+array contains the name of a food item (from UCLA dining menu) and 
+either the rating this user has previously given this food item 
+or a randomly generated score (to encourage the user to sometimes)
+try new things. 
 
-print the top three items from the recomendation array
 
- 
+
+loop through todays foods to creat the food scores array,
+    for each item in todays foods see if user has already reviewed it
+        if yes, use that (most recent) rating as score
+        if not, give food a random score
+
+loop through the food scores array a second time pushing the highest
+rated food items to a recomendations array. Return from the loop once
+the recomendations array reaches 3 (arbitrary value can easily change).
+
+The recomendations array will now contain the three best foods for the user
+from todays menu offerings across the dining halls.  
 */
-const Recommendations = () => {
+const Recommendations =  () => {
     // Recommendations will use the user context to determine
     // dining hall recommendations for the logged in user. It
     // will display these recommendations in some neat form.
 
     const [users, setUsers] = useState([]);
+    const [user_recomendations_for_printing] = useState('');
     const usersCollectionRef = collection(db, "reviews");
     const { user } = UserAuth();  // can use user.email to get reviews for this user
-    console.log(user.email);
 
 
     useEffect(() => {
         const getUsers = async () => {
                 const options = {
-                author:"cbroekhuizen@g.ucla.edu", // author:"{user.email}"
+                author:user.email,  //"cbroekhuizen@g.ucla.edu", // 
                 from: new Date(1970, 1, 1, 0, 0, 0, 0)
             };
-            const all_reviews =  await getReviews(options)
-
-            // all reviews is an array of all reviews in the database
-
-            // here is how we can extract some information for the first
-            // review 
-            const ix = 2
-            console.log(all_reviews)
-            //console.log("review author:", all_reviews[ix].author)
-            //console.log("food name:", all_reviews[ix].foodid)
-            //console.log("food rating:", all_reviews[ix].rating)
-
-            // Here I want loop through and get an array for each user
-            for (let review_ix=0; review_ix<all_reviews.length; review_ix++) {
-                console.log("Author", review_ix, " ", all_reviews[review_ix].food.name);
-            }
+            const all_reviews_by_user =  await getReviews(options)
 
             /*CREATE RECS ARRAY*/
             var recs = []
-            for (let review_ix=0; review_ix<all_reviews.length; review_ix++) {
-                recs.push([all_reviews[review_ix].food.name, all_reviews[review_ix].rating])
+            for (let review_ix=0; review_ix<all_reviews_by_user.length; review_ix++) {
+                recs.push([all_reviews_by_user[review_ix].food.name, all_reviews_by_user[review_ix].rating])
             }
-            console.log(recs)
 
             /*CREATE AN ARRAY WITH TOP 3 RECOMENDATIONS*/
             var user_recomendations = []
 
             for (let rvalue=5; rvalue>0; rvalue--){
                 for (let i=0; i<recs.length; i++) {
+                    if (user_recomendations.length >= 3) {
+                        return user_recomendations
+                    }
                     if (recs[i][1] == rvalue)
                         user_recomendations.push(recs[i][0])
                 }
-                if (user_recomendations.length >= 3) {
-                    console.log("here")
-                    console.log(user_recomendations)
-                    const user_recs = user_recomendations;
-                    return user_recs
-                }
+                
             }
        
 
 
         };
 
-        const urecs = getUsers();
+        const usr_recs = getUsers();
         console.log("user recomendations");
-        
+        console.log(usr_recs)
         
 
 
