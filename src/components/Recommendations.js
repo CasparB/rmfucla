@@ -3,6 +3,7 @@ import { db } from '../script/firebase';
 import {getReviews} from '../script/fbAPI'
 import { collection, getDocs } from "firebase/firestore";
 import { UserAuth } from '../context/AuthContext'
+import { cafeteriaFood } from '../script/webscrapeAPI'
 
 /*
 OUTLINE OF A VERY SIMPLE RECOMENDATION ALGORITHM
@@ -49,42 +50,58 @@ const Recommendations =  () => {
 
 
     useEffect(() => {
+
+        /*GET ALL REVIEWS FOR CURRENT USER*/
         const getUsers = async () => {
-                const options = {
+            const options = {
                 author:user.email,  //"cbroekhuizen@g.ucla.edu", // 
                 from: new Date(1970, 1, 1, 0, 0, 0, 0)
             };
             const all_reviews_by_user =  await getReviews(options)
+            
+            /*GET ALL OF TODAYS FOOD OFFERINGS*/
+                var todays_food = []
+            const foods = await cafeteriaFood()
+            for (let food_ix=0; food_ix<foods.length; food_ix++){
+                todays_food.push(foods[food_ix].name)
+            }
 
             /*CREATE RECS ARRAY*/
             var recs = []
-            for (let review_ix=0; review_ix<all_reviews_by_user.length; review_ix++) {
-                recs.push([all_reviews_by_user[review_ix].food.name, all_reviews_by_user[review_ix].rating])
+            for (let ix=0; ix<todays_food.length; ix++) {
+                const todays_food_name = todays_food[ix]
+                // has todays_food_name already been rated
+                var score = 0  // will change if food has already been rated by user
+                for (let j=0; j<all_reviews_by_user.length; j++){
+                    if (all_reviews_by_user[j].food.name == todays_food_name){
+                        score = all_reviews_by_user[j].rating
+                    }
+                }
+                if (score == 0){
+                    // randomly assign a score to encourage trying new foods
+                    score = Math.ceil(Math.random()*5)
+                }
+                recs.push([todays_food_name, score])
             }
 
-            /*CREATE AN ARRAY WITH TOP 3 RECOMENDATIONS*/
+            /*CREATE AN ARRAY WITH TOP 5 RECOMENDATIONS*/
             var user_recomendations = []
 
             for (let rvalue=5; rvalue>0; rvalue--){
                 for (let i=0; i<recs.length; i++) {
-                    if (user_recomendations.length >= 3) {
+                    if (user_recomendations.length >= 5) {
                         return user_recomendations
                     }
                     if (recs[i][1] == rvalue)
                         user_recomendations.push(recs[i][0])
                 }
-                
             }
-       
-
 
         };
 
         const usr_recs = getUsers();
         console.log("user recomendations");
         console.log(usr_recs)
-        
-
 
     }, []);
 
