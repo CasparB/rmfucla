@@ -35,13 +35,13 @@ const Menu = ({location}) => {
             const foodType = menu[i].type;
             for (var j = 0; j < foodType.length; j++) {
                 if (foodType[j] === "Breakfast") {
-                    breakfastData.push(menu[i].name);
+                    breakfastData.push(menu[i]);
                 }
                 if (foodType[j] === "Lunch") {
-                    lunchData.push(menu[i].name);
+                    lunchData.push(menu[i]);
                 }
                 if (foodType[j] === "Dinner") {
-                    dinnerData.push(menu[i].name);
+                    dinnerData.push(menu[i]);
                 }
             }
         }

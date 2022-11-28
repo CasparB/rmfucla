@@ -25,54 +25,45 @@ const UserStats = () => {
     }
 
     const [numreviews, setNumreviews] = useState(0);
-    const [epicStr, setEpicStr] = useState(0);
-    const [deNeveStr, setDeNeveStr] = useState(0);
-    const [rendStr, setRendStr] = useState(0);
-    const [bPlateStr, setBPlateStr] = useState(0);
+    const [locations, setLocations] = useState({});
 
     const attemptGetReviews = async() => {
+        const minDate = new Date(0);
         const options = {
             author: user.email,
+            from: minDate
         };
         const data = await getReviews(options);
-        console.log(data)
         setNumreviews( data.length );
+
+        let temp = {};
+
+        for (var i = 0; i < data.length; i++) {
+            if (!temp[data[i].food.location]) {
+                temp[data[i].food.location] = 1;
+            }
+            else
+                temp[data[i].food.location] += 1;
+                
+        }
+        console.log(temp);
+        setLocations(temp);
     }
-    const attemptGetEpic = async() => {
-            const user_review = await getReviews(epicOpt);
-            setEpicStr( user_review.length );
-    }
-    const attemptGetRend = async() => {
-        const user_review = await getReviews(rendOpt);
-        setRendStr( user_review.length );
-    }
-    const attemptGetBPlate = async() => {
-        const user_review = await getReviews(bPlateOpt);
-        setBPlateStr( user_review.length );
-    }
-    const attemptGetDeNeve = async() => {
-        const user_review = await getReviews(deNeveOpt);
-        setDeNeveStr( user_review.length );
-    }
+    
     useEffect(() => {
         attemptGetReviews();
-        attemptGetEpic();
-        attemptGetRend();
-        attemptGetBPlate();
-        attemptGetDeNeve();
     }, []);
 
-    
-   
     return (
         <div className='fullwidth-component'>
             <h2>Your Statistics</h2>
             <div className='data-placeholder'>
                 <h3>Total reviews: {numreviews}.</h3>
-                <h3>Epicuria: {epicStr}.</h3>
-                <h3>De Neve: {deNeveStr}.</h3>
-                <h3>Rendezvous: {rendStr}.</h3>
-                <h3>Bruin Plate: {bPlateStr}.</h3>
+                {
+                    Object.keys(locations).map((key, index) => ( 
+                        <p key={index}>{key}: {locations[key]}</p> 
+                    ))
+                }
             </div>
         </div>
     )

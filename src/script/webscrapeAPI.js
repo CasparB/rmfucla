@@ -136,7 +136,7 @@ export const otherFoods = async () => {
                 });
               });
         }
-      }else if(type_period == "Beverages"){
+      } else if(type_period == "Beverages"){
 
               }else if(type_period == "Market"){
                 const opt = ['Breakfast', 'Lunch', 'Dinner', 'Extended Dinner'];
