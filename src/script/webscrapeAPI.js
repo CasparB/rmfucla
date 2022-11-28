@@ -92,24 +92,91 @@ export const otherFoods = async () => {
         const name = (info[info.length-1]);
         foods = [];
         if(index == 0){
-        $('.swiper-slide').each((i,e) => {
-          let type_period = $(e).find('h1').text();
-          $('.menu-block').each((i, elem) => {
-            $(elem).find('.recipelink').each((i, el) => {
-              let sections = $(elem).find('h2').text();
-              if(sections.length === 0){
-                sections = $(elem).find('h3').text();
+            $('.swiper-slide').each((i,e) => {
+              let type_period = $(e).find('h1').text();
+              if(type_period == "Café Bakery"){
+                const opt = ['Breakfast', 'Lunch', 'Dinner', 'Extended Dinner'];
+                for(let i = 0; i < 4; i++){
+                  const o = opt[i];
+                
+                    $('.menu-block').each((i, elem) => {
+                  $(elem).find('.recipelink').each((i, el) => {
+                    let sections = $(elem).find('h2').text();
+                    if(sections.length === 0){
+                      sections = $(elem).find('h3').text();
+                    }
+                    const obj = {
+                      name: $(el).text(),
+                      location: name,
+                      type: o,
+                      category: sections,
+                    }
+                    foods.push(obj);
+                  });
+                });
+          }
+            }else if(type_period == "Lunch & Dinner"){
+              const opt = ['Lunch', 'Dinner', 'Extended Dinner'];
+              for(let i = 0; i < 3; i++){
+                const o = opt[i];
+              
+                  $('.menu-block').each((i, elem) => {
+                $(elem).find('.recipelink').each((i, el) => {
+                  let sections = $(elem).find('h2').text();
+                  if(sections.length === 0){
+                    sections = $(elem).find('h3').text();
+                  }
+                  const obj = {
+                    name: $(el).text(),
+                    location: name,
+                    type: o,
+                    category: sections,
+                  }
+                  foods.push(obj);
+                });
+              });
+        }
+      }else if(type_period == "Beverages"){
+
+              }else if(type_period == "Market"){
+                const opt = ['Breakfast', 'Lunch', 'Dinner', 'Extended Dinner'];
+                for(let i = 0; i < 4; i++){
+                  const o = opt[i];
+                
+                    $('.menu-block').each((i, elem) => {
+                  $(elem).find('.recipelink').each((i, el) => {
+                    let sections = $(elem).find('h2').text();
+                    if(sections.length === 0){
+                      sections = $(elem).find('h3').text();
+                    }
+                    const obj = {
+                      name: $(el).text(),
+                      location: name,
+                      type: o,
+                      category: sections,
+                    }
+                    foods.push(obj);
+                  });
+                });
+          }
+              }else{
+                  $('.menu-block').each((i, elem) => {
+                  $(elem).find('.recipelink').each((i, el) => {
+                    let sections = $(elem).find('h2').text();
+                    if(sections.length === 0){
+                      sections = $(elem).find('h3').text();
+                    }
+                    const obj = {
+                      name: $(el).text(),
+                      location: name,
+                      type: type_period,
+                      category: sections,
+                    }
+                    foods.push(obj);
+                  });
+                });
               }
-              const obj = {
-                name: $(el).text(),
-                location: name,
-                type: type_period,
-                category: sections,
-              }
-              foods.push(obj);
             });
-          });
-        });
       }else if(index != 4){
         let type_dine = ['Lunch', 'Dinner'];
         for(let i = 0; i < 2; i++){
