@@ -20,7 +20,7 @@ const DiningHallPage = () => {
                         <BackButton />
                         <h1>{ name }</h1>
                     </div>
-                </div>
+                </div> 
                 {/* Display user statistics */}
                 <HallStats />
                 {/* Display menu */}

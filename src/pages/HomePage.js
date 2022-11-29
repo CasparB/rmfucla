@@ -24,7 +24,6 @@ const HomePage = () => {
     let increment = 1;
     let prog = 0;
     const attemptMenuSync = async () => {
-        const foods = await cafeteriaFood();
         if (await doMenuSync()) {
             setSyncing(true);
             const foods = await cafeteriaFood();

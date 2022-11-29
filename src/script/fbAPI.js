@@ -128,6 +128,7 @@ export const getReviews = async (options) => {
             constraints.push( where('author', '==', options.author) );
         if (options.from && isValidDate(options.from))
             constraints.push( where('date', '>', options.from) );
+        
         else 
             constraints.push( where('date', '>', td) );
 

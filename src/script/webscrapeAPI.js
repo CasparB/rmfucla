@@ -59,6 +59,7 @@ export const cafeteriaFood = async () => {
               name: $(el).text(),
               location: name[0].slice(0, -1),
               type: $(elem).find('.col-header').text(),
+              category: '',
             }
             foods.push(obj);
           });
@@ -76,9 +77,10 @@ export const otherFoods = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
   const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
-  const hall_food = [];
+  const places_index = ['Hedrick Study', "Epic at Ackerman", "Bruin Cafe", "The Drey", "De Neve Late Night"];
+  let halls_food = [];
   for(let index = 0; index < list.length; index++){
-    const test = axios(list[index], {params: {
+    const test = await axios(list[index], {params: {
       'url': list[index],
       'api_key': API_KEY,
       'render': render
@@ -88,39 +90,142 @@ export const otherFoods = async () => {
         const html = response.data; 
         const $ = cheerio.load(html)
         const info = list[index].split('/');
-        const name = (info[info.length-1]);
+        const name = places_index[index];
         foods = [];
-        $('.menu-block').each((i, elem) => {
-          $(elem).find('.recipelink').each((i, el) => {
-            let sections = $(elem).find('h2').text();
-            if(sections.length === 0){
-              sections = $(elem).find('h3').text();
-            }
-            const obj = {
-              name: $(el).text(),
-              location: name,
-              type: sections,
-            }
-            foods.push(obj);
-          });
-        });
-        
+        if(index == 0){
+            $('.swiper-slide').each((i,e) => {
+              let type_period = $(e).find('h1').text();
+              if(type_period == "Café Bakery"){
+                const opt = ['Breakfast', 'Lunch', 'Dinner', 'Extended Dinner'];
+                for(let i = 0; i < 4; i++){
+                  const o = opt[i];
+                
+                    $('.menu-block').each((i, elem) => {
+                  $(elem).find('.recipelink').each((i, el) => {
+                    let sections = $(elem).find('h2').text();
+                    if(sections.length === 0){
+                      sections = $(elem).find('h3').text();
+                    }
+                    const obj = {
+                      name: $(el).text(),
+                      location: name,
+                      type: o,
+                      category: sections,
+                    }
+                    foods.push(obj);
+                  });
+                });
+          }
+            }else if(type_period == "Lunch & Dinner"){
+              const opt = ['Lunch', 'Dinner', 'Extended Dinner'];
+              for(let i = 0; i < 3; i++){
+                const o = opt[i];
+              
+                  $('.menu-block').each((i, elem) => {
+                $(elem).find('.recipelink').each((i, el) => {
+                  let sections = $(elem).find('h2').text();
+                  if(sections.length === 0){
+                    sections = $(elem).find('h3').text();
+                  }
+                  const obj = {
+                    name: $(el).text(),
+                    location: name,
+                    type: o,
+                    category: sections,
+                  }
+                  foods.push(obj);
+                });
+              });
+        }
+      }else if(type_period == "Beverages"){
+
+              }else if(type_period == "Market"){
+                const opt = ['Breakfast', 'Lunch', 'Dinner', 'Extended Dinner'];
+                for(let i = 0; i < 4; i++){
+                  const o = opt[i];
+                
+                    $('.menu-block').each((i, elem) => {
+                  $(elem).find('.recipelink').each((i, el) => {
+                    let sections = $(elem).find('h2').text();
+                    if(sections.length === 0){
+                      sections = $(elem).find('h3').text();
+                    }
+                    const obj = {
+                      name: $(el).text(),
+                      location: name,
+                      type: o,
+                      category: sections,
+                    }
+                    foods.push(obj);
+                  });
+                });
+          }
+              }else{
+                  $('.menu-block').each((i, elem) => {
+                  $(elem).find('.recipelink').each((i, el) => {
+                    let sections = $(elem).find('h2').text();
+                    if(sections.length === 0){
+                      sections = $(elem).find('h3').text();
+                    }
+                    const obj = {
+                      name: $(el).text(),
+                      location: name,
+                      type: type_period,
+                      category: sections,
+                    }
+                    foods.push(obj);
+                  });
+                });
+              }
+            });
+      }else if(index != 4){
+        let type_dine = ['Lunch', 'Dinner'];
+        for(let i = 0; i < 2; i++){
+              const cur_type = type_dine[i]
+              $('.menu-block').each((i, elem) => {
+                $(elem).find('.recipelink').each((i, el) => {
+                  let sections = $(elem).find('h2').text();
+                  if(sections.length === 0){
+                    sections = $(elem).find('h3').text();
+                  }
+                  const obj = {
+                    name: $(el).text(),
+                    location: name,
+                    type: cur_type,
+                    category: sections,
+                  }
+                  foods.push(obj);
+                });
+              });
+        }
+  }else{
+    $('.menu-block').each((i, elem) => {
+      $(elem).find('.recipelink').each((i, el) => {
+        let sections = $(elem).find('h2').text();
+        if(sections.length === 0){
+          sections = $(elem).find('h3').text();
+        }
+        const obj = {
+          name: $(el).text(),
+          location: name,
+          type: 'Extended Dinner',
+          category: sections,
+        }
+        foods.push(obj);
+      });
+    });
+  }
     return foods;
 
       }).catch(console.error);
 
-    const logResponse = async () => {
-      return ( await test );
-    }
-
-    hall_food.push(logResponse());
-
+    halls_food = halls_food.concat(test);
   }
-  return hall_food;
+  return condenseData(halls_food);
 }
 
 
-export const get_times = async () => {
+export const getTimes = async () => {
   function cast(str){
     str = str.split(' ');
     let v1 = str[0];
