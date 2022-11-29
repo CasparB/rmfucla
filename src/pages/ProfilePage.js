@@ -3,6 +3,7 @@ import UserStats from '../components/UserStats';
 import { UserAuth } from '../context/AuthContext';
 import BackButton from '../components/BackButton';
 import LogOutButton from '../components/LogOutButton';
+import ChangeThemeButton from '../components/ChangeThemeButton';
 import '../styles/index.css'
 
 const ProfilePage = () => {
@@ -35,17 +36,7 @@ const ProfilePage = () => {
                 <div className='divider'></div>
                 {/* Log out button */}
                 <LogOutButton />
-                <div className='themebtn'>
-                <button onClick={() => {
-                   if(document.documentElement.getAttribute('color-scheme') === 'dark'){
-                    document.documentElement.setAttribute('color-scheme', 'light');
-                   }
-                   else if(document.documentElement.getAttribute('color-scheme') === 'light'){
-                    document.documentElement.setAttribute('color-scheme', 'dark');
-                   } }}
-                >Change Theme</button>
-                
-                </div>
+                <ChangeThemeButton />
                
             </div>
             <div className='sticky-bottom'>

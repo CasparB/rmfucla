@@ -181,6 +181,8 @@ button.primary, button.secondary{
     border: 1px solid var(--buttonback);
     transition: border-color 1s;
     transition-timing-function: ease-out;
+    border-radius: 10px;
+    font-size: 14px;
 }
 button.invalid {
     border: 1px solid red;
@@ -480,4 +482,6 @@ button.new-review {
     display: flex;
     justify-content: center;    
     justify-items: center;
+    font-size: 12px;
+    border-radius: 10px;
 }
