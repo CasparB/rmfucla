@@ -77,9 +77,10 @@ export const otherFoods = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
   const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
-  let halls_food = [];
+  const places_index = ['Hedrick Study', "Epic at Ackerman", "Bruin Cafe", "The Drey", "De Neve Late Night"];
+  const hall_food = [];
   for(let index = 0; index < list.length; index++){
-    const test = await axios(list[index], {params: {
+    const test = axios(list[index], {params: {
       'url': list[index],
       'api_key': API_KEY,
       'render': render
@@ -89,7 +90,7 @@ export const otherFoods = async () => {
         const html = response.data; 
         const $ = cheerio.load(html)
         const info = list[index].split('/');
-        const name = (info[info.length-1]);
+        const name = places_index[index];
         foods = [];
         if(index == 0){
             $('.swiper-slide').each((i,e) => {
@@ -136,7 +137,7 @@ export const otherFoods = async () => {
                 });
               });
         }
-      } else if(type_period == "Beverages"){
+      }else if(type_period == "Beverages"){
 
               }else if(type_period == "Market"){
                 const opt = ['Breakfast', 'Lunch', 'Dinner', 'Extended Dinner'];
@@ -217,13 +218,19 @@ export const otherFoods = async () => {
     return foods;
 
       }).catch(console.error);
-    halls_food = halls_food.concat(test);
+
+    const logResponse = async () => {
+      return ( await test );
+    }
+
+    hall_food.push(logResponse());
+
   }
-  return condenseData(halls_food);
+  return hall_food;
 }
 
 
-export const getTimes = async () => {
+export const get_times = async () => {
   function cast(str){
     str = str.split(' ');
     let v1 = str[0];
