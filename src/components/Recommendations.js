@@ -39,7 +39,21 @@ The user_recomendations array will now contain the five best foods for the user
 from todays menu offerings across the dining halls. 
 */
 
-
+// generate scores by sampling normal distributionusing Box-Muller transform
+// source code for performing Box-Muller transformation adapted from:
+// https://stackoverflow.com/questions/25582882/javascript-math-random-normal-distribution-gaussian-bell-curve
+function GenerateRandomScore(temperature) {
+    let U1 = Math.random();
+    let U2 = Math.random();
+    var score = Math.sqrt( -2.0*Math.log(U1) ) * Math.cos( 2.0*Math.PI*U2 );
+    score = temperature*score // sore ~ N(0, temperature**2)
+    score = Math.abs(score)   // allowed since distribution is symmetric
+    // constraint score to be between 1 and 5
+    score = Math.min(5, Math.max(score, 1))
+    // make score an int
+    score = Math.ceil(score)
+    return score
+}
 
 const Recommendations =  ({foods}) => {
     // Recommendations will use the user context to determine
@@ -82,7 +96,7 @@ const Recommendations =  ({foods}) => {
             }
             if (score == 0){
                 // randomly assign a score to encourage trying new foods
-                score = Math.ceil(Math.random()*5)
+                score = GenerateRandomScore(temperature)
             }
             recs.push([food, score])
         }
