@@ -34,7 +34,6 @@ Now to run the app, run the following command in the shell:
 
 Now enjoy using the app!
 
-# RateMyFood
 
 
 
