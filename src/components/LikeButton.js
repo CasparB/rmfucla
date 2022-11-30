@@ -5,9 +5,8 @@ import { performLikeAction, getLikes } from '../script/fbAPI';
 // Icons
 import { HiOutlineHeart, HiHeart } from 'react-icons/hi'
 
-const LikeButton = ({review}) => {
+const LikeButton = ({disabled, review, setLikes}) => {
     const { user } = UserAuth();
-    const [likes, setLikes] = useState(0);
     const [liked, setLiked] = useState(false);
 
     // Change code: action queue
@@ -22,12 +21,13 @@ const LikeButton = ({review}) => {
         const data = await getLikes(review);
         if (data) {
             setLiked(data.includes(user.email));
-            setLikes(data.length);
+            // setLikes(data.length);
+            setLikes(review, data);
         }
     }
 
     const handleLikeAction = async () => {
-        if (user) {
+        if (user && !disabled) {
             await performLikeAction(user.email, review);
             attemptGetLikes();
         }
@@ -35,7 +35,7 @@ const LikeButton = ({review}) => {
 
     return (
         <div className='like-wrapper'>
-            <p className='count-text'>{likes}</p>
+            <p className='count-text'>{review.likes.length}</p>
             <button className='like-button'
                 onClick={ handleLikeAction }>
                 {!liked && <HiOutlineHeart className='stroke'/>}

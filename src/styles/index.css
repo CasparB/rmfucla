@@ -236,8 +236,9 @@ button.new-review {
 }
 .data-placeholder {
 	background-color: var(--place);
-    width: 100%;
-    height: 100px;
+    padding: 8px 12px;
+    width: calc(100% - 24px);
+    min-height: 20px;
     border-radius: 10px;
 }
 .fullwidth-component {
@@ -299,6 +300,16 @@ button.new-review {
 /* Components */
 /* ---------- */
 
+/* FoodSearch */
+.search-wrapper {
+    background-color: var(--place);
+    width: calc(100% - 24px);
+    min-height: 20px;
+    max-height: 100px;
+    overflow-y: scroll;
+    border-radius: 10px;
+}
+
 /* DiningHallList */
 .grid-3 button {
     height: 60px;
@@ -326,9 +337,13 @@ button.new-review {
     display:flex;
     border-radius: 10px;
 }
-
 .review > div {
     width: 100%;
+}
+.review-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 .review-footer {
     margin-top: 5px;
@@ -344,6 +359,41 @@ button.new-review {
 .count-text {
     font-size: 13px;
     margin: 0 3px 0 3px;
+}
+.filter-wrapper {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+    justify-content: center;
+}
+.filter-wrapper > .sort {
+    border: 1px solid var(--buttonback);
+    background-color: var(--webback);
+    padding: 0.5px;
+    border-radius: 2px;
+    width: 22px;
+    margin: 0;
+    margin-right: 3px;
+}
+.sort-icon {
+    margin-top: 1px;
+    margin-bottom: -1px;
+}
+.filter {
+    font-size: 13px;
+    padding: 0px;
+}
+.Dropdown-control, .Dropdown-option {
+    padding: 3px 20px 3px 5px !important;
+}
+.Dropdown-arrow {
+    top: 9px !important;
+    right: 7px !important;
+    border-width: 4px 4px 0 !important;
+}
+.is-open .Dropdown-arrow {
+    border-color: transparent transparent #999 !important;
+    border-width: 0 4px 4px !important;
 }
 
 /* LikeButton */
@@ -390,12 +440,12 @@ button.new-review {
 }
 .prog-container {
     margin-top: 5px;
-    background-color: white;
+    background-color: var(--webback);
     width: 100px;
     height: 3px;
 }
 .prog-bar {
-    background-color: white;
+    background-color: var(--text);
     height: 100%;
 }
 
@@ -434,23 +484,7 @@ button.new-review {
     background: var(--homebar);
     border-bottom: 1.5px solid var(--phonebar);
 }
-.filter {
-    font-size: 13px;
-    margin-bottom: 10px;
-    padding: 0px;
-}
-.Dropdown-control, .Dropdown-option {
-    padding: 3px 20px 3px 5px !important;
-}
-.Dropdown-arrow {
-    top: 9px !important;
-    right: 7px !important;
-    border-width: 4px 4px 0 !important;
-}
-.is-open .Dropdown-arrow {
-    border-color: transparent transparent #999 !important;
-    border-width: 0 4px 4px !important;
-}
+
 
 /* ProfilePage */
 .back-hero {

@@ -5,10 +5,13 @@ import { getShortFormReviews } from '../script/fbAPI';
 import LikeButton from './LikeButton';
 import Dropdown from 'react-dropdown';
 
+// Icons
+import { TbSortAscending, TbSortDescending } from 'react-icons/tb';
+
 const ReviewList = ({location, author}) => {
     const [reviews, setReviews] = useState([]);
-    const [ratings, setRatings] = useState([]);
     const [filter, setFilter] = useState('');
+    const [ascending, setAscending] = useState(false);
 
     const options = [
         'Time',
@@ -16,27 +19,42 @@ const ReviewList = ({location, author}) => {
         'Likes'
     ]
 
+    const setLikes = (review, likes) => {
+        let temp = [...reviews];
+        for (var i = 0; i < temp.length; i++) {
+            if (temp[i] === review)
+                temp[i].likes = likes;
+        }
+        setReviews(temp);
+    }
+
     const attemptSetReviews = async (options) => {
-        const data = await getReviews(options);
-        if (data) {
-            setReviews(data);
-            const temp = [];
+        let data = await getReviews(options);
+        if (data) {        
             for (var i = 0; i < data.length; i++) {
-                const rating = await getShortFormReviews(data[i].food);
-                if (rating)
-                    temp.push(rating);
-                else
-                    temp.push([]);
+                if (author) {
+                    data[i].rating = [{
+                        rating: data[i].rating
+                    }]
+                }
+                else {
+                    const rating = await getShortFormReviews(data[i].food);
+                    data[i].rating = rating;
+                }
             }
-            setRatings(temp);
+            setReviews(data);
         }
     }
 
     useEffect(() => {
         let options = {};
+        const minDate = new Date(0);
         if (location)
             options.location = location;
+        if (author) {
             options.author = author;
+            options.from = minDate;
+        }
         attemptSetReviews(options);
     }, []);
 
@@ -68,8 +86,52 @@ const ReviewList = ({location, author}) => {
         return (sum / arr.length);
     }
 
-    const handleFilterChange = () => {
+    const handleFilterChange = (val, asc) => {
+        let temp = [...reviews];
+        setFilter(val);
+        switch (val) {
+            case 'Time':
+                temp.sort((a, b) => {
+                    const aDate = a.date.toDate();
+                    const bDate = b.date.toDate();
+                    if (aDate < bDate)
+                        return -1;
+                    if (aDate > bDate)
+                        return 1;
+                    return 0;
+                });
+                break;
+                break;
+            case 'Rating':
+                temp.sort((a, b) => {
+                    const aAvg = average(a.rating);
+                    const bAvg = average(b.rating);
+                    if (aAvg < bAvg)
+                        return -1;
+                    if (aAvg > bAvg)
+                        return 1;
+                    return 0;
+                });
+                break;
+            case 'Likes':
+                temp.sort((a, b) => {
+                    if (a.likes.length < b.likes.length)
+                        return -1;
+                    if (a.likes.length > b.likes.length)
+                        return 1;
+                    return 0;
+                });
+                break;
+        }
+        if (!asc)
+            temp.reverse();
+        console.log(temp);
+        setAscending(asc);
+        setReviews(temp);
+    }
 
+    const handleSortPress = () => {
+        handleFilterChange(filter, !ascending);
     }
     
     return (
@@ -78,23 +140,35 @@ const ReviewList = ({location, author}) => {
                 <h2>
                     Reviews
                 </h2>
-                <Dropdown className='filter' options={options} value={options[0]}
+                <div className='filter-wrapper'>
+                    <button className='sort'
+                        onClick={ handleSortPress }>
+                        {ascending && <TbSortAscending className='sort-icon'/>}
+                        {!ascending && <TbSortDescending className='sort-icon'/>}
+                    </button>
+                    <Dropdown className='filter' options={options} value={options[0]}
                         onChange={e => handleFilterChange(e.value)} />
+                </div>
             </div>
             { 
             reviews.map((review, i) => (
                 <div key={i}>
                     <div className='review'>
                         <div>
-                            <h3>{review.food.name}</h3>
+                            <div className='review-header'>
+                                <h3>{review.food.name}</h3>
+                                {author && <LikeButton disabled={true} review={review} setLikes={setLikes} />}
+                                {!author && <LikeButton review={review} setLikes={setLikes} />}
+                            </div>
                             <p>{`${convertDate(review.date)} at ${review.food.location}`}</p>
-                            {ratings[i] &&
+                            {review.rating &&
                                 <div className='review-footer'>
-                                    <div className='rating-wrapper'>
-                                        <StarRating rating={average(ratings[i])}/>
-                                        <p className='count-text'>{`(${ratings[i].length})`}</p>
-                                    </div>
-                                    <LikeButton review={review} />
+                                        <div className='rating-wrapper'>
+                                                <StarRating rating={average(review.rating)}/>
+                                                {!author &&
+                                                    <p className='count-text'>{`(${review.rating.length})`}</p>
+                                                }
+                                        </div>
                                 </div>
                             }
                         </div>

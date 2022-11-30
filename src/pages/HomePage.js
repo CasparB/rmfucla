@@ -11,14 +11,16 @@ import { cafeteriaFood } from '../script/webscrapeAPI';
 import { otherFoods } from '../script/webscrapeAPI';
 import { get_times } from '../script/webscrapeAPI';
 import { doMenuSync, didMenuSync } from '../script/fbAPI';
-import { addFood, getReviews } from '../script/fbAPI';
+import { addFood, getReviews, getFoods } from '../script/fbAPI';
 import SyncModal from '../components/SyncModal';
+import FoodSearch from '../components/FoodSearch';
 
 const HomePage = () => {
     const { user } = UserAuth();
     const [name, setName] = useState('');
     const [syncing, setSyncing] = useState(false);
     const [progress, setProgress] = useState(0.0);
+    const [foods, setFoods] = useState([]);
     const navigate = useNavigate;
 
     let increment = 1;
@@ -26,22 +28,31 @@ const HomePage = () => {
     const attemptMenuSync = async () => {
         if (await doMenuSync()) {
             setSyncing(true);
-            const foods = await cafeteriaFood();
+            const cafeteria = await cafeteriaFood();
+            const other = await otherFoods();
+            const foods = cafeteria.concat(other);
             increment = 1/foods.length;
             for (var i = 0; i < foods.length; i++) {
-                addFood(foods[i])
-                .then(() => {
+                addFood(foods[i]).then(() => {
                     prog = prog + increment;
                     setProgress(prog);
                 });
             } 
+        } else {
+            attemptSetFoods();
         }
+    }
+
+    const attemptSetFoods = async () => {
+        const data = await getFoods();
+        setFoods(data);
     }
 
     useEffect(() => {
         if (progress >= 0.99) {
             didMenuSync();
             setSyncing(false);
+            attemptSetFoods();
         }
     }, [progress]);
 
@@ -50,8 +61,7 @@ const HomePage = () => {
         if (user.displayName)
             setName(user.displayName.replace(/ .*/,''));
         // Attempt menu sync
-        //attemptMenuSync();
-        
+        attemptMenuSync();
     }, [user]);
 
     return (
@@ -66,9 +76,11 @@ const HomePage = () => {
                     </div>
                 </div>
                 {/* Display food recommendations */}
-                <Recommendations />
+                <Recommendations foods={foods}/>
                 {/* Display dining halls */}
                 <DiningHallList />
+                {/* Food Search */}
+                <FoodSearch foods={foods}/>
                 <div className='divider'></div>
                 {/* Display general posts */}
                 <ReviewList />

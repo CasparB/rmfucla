@@ -215,6 +215,8 @@ export const getShortFormReviews = async (food) => {
         return false;
     }
     const data = docSnap.data();
+    if (!data.reviews)
+        return [];
     return data.reviews;
 }
 
