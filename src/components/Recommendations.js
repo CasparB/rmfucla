@@ -38,6 +38,9 @@ the recomendations array reaches 5 (arbitrary value can easily change).
 The user_recomendations array will now contain the five best foods for the user
 from todays menu offerings across the dining halls. 
 */
+
+
+
 const Recommendations =  ({foods}) => {
     // Recommendations will use the user context to determine
     // dining hall recommendations for the logged in user. It
@@ -64,6 +67,9 @@ const Recommendations =  ({foods}) => {
         }
 
         /*CREATE RECS ARRAY*/
+        const temperature = 2.7; // making this value larger encourages user to try newer foods domain: (0, +inf)
+                                 // all random scores converge to 1 as temperature --> 0
+                                 // random scores are ~U[1,5] as temperature --> +inf
         var recs = []
         for (let ix=0; ix<todays_food.length; ix++) {
             const food = todays_food[ix]
@@ -80,6 +86,9 @@ const Recommendations =  ({foods}) => {
             }
             recs.push([food, score])
         }
+
+        // shuffle foods to remove lexical bias
+        recs = recs.sort(() => Math.random() - 0.5)
 
         /*CREATE AN ARRAY WITH TOP 5 RECOMENDATIONS*/
         var user_recomendations = []
