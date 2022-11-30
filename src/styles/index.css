@@ -367,7 +367,7 @@ button.new-review {
     justify-content: center;
 }
 .filter-wrapper > .sort {
-    border: 1px solid var(--buttonback);
+    border: 1px solid var(--text);
     background-color: var(--webback);
     padding: 0.5px;
     border-radius: 2px;
@@ -382,9 +382,12 @@ button.new-review {
 .filter {
     font-size: 13px;
     padding: 0px;
+    
 }
 .Dropdown-control, .Dropdown-option {
     padding: 3px 20px 3px 5px !important;
+    background-color: var(--pageback) !important;
+    color: var(--text) !important;
 }
 .Dropdown-arrow {
     top: 9px !important;
@@ -392,6 +395,7 @@ button.new-review {
     border-width: 4px 4px 0 !important;
 }
 .is-open .Dropdown-arrow {
+    
     border-color: transparent transparent #999 !important;
     border-width: 0 4px 4px !important;
 }
