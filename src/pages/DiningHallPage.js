@@ -13,6 +13,8 @@ const DiningHallPage = () => {
     let name = location.state;
 
     const last = history[history.length-1];
+    if (!last)
+        return <Navigate to='/' />;
     if (last[0] != '/dininghall' && name)
         history.push(['/dininghall', name]);
 
