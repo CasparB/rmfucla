@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import { getFoods, addReview, getShortFormReviews } from '../script/fbAPI';
 import Dropdown from 'react-dropdown';
 import SyncModal from '../components/SyncModal';
+import history from '../script/helpers';
+import { Navigate } from 'react-router-dom';
 import 'react-dropdown/style.css';
 
 const NewReviewPage = () => {
@@ -14,33 +16,15 @@ const NewReviewPage = () => {
     const navigate = useNavigate();
     const name = location.state;
     const [review, setReview] = useState({});
-    const [classes, setClasses] = useState('');
+    const [disabled, setDisabled] = useState(true);
     const [menu, setMenu] = useState([]);
     const [syncing, setSyncing] = useState(false);
     const [locations, setLocations] = useState([]);
     const [locVal, setLocVal] = useState(false);
     const [message, setMessage] = useState(null);
     const [foods, setFoods] = useState([]);
+    const [types, setTypes] = useState([]);
     const { user } = UserAuth();
-
-    const types = [
-        'Breakfast',
-        'Lunch',
-        'Dinner'
-    ];
-
-    // Upon loading page, retrieve menu and set location if specified
-    useEffect(() => {
-        if (name) { // location has been configured in Link
-            setLocVal(name);
-            let revCopy = {
-                ...review
-            }
-            revCopy.location = name;
-            setReview(revCopy);
-        }
-        retrieveMenu();
-    }, []);
 
     const retrieveMenu = async () => {
         setMessage('Downloading Menus');
@@ -55,24 +39,87 @@ const NewReviewPage = () => {
         setLocations(data);
         setSyncing(false);
     }
+    
+    // Upon loading page, retrieve menu and set location if specified
+    useEffect(() => {
+        if (name) { // location has been configured in Link
+            setLocVal(name);
+            let revCopy = {
+                ...review
+            }
+            revCopy.location = name;
+            setReview(revCopy);
+        }
+        retrieveMenu();
+    }, []);
 
     useEffect(() => {
-        const data = [];
+        const typeData = [];
+        for (var i = 0; i < menu.length; i++) {
+            if (menu[i].location === review.location) {
+                for (var j = 0; j < menu[i].type.length; j++) {
+                    if (!typeData.includes(menu[i].type[j]))
+                     typeData.push(menu[i].type[j]);
+                }
+            }
+        }
+        const formatted = [];
+        if (typeData.includes('Breakfast')) 
+            formatted.push('Breakfast');
+        if (typeData.includes('Lunch')) 
+            formatted.push('Lunch');
+        if (typeData.includes('Dinner')) 
+            formatted.push('Dinner');
+        if (typeData.includes('Extended Dinner')) 
+            formatted.push('Extended Dinner');
+        setTypes(formatted);
+
+        const foodData = [];
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location &&
                 menu[i].type.includes(review.type)) {
-                data.push(menu[i].name);
+                    foodData.push(menu[i].name);
             }
         }
-        setFoods(data);
+        const foodNames = [];
+        for (var i = 0; i < foodData.length; i++)
+            foodNames.push(foodData[i]);
+        setFoods(foodNames);
+
+        
+        validateForm();
     }, [review])
 
+    const last = history[history.length-1];
+    if (!last)
+        return <Navigate to='/' />;
+    if (last[0] != '/newreview')
+        history.push(['/newreview']);
+
+    const clearDropdowns = (temp, dropdowns) => {
+        for (var i = 0; i < dropdowns.length; i++) {
+            delete temp[dropdowns[i]];
+        }
+        delete temp['rating'];
+    }
+
     const handleSelectChange = (key, val) => {
-        let revCopy = {
+        let temp = {
             ...review
         }
-        revCopy[key] = val;
-        setReview(revCopy);
+        temp[key] = val;
+        switch(key) {
+            case 'location':
+                clearDropdowns(temp, ['type', 'name'])
+                break;
+            case 'type':
+                 clearDropdowns(temp, ['name']);
+                break;
+            case 'name':
+                clearDropdowns(temp, []);
+                break;
+        }
+        setReview(temp);
     }
 
     const handleRatingChange = (val) => {
@@ -83,17 +130,9 @@ const NewReviewPage = () => {
         setReview(revCopy);
     }
 
-    const attemptAddReview = async (draft) => {
-        await addReview(draft);
-        setSyncing(false);
-        navigate('/home');
-    }
-
-    const handleSubmit = () => {
+    const validateForm = () => {
         const now = new Date();
         let food;
-        setMessage('Uploading Review');
-        setSyncing(true);
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location &&
                 menu[i].type.includes(review.type) &&
@@ -112,12 +151,27 @@ const NewReviewPage = () => {
             date: now,
             food: food
         }
-        if (!validReview(draft)) {
-            setClasses('invalid');
-            setTimeout(() => setClasses(''), 1500);
-            return false;
+        if (validReview(draft)) {
+            setDisabled(false);
+            return draft;
+        } 
+        setDisabled(true);
+        return false;
+    }
+
+    const attemptAddReview = async (draft) => {
+        await addReview(draft);
+        setSyncing(false);
+        navigate('/home');
+    }
+
+    const handleSubmit = () => {
+        const draft = validateForm();
+        if (draft) {
+            setMessage('Uploading Review');
+            setSyncing(true);
+            attemptAddReview(draft);
         }
-        attemptAddReview(draft);
     }
 
     return (
@@ -135,31 +189,36 @@ const NewReviewPage = () => {
                 <div className='review-form fullwidth-component'>
                     <div className='form-section'>
                         <h3>Location</h3>
-                        <Dropdown options={locations} disabled={!!locVal} value={locVal} placeholder='Select an option' 
+                        <Dropdown options={locations} disabled={!!locVal} placeholder='Select an option'
+                            value={review.location}
                             onChange={e => handleSelectChange('location', e.value)} />
                     </div>
                     { review.location &&
                         <div className='form-section'>
                             <h3>Meal period</h3>
                             <Dropdown options={types} placeholder='Select an option' 
+                                value={review.type} 
                                 onChange={e => handleSelectChange('type', e.value)} />
                         </div>
                     }
                     { review.type &&
                         <div className='form-section'>
                             <h3>Food</h3>
-                            <Dropdown options={foods} placeholder='Select an option' 
+                            <Dropdown options={foods} placeholder='Select an option'
+                                value={review.name} 
                                 onChange={e => handleSelectChange('name', e.value)} />
                         </div>
                     }
-                    <div className='form-section'>
-                        <h3>Rating</h3>
-                        <div className='review-rating-wrapper'>
-                            <StarRating rating={ review.rating } 
-                                onChange={ handleRatingChange }/>
+                    { review.name &&
+                        <div>
+                            <h3>Rating</h3>
+                            <div className='review-rating-wrapper'>
+                                <StarRating rating={ review.rating } 
+                                    onChange={ handleRatingChange }/>
+                            </div>
                         </div>
-                    </div>
-                    <button className={ `primary ${classes}`} type="submit"
+                    }
+                    <button className='primary' disabled={disabled} type="submit"
                             onClick={ handleSubmit }>
                         Post review
                     </button>

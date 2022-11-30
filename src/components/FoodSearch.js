@@ -40,25 +40,28 @@ const FoodSearch = ({foods}) => {
     }, [foods]);
 
     return (
-        <div>
-            <h2>Food Search</h2>
-            <div className='data-placeholder'>
+        <div className='fullwidth-component'>
+            <h2>Food search</h2>
+            <div className='data-wrapper search'>
                 <div className='search-wrapper'>
                     <FaSearch className='search-icon'/>
-                    <input type='search-input' placeholder='E.g. avocado...' 
+                    <input type='search-input' placeholder='Avocado...' 
                         className='searchbar'
                         onChange={ e => handleSearchChange(e.target.value) }/>
                 </div>
                 { (results.length > 0) && 
-                    <div className='results-wrapper'>
-                        <h3>Results: {results.length}</h3>
-                        {
-                        results.map((result, i) => (
-                            <div key={i}>
-                                <p>{result.name}</p>
-                            </div> 
-                        ))
-                        }
+                    <div className='results-padding'>
+                        <div className='results-wrapper'>
+                            <h3>Results: {results.length}</h3>
+                            {
+                            results.map((result, i) => (
+                                <div key={i}>
+                                    <p className='food-rec'>{result.name} at </p>
+                                    <p className='rec-location'>{result.location}</p>
+                                </div> 
+                            ))
+                            }
+                        </div>
                     </div>
                 }
             </div>

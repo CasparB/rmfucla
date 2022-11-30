@@ -8,7 +8,7 @@ import Dropdown from 'react-dropdown';
 // Icons
 import { TbSortAscending, TbSortDescending } from 'react-icons/tb';
 
-const ReviewList = ({location, author}) => {
+const ReviewList = ({location, author, showDate}) => {
     const [reviews, setReviews] = useState([]);
     const [filter, setFilter] = useState('');
     const [ascending, setAscending] = useState(false);
@@ -17,7 +17,19 @@ const ReviewList = ({location, author}) => {
         'Time',
         'Rating',
         'Likes'
-    ]
+    ];
+
+    useEffect(() => {
+        let options = {};
+        const minDate = new Date(0);
+        if (location)
+            options.location = location;
+        if (author) {
+            options.author = author;
+            options.from = minDate;
+        }
+        attemptSetReviews(options);
+    }, []);
 
     const setLikes = (review, likes) => {
         let temp = [...reviews];
@@ -46,31 +58,25 @@ const ReviewList = ({location, author}) => {
         }
     }
 
-    useEffect(() => {
-        let options = {};
-        const minDate = new Date(0);
-        if (location)
-            options.location = location;
-        if (author) {
-            options.author = author;
-            options.from = minDate;
-        }
-        attemptSetReviews(options);
-    }, []);
-
     const convertDate = (str) => {
         const date = str.toDate();
+        var month = date.getUTCMonth() + 1;
+        var day = date.getUTCDate();
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var formattedTime = "";
+        
+        if (showDate)
+            formattedTime += month + '/' + day + ' ';
+
         if (minutes < 10) {
             minutes = "0" + minutes;
         }
         if (hours > 12) {
             hours = hours % 12;
-            formattedTime = hours + ":" + minutes + " AM";
+            formattedTime += hours + ":" + minutes + " AM";
         } else {
-            formattedTime = hours + ":" + minutes + " PM";
+            formattedTime += hours + ":" + minutes + " PM";
         }
         return formattedTime;
     }
@@ -125,7 +131,6 @@ const ReviewList = ({location, author}) => {
         }
         if (!asc)
             temp.reverse();
-        console.log(temp);
         setAscending(asc);
         setReviews(temp);
     }

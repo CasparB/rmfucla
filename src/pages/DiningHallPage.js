@@ -1,15 +1,28 @@
 import ReviewList from '../components/ReviewList';
 import HallStats from '../components/HallStats';
 import Menu from '../components/Menu';
-import { Link } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { reviews } from '../script/helpers';
 import BackButton from '../components/BackButton';
 import ReviewButton from '../components/ReviewButton';
+import history from '../script/helpers';
+import { useEffect } from 'react';
 
 const DiningHallPage = () => {
     const location = useLocation();
-    const name = location.state;
+    let name = location.state;
+
+    const last = history[history.length-1];
+    if (last[0] != '/dininghall' && name)
+        history.push(['/dininghall', name]);
+
+    if (!name) {
+        if (history.length > 1 &&
+            last[0] === '/dininghall')
+            name = last[1];
+        else
+            return <Navigate to='/' />;
+    }
 
     return (
         <div className='frame'>
@@ -22,7 +35,7 @@ const DiningHallPage = () => {
                     </div>
                 </div> 
                 {/* Display user statistics */}
-                <HallStats />
+                <HallStats location={name}/>
                 {/* Display menu */}
                 <Menu location={name}/>
                 <div className='divider'></div>
@@ -30,7 +43,7 @@ const DiningHallPage = () => {
                 <ReviewList location={name} />
             </div>
             <div className='sticky-bottom'>
-                <ReviewButton location={ name }/>
+                <ReviewButton location={name} source='/dininghall' />
                 <div className='gesture-section'>
                     <div className='gesture-bar' />
                 </div>

@@ -1,7 +1,7 @@
 const ChangeThemeButton = () => {
 
     return (
-        <button className='secondary' 
+        <button className='primary' 
             onClick={() => {
                 if(document.documentElement.getAttribute('color-scheme') === 'dark'){
                 document.documentElement.setAttribute('color-scheme', 'light');
@@ -10,7 +10,7 @@ const ChangeThemeButton = () => {
                 document.documentElement.setAttribute('color-scheme', 'dark');
                 } 
             }}>
-         Change Theme
+            <span>Change Theme</span>
         </button>
     )
 }

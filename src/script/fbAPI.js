@@ -123,18 +123,17 @@ export const getReviews = async (options) => {
     else {
         const constraints = [];
         if (options.location)
-            constraints.push( where('location', '==', options.location) );
+            constraints.push( where('food.location', '==', options.location) );
         if (options.author)
             constraints.push( where('author', '==', options.author) );
         if (options.from && isValidDate(options.from))
             constraints.push( where('date', '>', options.from) );
-        
         else 
             constraints.push( where('date', '>', td) );
 
         q = query(ref, orderBy('date', 'desc'), ...constraints);
     }
-    
+
     const qSnap = await getDocs(q);
     const reviews = [];
     qSnap.forEach((doc) => {

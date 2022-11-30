@@ -24,7 +24,7 @@ const UserStats = () => {
         location: 'De Neve',
     }
 
-    const [numreviews, setNumreviews] = useState(0);
+    const [numreviews, setNumreviews] = useState(-1);
     const [locations, setLocations] = useState({});
 
     const attemptGetReviews = async() => {
@@ -46,7 +46,6 @@ const UserStats = () => {
                 temp[data[i].food.location] += 1;
                 
         }
-        console.log(temp);
         setLocations(temp);
     }
     
@@ -56,14 +55,25 @@ const UserStats = () => {
 
     return (
         <div className='fullwidth-component'>
-            <h2>Your Statistics</h2>
-            <div className='data-placeholder'>
-                <h3>Total reviews: {numreviews}.</h3>
+            <h2>Your statistics</h2>
+            <div className='data-wrapper stats-wrapper'>
+                {
+                    (numreviews == -1) &&
+                    <span>Loading...</span>
+                }
+                { (numreviews == 0) &&
+                    <p>It looks like you haven't reviewed any foods. Press the button in the lower-right corner of the home page to get started!</p>
+                }
+                { (numreviews > 0) &&
+                    (Object.keys(locations).length > 0) &&
+                    <h3>You've written {numreviews} reviews!</h3>
+                }
                 {
                     Object.keys(locations).map((key, index) => ( 
-                        <p key={index}>{key}: {locations[key]}</p> 
+                        <p className='stat' key={index}>{key}: {locations[key]}</p> 
                     ))
                 }
+                
             </div>
         </div>
     )

@@ -58,23 +58,17 @@ const Menu = ({location}) => {
             <h2>Menu</h2>
             { (breakfast) &&
                 <Link to='/menu' state={ [breakfast, "Breakfast"] }>
-                    <div className='data-placeholder'>
-                        Breakfast
-                    </div>
+                    <button className='secondary nomargin'>Breakfast</button>
                 </Link>
             }
             { (lunch) &&
                 <Link to='/menu' state={ [lunch, "Lunch"] }>
-                    <div className='data-placeholder'>
-                        Lunch
-                    </div>
+                    <button className='secondary topslim'>Lunch</button>
                 </Link>
             }   
             { (dinner) &&   
                 <Link to='/menu' state={ [dinner, "Dinner"] }>
-                    <div className='data-placeholder'>
-                        Dinner
-                    </div>
+                    <button className='secondary topslim'>Dinner</button>
                 </Link>
             }
         </div>

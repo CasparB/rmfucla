@@ -32,7 +32,7 @@ const DiningHallList = () => {
 
     return (
         <div className='fullwidth-component'>
-            <h2>Dining Halls</h2>
+            <h2>Dining options</h2>
             <div className='grid-3'>
                 { halls.map((hall, i) => (
                     <Link to='/dininghall' state={ hall.location } key={i}>

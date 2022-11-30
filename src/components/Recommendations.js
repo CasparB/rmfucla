@@ -112,14 +112,19 @@ const Recommendations =  ({foods}) => {
 
     return (
         <div className='fullwidth-component'>
-            <h2>For You</h2>
-            <div className='data-placeholder'>
-            { 
-            top5.map((food, i) => (
-                <div key={i}>
-                    <p>{food.name} at {food.location}</p>
-                </div> 
-            ))}
+            <h2>For you</h2>
+            <div className='data-wrapper rec-wrapper'>
+                { 
+                top5.map((food, i) => (
+                    <div key={i}>
+                        <p className='food-rec'>{food.name} at </p>
+                        <p className='rec-location'>{food.location}</p>
+                    </div> 
+                ))}
+                {
+                    (top5.length == 0) &&
+                    <span>Loading...</span>
+                }
             </div>
         </div>
     )

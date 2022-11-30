@@ -35,7 +35,9 @@ const LikeButton = ({disabled, review, setLikes}) => {
 
     return (
         <div className='like-wrapper'>
-            <p className='count-text'>{review.likes.length}</p>
+            {(review.likes.length > 0) &&
+                <p className='count-text'>{review.likes.length}</p>
+            }
             <button className='like-button'
                 onClick={ handleLikeAction }>
                 {!liked && <HiOutlineHeart className='stroke'/>}
