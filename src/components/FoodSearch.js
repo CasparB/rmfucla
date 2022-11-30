@@ -1,6 +1,7 @@
 
 
 import { useState, useEffect } from 'react';
+import { FaSearch } from 'react-icons/fa';
 
 const FoodSearch = ({foods}) => {
     const [results, setResults] = useState([]);
@@ -42,17 +43,24 @@ const FoodSearch = ({foods}) => {
         <div>
             <h2>Food Search</h2>
             <div className='data-placeholder'>
-                <input type='search' placeholder='E.g. avocado...' 
-                    onChange={ e => handleSearchChange(e.target.value) }/>
                 <div className='search-wrapper'>
-                    {
-                    results.map((result, i) => (
-                        <div key={i}>
-                            <p>{result.name}</p>
-                        </div> 
-                    ))
-                    }
+                    <FaSearch className='search-icon'/>
+                    <input type='search-input' placeholder='E.g. avocado...' 
+                        className='searchbar'
+                        onChange={ e => handleSearchChange(e.target.value) }/>
                 </div>
+                { (results.length > 0) && 
+                    <div className='results-wrapper'>
+                        <h3>Results: {results.length}</h3>
+                        {
+                        results.map((result, i) => (
+                            <div key={i}>
+                                <p>{result.name}</p>
+                            </div> 
+                        ))
+                        }
+                    </div>
+                }
             </div>
         </div>
     )

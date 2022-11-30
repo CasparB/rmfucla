@@ -1,4 +1,6 @@
 :root{
+--br-large: 5px;
+
 --text-light: black;
 --webback-light: white;
 --buttonback-light: lightgrey;
@@ -189,7 +191,7 @@ button.primary, button.secondary{
     border: 1px solid var(--buttonback);
     transition: border-color 1s;
     transition-timing-function: ease-out;
-    border-radius: 10px;
+    border-radius: var(--br-large);
     font-size: 14px;
 }
 button.invalid {
@@ -239,7 +241,7 @@ button.new-review {
     padding: 8px 12px;
     width: calc(100% - 24px);
     min-height: 20px;
-    border-radius: 10px;
+    border-radius: var(--br-large);
 }
 .fullwidth-component {
     margin: 20px 0 20px 0;
@@ -301,13 +303,35 @@ button.new-review {
 /* ---------- */
 
 /* FoodSearch */
-.search-wrapper {
+.results-wrapper {
     background-color: var(--place);
+    margin-top: 8px;
+    border: 1px solid var(--buttonback);
     width: calc(100% - 24px);
-    min-height: 20px;
-    max-height: 100px;
+    max-height: 150px;
     overflow-y: scroll;
-    border-radius: 10px;
+    border-radius: var(--br-large);
+}
+.search-wrapper {
+    display: flex;
+    border-radius: 2px;
+    padding: 3px 8px 3px 8px;
+    overflow: hidden;
+    background-color: var(--pageback);
+}
+.searchbar {
+    border: none;
+    background-color: transparent;
+    color: var(--text);
+}
+.searchbar:focus {
+    outline: none;
+}
+.search-icon {
+    margin-top: 1px;
+    margin-right: 3px;
+    width: 11px;
+    opacity: 0.4;
 }
 
 /* DiningHallList */
@@ -335,7 +359,7 @@ button.new-review {
     width: calc(100% - 24px);
     padding: 8px 12px;
     display:flex;
-    border-radius: 10px;
+    border-radius: var(--br-large);
 }
 .review > div {
     width: 100%;
@@ -529,5 +553,5 @@ button.new-review {
     justify-content: center;    
     justify-items: center;
     font-size: 12px;
-    border-radius: 10px;
+    border-radius: var(--br-large);
 }
