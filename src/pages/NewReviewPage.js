@@ -33,8 +33,11 @@ const NewReviewPage = () => {
         setMenu(foods);
         const data = [];
         for (var i = 0; i < foods.length; i++) {
-            if (!data.includes(foods[i].location))
-                data.push(foods[i].location);
+            if (!data.includes(foods[i].location)) {
+                // Special case:
+                if (!foods[i].location.includes('Late Night'))
+                    data.push(foods[i].location);
+            }
         }
         setLocations(data);
         setSyncing(false);

@@ -26,6 +26,14 @@ const DiningHallPage = () => {
             return <Navigate to='/' />;
     }
 
+    let shortened;
+    if (name.includes('Feast'))
+        shortened = 'Feast';
+    else if (name.includes('Ackerman'))
+        shortened = name;
+    else 
+        shortened = name.split(' ').slice(0, 2).join(' ');
+
     return (
         <div className='frame'>
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
@@ -33,7 +41,7 @@ const DiningHallPage = () => {
                 <div className='sticky-top'>
                     <div className='back-hero'>
                         <BackButton />
-                        <h1>{ name }</h1>
+                        <h1>{ shortened }</h1>
                     </div>
                 </div> 
                 {/* Display user statistics */}

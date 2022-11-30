@@ -10,6 +10,7 @@ const Menu = ({location}) => {
     const [breakfast, setBreakfast] = useState(null);
     const [lunch, setLunch] = useState(null);
     const [dinner, setDinner] = useState(null);
+    const [extended, setExtended] = useState(null);
 
     const attemptSetMenu = async () => {
         const menu = await getFoods();
@@ -27,6 +28,7 @@ const Menu = ({location}) => {
         let breakfastData = [];
         let lunchData = [];
         let dinnerData = [];
+        let extendedData = [];
         // populate with for loop
 
         for (var i = 0; i < menu.length; i++) {
@@ -41,7 +43,10 @@ const Menu = ({location}) => {
                     lunchData.push(menu[i]);
                 }
                 if (foodType[j] === "Dinner") {
-                    dinnerData.push(menu[i]);
+                    lunchData.push(menu[i]);
+                }
+                if (foodType[j] === "Extended Dinner") {
+                    extendedData.push(menu[i]);
                 }
             }
         }
@@ -51,6 +56,8 @@ const Menu = ({location}) => {
             setLunch(lunchData);
         if (dinnerData.length)
             setDinner(dinnerData);
+        if (extendedData.length)
+            setExtended(extendedData);
     }, [menu]);
 
     return (
@@ -69,6 +76,11 @@ const Menu = ({location}) => {
             { (dinner) &&   
                 <Link to='/menu' state={ [dinner, "Dinner"] }>
                     <button className='secondary topslim'>Dinner</button>
+                </Link>
+            }
+            { (extended) &&   
+                <Link to='/menu' state={ [extended, "Extended Dinner"] }>
+                    <button className='secondary topslim'>Extended Dinner</button>
                 </Link>
             }
         </div>
