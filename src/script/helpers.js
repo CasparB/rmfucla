@@ -1,3 +1,6 @@
+let history = [];
+export default history;
+
 export const sameDate = (date1, date2) => {
     return (
         date1.getFullYear() === date2.getFullYear() &&

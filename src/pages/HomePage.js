@@ -14,6 +14,7 @@ import { doMenuSync, didMenuSync } from '../script/fbAPI';
 import { addFood, getReviews, getFoods } from '../script/fbAPI';
 import SyncModal from '../components/SyncModal';
 import FoodSearch from '../components/FoodSearch';
+import history from '../script/helpers';
 
 const HomePage = () => {
     const { user } = UserAuth();
@@ -21,7 +22,10 @@ const HomePage = () => {
     const [syncing, setSyncing] = useState(false);
     const [progress, setProgress] = useState(0.0);
     const [foods, setFoods] = useState([]);
-    const navigate = useNavigate;
+    
+    const last = history.length ? history[history.length-1] : null;
+    if (!last || last[0] != '/home')
+        history.push(['/home']);
 
     let increment = 1;
     let prog = 0;
@@ -60,9 +64,12 @@ const HomePage = () => {
         // Set user name
         if (user.displayName)
             setName(user.displayName.replace(/ .*/,''));
+    }, [user]);
+
+    useEffect(() => {
         // Attempt menu sync
         attemptMenuSync();
-    }, [user]);
+    }, [])
 
     return (
         <div className='frame'>
@@ -75,12 +82,12 @@ const HomePage = () => {
                         <ProfileButton />
                     </div>
                 </div>
+                {/* Food Search */}
+                <FoodSearch foods={foods}/>
                 {/* Display food recommendations */}
                 <Recommendations foods={foods}/>
                 {/* Display dining halls */}
                 <DiningHallList />
-                {/* Food Search */}
-                <FoodSearch foods={foods}/>
                 <div className='divider'></div>
                 {/* Display general posts */}
                 <ReviewList />

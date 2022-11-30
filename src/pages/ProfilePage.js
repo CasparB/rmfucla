@@ -4,6 +4,7 @@ import { UserAuth } from '../context/AuthContext';
 import BackButton from '../components/BackButton';
 import LogOutButton from '../components/LogOutButton';
 import ChangeThemeButton from '../components/ChangeThemeButton';
+import { useEffect } from 'react';
 import '../styles/index.css'
 
 const ProfilePage = () => {
@@ -31,7 +32,7 @@ const ProfilePage = () => {
                 <UserStats />
                 <div className='divider'></div>
                 {/* Display general posts */}
-                <ReviewList author={user.email} />
+                <ReviewList author={user.email} showDate/>
                 
                 <div className='divider'></div>
                 {/* Log out button */}

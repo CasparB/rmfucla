@@ -1,9 +1,15 @@
 import BackButton from '../components/BackButton';
 import { useLocation } from 'react-router-dom';
+import history from '../script/helpers';
 
 const MenuPage = () => {
     const location = useLocation();
     const menu = location.state[0];
+
+    const last = history[history.length-1];
+    if (last[0] != '/menu')
+        history.push(['/menu']);
+
     return (
         <div className='frame'>
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
