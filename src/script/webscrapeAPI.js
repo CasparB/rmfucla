@@ -207,7 +207,7 @@ export const otherFoods = async () => {
         }
         const obj = {
           name: $(el).text(),
-          location: name,
+          location: name.split(' ').slice(0, 2).join(' '),
           type: 'Extended Dinner',
           category: sections,
         }

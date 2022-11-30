@@ -62,6 +62,7 @@ const HomePage = () => {
 
     useEffect(() => {
         // Set user name
+        console.log(user.photoURL);
         if (user.displayName)
             setName(user.displayName.replace(/ .*/,''));
     }, [user]);
