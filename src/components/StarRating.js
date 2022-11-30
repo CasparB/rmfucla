@@ -29,7 +29,7 @@ const StarRating = (props) => {
                 <IoMdStarHalf className='star' />
             }
             {[...Array(5-rating-halfstar)].map((x, i) =>
-                <IoMdStarOutline className='star' key={rating+i} 
+                <IoMdStarOutline className='star outline' key={rating+i} 
                     onClick={ e => handleStarDrag(rating+i) }/>
             )}
         </div>
