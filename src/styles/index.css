@@ -1,22 +1,31 @@
 :root{
---text-light: black;
+--br-large: 10px;
+--box-shadow: 0px 3px 20px rgb(228, 227, 223);
+--box-shadow-heavy: 0px 3px 10px rgb(201, 201, 198);
+--star-rating: #f5be41;
+--like-button: #e25550;
+
+--text-light: #29292a;
 --webback-light: white;
---buttonback-light: lightgrey;
---pageback-light: white ;
---reviewback-light: lightgrey;
---phonebar-light: black;
---ratingwrapper-light: lightgrey;
---place-light: lightgrey;
+--primarybutton-light: #f5be40;
+--secondarybutton-light: #efeef1;
+--pageback-light: #fbfbfc ;
+--reviewback-light: #efeef1;
+--border-light: #e3e3ea;
+--outline-light: #b8b8c0;
+--ratingwrapper-light: #efeef1;
+--place-light: white;
 --topbar-light:white;
 --sync-light: rgba(255, 255, 255, 0.8);
 --homebar-light: white;
 
 --text-dark: white;
 --webback-dark: black;
---buttonback-dark: rgb(50, 62, 66);
+--primarybutton-light: #f5be40;
+--secondarybutton-light: #efeef1;
 --pageback-dark: black;
 --reviewback-dark: rgb(50, 62, 66);
---phonebar-dark: white;
+--border-dark: white;
 --ratingwrapper-dark:black;
 --place-dark:rgb(50, 62, 66);
 --topbar-dark: black;
@@ -28,10 +37,12 @@
     :root{
         --text: var(--text-dark);
         --webback:  var(--webback-dark);
-        --buttonback: var(--buttonback-dark);
+        --primarybutton: var(--primarybutton-dark);
+        --secondarybutton: var(--secondarybutton-dark);
         --pageback: var(--pageback-dark);
         --reviewback: var(--reviewback-dark);
-        --phonebar: var(--phonebar-dark);
+        --border: var(--border-dark);
+        --outline: var(--outline-dark);
         --ratingwrapper: var(--ratingwrapper-dark);
         --place: var(--place-dark);
         --topbar: var(--topbar-dark);
@@ -43,10 +54,12 @@
     :root{
         --text: var(--text-light);
         --webback:  var(--webback-light);
-        --buttonback: var(--buttonback-light);
+        --primarybutton: var(--primarybutton-light);
+        --secondarybutton: var(--secondarybutton-light);
         --pageback: var(--pageback-light);
         --reviewback: var(--reviewback-light);
-        --phonebar: var(--phonebar-light);
+        --border: var(--border-light);
+        --outline: var(--outline-light);
         --ratingwrapper: var(--ratingwrapper-light);
         --place: var(--place-light);
         --topbar: var(--topbar-light);
@@ -57,10 +70,12 @@
 [color-scheme="light"] {
     --text: var(--text-light);
     --webback:  var(--webback-light);
-    --buttonback: var(--buttonback-light);
+    --primarybutton: var(--primarybutton-light);
+    --secondarybutton: var(--secondarybutton-light);
     --pageback: var(--pageback-light);
     --reviewback: var(--reviewback-light);
-    --phonebar: var(--phonebar-light);
+    --border: var(--border-light);
+    --outline: var(--outline-light);
     --topbar: var(--topbar-light);
     --sync: var(--sync-light);
     --homebar: var(--homebar-light);
@@ -70,10 +85,12 @@
 [color-scheme="dark"]{
     --text: var(--text-dark);
     --webback:  var(--webback-dark);
-    --buttonback: var(--buttonback-dark);
+    --primarybutton: var(--primarybutton-dark);
+    --secondarybutton: var(--secondarybutton-dark);
     --pageback: var(--pageback-dark);
     --reviewback: var(--reviewback-dark);
-    --phonebar: var(--phonebar-dark);
+    --border: var(--border-dark);
+    --outline: var(--outline-dark);
     --ratingwrapper: var(--ratingwrapper-dark);
     --place: var(--place-dark);
     --topbar: var(--topbar-dark);
@@ -109,22 +126,23 @@ code, .mono {
         color: var(--text);
     }
     p, span {
-        font-size: 14px;
+        font-size: 13px;
     }
     h1{
-        font-family: 'Switzer-Bold';
-        font-size: 23px;
-        margin-bottom: 0;
+        font-family: 'Switzer-Semibold';
+        font-size: 21px;
+        margin-bottom: 2px;
     }
     h2{
-        font-family: 'Switzer-Bold';
-        font-size: 18px;
-        margin-bottom: 8px;
+        font-family: 'Switzer-Semibold';
+        font-size: 15px;
+        margin-bottom: 12px;
+        padding-top: 10px;
         margin-left: 2px;
     }
     h3{
-        font-family: 'Switzer-Bold';
-        font-size: 14px;
+        font-family: 'Switzer-Semibold';
+        font-size: 13px;
         margin-bottom: 6px;
     }
 
@@ -179,25 +197,33 @@ body{
 }
 
 button{
-    background-color:var(--buttonback);
+    background-color:var(--primarybutton);
     padding: 8px 12px;
 }
 
-button.primary, button.secondary{
+button.primary, button.secondary {
     width: 100%;
     margin-bottom: 20px;
-    border: 1px solid var(--buttonback);
+    padding: 10px 20px;
     transition: border-color 1s;
+    background-color: var(--primarybutton);
     transition-timing-function: ease-out;
-    border-radius: 10px;
-    font-size: 14px;
+    border-radius: var(--br-large);
+    font-size: 13px;
+    font-family: 'Switzer-Medium';
+}
+button.primary:disabled, button.secondary:disabled {
+    opacity: 0.5;
+}
+button.secondary {
+    background-color: var(--secondarybutton);
 }
 button.invalid {
     border: 1px solid red;
 }
 button.actionable {
     height: 30px;
-    background-color: var(--buttonback);
+    background-color: var(--primarybutton);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -226,20 +252,21 @@ button.new-review {
 	position: absolute;
 	width: 40px;
     height: 40px;
-    background-color: var(--buttonback);
-	border: 1.5px solid var(--phonebar);
+    background-color: var(--place);
+    box-shadow: var(--box-shadow-heavy);
 	font-size: 22px;
 	border-radius: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.data-placeholder {
+.data-wrapper {
 	background-color: var(--place);
-    padding: 8px 12px;
-    width: calc(100% - 24px);
+    padding: 13px 15px;
+    width: calc(100% - 26px);
     min-height: 20px;
-    border-radius: 10px;
+    border-radius: var(--br-large);
+    box-shadow: var(--box-shadow);
 }
 .fullwidth-component {
     margin: 20px 0 20px 0;
@@ -247,12 +274,13 @@ button.new-review {
 .divider {
     width: 100%;
     height: 1.5px;
-    background-color: var(--phonebar);
+    background-color: var(--border);
     margin: 20px 0 20px 0;
 }
 .sticky-top {
     position: sticky;
     top: 0;
+    z-index: 100 !important;
 }
 .sticky-bottom {
     position: sticky;
@@ -261,7 +289,7 @@ button.new-review {
 .gesture-section {
     width: 100%;
     height: 44px;
-	border-top: 1.5px solid var(--phonebar);
+	border-top: 1.5px solid var(--border);
     background-color: var(--pageback);
     display: flex;
     justify-content: center;
@@ -270,7 +298,7 @@ button.new-review {
 .gesture-bar{
     width: 40%;
     height: 3px;
-    background-color: var(--phonebar);
+    background-color: var(--boder);
     border-radius: 1.5px;
     margin-bottom: 25px;
 }
@@ -282,7 +310,8 @@ button.new-review {
 }
 
 .page {
-    background-color: var(--pageback) ;
+    background: var(--pageback) ;
+    background: linear-gradient(180deg, var(--webback) 0%, var(--pageback) 100%);
     border-radius: 65px;
     height: calc(100% - 44px);
     overflow-y: scroll;
@@ -301,31 +330,107 @@ button.new-review {
 /* ---------- */
 
 /* FoodSearch */
-.search-wrapper {
+.data-wrapper.search {
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+
+}
+.results-padding {
+    padding: 0px 14px 10px 14px;
+}
+.results-wrapper {
     background-color: var(--place);
+    margin: 4px 0 4px 0;
     width: calc(100% - 24px);
     min-height: 20px;
     max-height: 100px;
     overflow-y: scroll;
-    border-radius: 10px;
+}
+.result {
+    margin-bottom: 7px;
+}
+.results-wrapper:last-child {
+    margin: 0;
+}
+.search-wrapper {
+    display: flex;
+    border-radius: 2px;
+    padding: 10px 14px;
+    overflow: hidden;
+    background-color: var(--place);
+}
+.searchbar {
+    border: none;
+    background-color: transparent;
+    color: var(--text);
+}
+.searchbar:focus {
+    outline: none;
+}
+.search-icon {
+    margin-top: 1px;
+    margin-right: 8px;
+    width: 11px;
+    opacity: 0.4;
 }
 
 /* DiningHallList */
 .grid-3 button {
-    height: 60px;
+    height: 1fr;
     width: 1fr;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    background-color: transparent;
-    padding: 5px;
+    background-color: var(--reviewback);
+    border-radius: var(--br-large);
+    transition: background-color 0.1s;
+    padding: 7px;
+}
+.grid-3 button:hover {
+    background-color: var(--border);
 }
 .dininghall-logo {
     width: 100%;
 }
 
+/* HallStats */
+.hallstat-rating-wrapper {
+    margin-top: 5px;
+    padding: 5px 10px;
+}
 /* Recommendations */
+.food-rec {
+    margin-bottom: 7px;
+    display: inline;
+}
+.rec-wrapper:last-child {
+    margin: 0px;
+}
+.rec-location {
+    display: inline;
+    font-family: 'Switzer-Medium';
+}
+
+/* Menu */
+.menu-section {
+    margin-bottom: 10px;
+}
+.nomargin {
+    margin: 0 !important;
+}
+.topslim {
+    margin: 10px 0 0 0 !important;
+}
+
+/* UserStats */
+.stat {
+    margin-bottom: 3px;
+}
+.stats-wrapper:last-child {
+    margin: 0px;
+}
 
 /* ReviewList */
 
@@ -344,6 +449,7 @@ button.new-review {
     display: flex;
     width: 100%;
     justify-content: space-between;
+    align-items: flex-start;
 }
 .review-footer {
     margin-top: 5px;
@@ -367,8 +473,7 @@ button.new-review {
     justify-content: center;
 }
 .filter-wrapper > .sort {
-    border: 1px solid var(--buttonback);
-    background-color: var(--webback);
+    background-color: transparent;
     padding: 0.5px;
     border-radius: 2px;
     width: 22px;
@@ -378,17 +483,28 @@ button.new-review {
 .sort-icon {
     margin-top: 1px;
     margin-bottom: -1px;
+    color: var(--text);
 }
 .filter {
     font-size: 13px;
     padding: 0px;
     
 }
+.Dropdown-control {
+    cursor: pointer !important;
+}
 .Dropdown-control, .Dropdown-option {
-    padding: 3px 20px 3px 5px !important;
-    background-color: var(--pageback) !important;
-    border: 1px solid var(--buttonback) !important;
+    padding: 3px 20px 3px 0px !important;
     color: var(--text) !important;
+    font-family: 'Switzer-Medium' !important;
+    border: none !important;
+    font-size: 13px !important;
+}
+.Dropdown-option {
+    padding: 3px 5px 3px 5px !important;
+}
+.Dropdown-control:hover, .Dropdown-option:hover {
+    box-shadow: none !important;
 }
 .Dropdown-arrow {
     top: 9px !important;
@@ -396,22 +512,30 @@ button.new-review {
     border-width: 4px 4px 0 !important;
     color: var(--text) !important;
 }
-
-.is-open .Dropdown-arrow { 
-    border-color: transparent transparent #999 !important;
+.Dropdown-menu {
+    border-radius: 5px !important;
+    box-shadow: none !important;
+    /* padding: 3px 5px 3px 5px !important; */
+}
+.is-open .Dropdown-arrow {
+    border-color: transparent transparent var(--outline) !important;
     border-width: 0 4px 4px !important;
 }
 
 /* LikeButton */
 .like-button {
     padding: 0;
-    background-color: var(--reviewback);
+    background-color: transparent;
 }
 .like-button > .fill {
-    color: rgb(210, 46, 84);
+    color: var(--like-button);
+}
+.like-button > .stroke {
+    color: var(--outline);
 }
 .like-wrapper {
     display: flex;
+    margin-top: -2px;
     align-items: center;
 }
 
@@ -419,6 +543,10 @@ button.new-review {
 .star {
     height: 20px;
     width: 20px;
+    color: var(--star-rating);
+}
+.outline {
+    color: var(--outline);
 }
 .star-container {
     display: flex;
@@ -426,6 +554,7 @@ button.new-review {
 }
 .review-rating-wrapper {
     background-color: var(--reviewback);
+    border-radius: var(--br-large);
     padding: 8px 20px 8px 20px;
     width: calc(100% - 40px);
 }
@@ -488,7 +617,6 @@ button.new-review {
 	margin: 0 -20px 0 -20px;
 	align-items: flex-end;
     background: var(--homebar);
-    border-bottom: 1.5px solid var(--phonebar);
 }
 
 
@@ -499,7 +627,6 @@ button.new-review {
 	margin: 0 -20px 0 -20px;
 	align-items: flex-end;
     background: var(--topbar);
-    border-bottom: 1.5px solid var(--phonebar);
 }
 
 .back-hero h1 {

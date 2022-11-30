@@ -6,6 +6,20 @@
 				font-style: normal;
 }
 @font-face {
+	font-family: 'Switzer-Medium';
+	src: local('Switzer-Medium'), url('../assets/fonts/Switzer-Medium.woff2') format('woff2');
+				font-weight: 500;
+				font-display: swap;
+				font-style: normal;
+}
+@font-face {
+	font-family: 'Switzer-Semibold';
+	src: local('Switzer-Semibold'), url('../assets/fonts/Switzer-Semibold.woff2') format('woff2');
+				font-weight: 600;
+				font-display: swap;
+				font-style: normal;
+}
+@font-face {
 	font-family: 'Switzer-Bold';
 	src: local('Switzer-Bold'), url('../assets/fonts/Switzer-Bold.woff2') format('woff2');
 				font-weight: 700;
