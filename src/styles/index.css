@@ -1,6 +1,4 @@
 :root{
---br-large: 5px;
-
 --text-light: black;
 --webback-light: white;
 --buttonback-light: lightgrey;
@@ -191,7 +189,7 @@ button.primary, button.secondary{
     border: 1px solid var(--buttonback);
     transition: border-color 1s;
     transition-timing-function: ease-out;
-    border-radius: var(--br-large);
+    border-radius: 10px;
     font-size: 14px;
 }
 button.invalid {
@@ -241,7 +239,7 @@ button.new-review {
     padding: 8px 12px;
     width: calc(100% - 24px);
     min-height: 20px;
-    border-radius: var(--br-large);
+    border-radius: 10px;
 }
 .fullwidth-component {
     margin: 20px 0 20px 0;
@@ -303,35 +301,13 @@ button.new-review {
 /* ---------- */
 
 /* FoodSearch */
-.results-wrapper {
-    background-color: var(--place);
-    margin-top: 8px;
-    border: 1px solid var(--buttonback);
-    width: calc(100% - 24px);
-    max-height: 150px;
-    overflow-y: scroll;
-    border-radius: var(--br-large);
-}
 .search-wrapper {
-    display: flex;
-    border-radius: 2px;
-    padding: 3px 8px 3px 8px;
-    overflow: hidden;
-    background-color: var(--pageback);
-}
-.searchbar {
-    border: none;
-    background-color: transparent;
-    color: var(--text);
-}
-.searchbar:focus {
-    outline: none;
-}
-.search-icon {
-    margin-top: 1px;
-    margin-right: 3px;
-    width: 11px;
-    opacity: 0.4;
+    background-color: var(--place);
+    width: calc(100% - 24px);
+    min-height: 20px;
+    max-height: 100px;
+    overflow-y: scroll;
+    border-radius: 10px;
 }
 
 /* DiningHallList */
@@ -359,7 +335,7 @@ button.new-review {
     width: calc(100% - 24px);
     padding: 8px 12px;
     display:flex;
-    border-radius: var(--br-large);
+    border-radius: 10px;
 }
 .review > div {
     width: 100%;
@@ -391,7 +367,7 @@ button.new-review {
     justify-content: center;
 }
 .filter-wrapper > .sort {
-    border: 1px solid var(--text);
+    border: 1px solid var(--buttonback);
     background-color: var(--webback);
     padding: 0.5px;
     border-radius: 2px;
@@ -411,15 +387,17 @@ button.new-review {
 .Dropdown-control, .Dropdown-option {
     padding: 3px 20px 3px 5px !important;
     background-color: var(--pageback) !important;
+    border: 1px solid var(--buttonback) !important;
     color: var(--text) !important;
 }
 .Dropdown-arrow {
     top: 9px !important;
     right: 7px !important;
     border-width: 4px 4px 0 !important;
+    color: var(--text) !important;
 }
-.is-open .Dropdown-arrow {
-    
+
+.is-open .Dropdown-arrow { 
     border-color: transparent transparent #999 !important;
     border-width: 0 4px 4px !important;
 }
@@ -553,5 +531,5 @@ button.new-review {
     justify-content: center;    
     justify-items: center;
     font-size: 12px;
-    border-radius: var(--br-large);
+    border-radius: 10px;
 }
