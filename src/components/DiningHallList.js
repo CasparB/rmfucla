@@ -12,7 +12,8 @@ const DiningHallList = () => {
 
     const attemptGetDiningHalls = async () => {
         const data = await getTimes();
-        setHalls(data);
+        if (halls)
+            setHalls(data);
     }
     useEffect(() => {
         attemptGetDiningHalls();

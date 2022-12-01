@@ -24,7 +24,10 @@ const SignInPage = () => {
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
             <div className='page signin-wrapper'>
                 <div className='center-wrapper'>
-                    <div className='logo' />
+                    <div className='logo-wrapper'>
+                        <img src={require('../assets/images/logo.png')} 
+                            className='logo'/>
+                    </div>
                     <h1>
                         RateMyFood
                     </h1>
@@ -35,8 +38,8 @@ const SignInPage = () => {
                     Sign in with Google
                 </button>
             </div>   
-            <div className='sticky-bottom'>
-                <div className='gesture-section no-border'>
+            <div className='sticky-bottom signin'>
+                <div className='gesture-section signin no-border'>
                     <div className='gesture-bar' />
                 </div>
             </div>
