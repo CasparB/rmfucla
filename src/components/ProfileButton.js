@@ -23,7 +23,9 @@ const ProfileButton = () => {
                         <img src={url}
                             className='profile-img'/>
                     }
-                    {/* <IoPersonCircleOutline className='profile-icon'/> */}
+                    { !url &&
+                        <IoPersonCircleOutline className='profile-icon'/>
+                    }
                 </button>
             </Link>
         </div>

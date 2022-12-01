@@ -43,7 +43,7 @@ const Menu = ({location}) => {
                     lunchData.push(menu[i]);
                 }
                 if (foodType[j] === "Dinner") {
-                    lunchData.push(menu[i]);
+                    dinnerData.push(menu[i]);
                 }
                 if (foodType[j] === "Extended Dinner") {
                     extendedData.push(menu[i]);
