@@ -608,7 +608,7 @@ button.new-review {
     z-index: 10010;
 }
 .puff {
-    color: var(--text);
+    color: red !important;
 }
 .prog-container {
     margin-top: 5px;

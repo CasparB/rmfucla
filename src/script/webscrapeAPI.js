@@ -68,7 +68,6 @@ export const cafeteriaFood = async () => {
               final_string = final_string.concat(char);
               final_string = final_string.concat(" ");
             }
-            console.log(final_string);
             const obj = {
               name: final_string,
               location: name[0].slice(0, -1),
@@ -91,7 +90,7 @@ export const otherFoods = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
   const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
-  const places_index = ['Hedrick Study', "Epic at Ackerman", "Bruin Cafe", "The Drey", "De Neve Late Night"];
+  const places_index = ['The Study at Hedrick', "Epic at Ackerman", "Bruin Cafe", "The Drey", "De Neve Late Night"];
   let halls_food = [];
   for(let index = 0; index < list.length; index++){
     const test = await axios(list[index], {params: {

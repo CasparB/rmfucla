@@ -2,6 +2,7 @@ import { Puff } from 'react-loading-icons'
 
 const SyncModal = (props) => {
     const toBlur = document.getElementsByClassName('blur');
+    const scheme = document.documentElement.getAttribute('color-scheme');
     if (!props.visible) {
         for (var i = 0; i < toBlur.length; i++)
         toBlur[i].style.filter = 'none';
@@ -15,7 +16,8 @@ const SyncModal = (props) => {
                 { (props.progress == 0 || props.progress == null) &&
                     <div className='center-wrapper'>
                         {props.message && <h3>{props.message}</h3> }
-                        <Puff className='puff'/>
+                        { (scheme === 'light') && <Puff stroke='#29292a' className='puff'/> }
+                        { (scheme === 'dark') && <Puff stroke='white' className='puff'/> }
                     </div>
                 }
                 { (props.progress != 0 && props.progress != null) &&
