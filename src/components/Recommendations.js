@@ -139,7 +139,7 @@ const Recommendations =  ({foods}) => {
             <div className='data-wrapper rec-wrapper'>
                 { 
                 top5.map((food, i) => (
-                    <div key={i}>
+                    <div key={i} className='rec-container'>
                         <p className='food-rec'>{food.name} at </p>
                         <p className='rec-location'>{food.location}</p>
                     </div> 

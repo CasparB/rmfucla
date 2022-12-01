@@ -425,11 +425,13 @@ button.new-review {
 }
 /* Recommendations */
 .food-rec {
-    margin-bottom: 7px;
     display: inline;
 }
-.rec-wrapper:last-child {
-    margin: 0px;
+.rec-container {
+    margin-bottom: 7px;
+}
+.rec-container:last-child {
+    margin-bottom: 2px;
 }
 .rec-location {
     display: inline;

@@ -26,11 +26,15 @@ const DiningHallPage = () => {
             return <Navigate to='/' />;
     }
 
+    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
     let shortened;
     if (name.includes('Feast'))
         shortened = 'Feast';
     else if (name.includes('Ackerman'))
         shortened = name;
+    else if (name === 'Bruin Cafe')
+        shortened = 'Bruin Café';
     else 
         shortened = name.split(' ').slice(0, 2).join(' ');
 

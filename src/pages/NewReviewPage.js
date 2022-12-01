@@ -57,6 +57,17 @@ const NewReviewPage = () => {
     }, []);
 
     useEffect(() => {
+        attemptSetTypes();
+        attemptSetFoods();
+        validateForm();
+    }, [review]);
+
+    useEffect(() => {
+        attemptSetTypes();
+        attemptSetFoods();
+    }, [locations])
+
+    const attemptSetTypes = () => {
         const typeData = [];
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location) {
@@ -76,7 +87,9 @@ const NewReviewPage = () => {
         if (typeData.includes('Extended Dinner')) 
             formatted.push('Extended Dinner');
         setTypes(formatted);
+    }
 
+    const attemptSetFoods = () => {
         const foodData = [];
         for (var i = 0; i < menu.length; i++) {
             if (menu[i].location === review.location &&
@@ -88,10 +101,7 @@ const NewReviewPage = () => {
         for (var i = 0; i < foodData.length; i++)
             foodNames.push(foodData[i]);
         setFoods(foodNames);
-
-        
-        validateForm();
-    }, [review])
+    }
 
     const last = history[history.length-1];
     if (!last)
