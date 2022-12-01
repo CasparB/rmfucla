@@ -5,6 +5,7 @@ import { FaSearch } from 'react-icons/fa';
 
 const FoodSearch = ({foods}) => {
     const [results, setResults] = useState([]);
+    const [results_type, setType] = useState([]);
     const [data, setData] = useState([]);
 
     const sanitize = (str) => {
@@ -28,11 +29,26 @@ const FoodSearch = ({foods}) => {
             setResults(temp);
             return;
         }
+        let all_type = [];
         for (var i = 0; i < data.length; i++) {
-            if (data[i][0].includes(searchstr))
+            if (data[i][0].includes(searchstr)){
                 temp.push(data[i][1]);
+                let type = (data[i][1]).type;
+                let result_string = ""
+                for(let ind = 0; ind < type.length; ind++){
+                   result_string = result_string.concat(type[ind]);
+                   const next = ind + 1;
+                   if( next < type.length){
+                    result_string = result_string.concat(" and ");
+                   }else{
+                    result_string = result_string.concat(".");
+                   }
+                }
+                all_type.push(result_string);
+            }
         }
         setResults(temp);
+        setType(all_type)
     }
 
     useEffect(() => {
@@ -57,7 +73,8 @@ const FoodSearch = ({foods}) => {
                             results.map((result, i) => (
                                 <div key={i}>
                                     <p className='food-rec'>{result.name} at </p>
-                                    <p className='rec-location'>{result.location}</p>
+                                    <p className='rec-location'>{result.location} for </p>
+                                    <p className='rec-location'>{results_type[i]}</p>
                                 </div> 
                             ))
                             }
