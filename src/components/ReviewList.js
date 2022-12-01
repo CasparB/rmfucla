@@ -60,8 +60,8 @@ const ReviewList = ({location, author, showDate}) => {
 
     const convertDate = (str) => {
         const date = str.toDate();
-        var month = date.getUTCMonth() + 1;
-        var day = date.getUTCDate();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
         var hours = date.getHours();
         var minutes = date.getMinutes();
         var formattedTime = "";
@@ -74,9 +74,9 @@ const ReviewList = ({location, author, showDate}) => {
         }
         if (hours > 12) {
             hours = hours % 12;
-            formattedTime += hours + ":" + minutes + " AM";
-        } else {
             formattedTime += hours + ":" + minutes + " PM";
+        } else {
+            formattedTime += hours + ":" + minutes + " AM";
         }
         return formattedTime;
     }
