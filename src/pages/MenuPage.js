@@ -21,11 +21,13 @@ const MenuPage = () => {
                     </div>
                 </div>
                 {/* the code body for the menu. display all the food items */}
-                { menu.map((item, i) => (
-                    <div key={i}>
-                        <p className="menu-item">{item.name}</p>
-                    </div>
-                ))}
+                <div className='menu-wrapper'>
+                    { menu.map((item, i) => (
+                        <div key={i}>
+                            <p className='menu-item'>{item.name}</p>
+                        </div>
+                    ))}
+                </div>
                 
             </div>
             <div className='sticky-bottom'>

@@ -6,11 +6,17 @@ import { useLocation } from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import ReviewButton from '../components/ReviewButton';
 import history from '../script/helpers';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import SyncModal from '../components/SyncModal';
 
 const DiningHallPage = () => {
     const location = useLocation();
+    const [syncing, setSyncing] = useState(false);
     let name = location.state;
+
+    useEffect(() => {
+        setSyncing(true);
+    }, []);
 
     const last = history[history.length-1];
     if (!last)
@@ -40,6 +46,7 @@ const DiningHallPage = () => {
 
     return (
         <div className='frame'>
+            <SyncModal visible={ syncing } message='Loading Menus' />
             <img className='iphone' src={require('../assets/images/iphone14.png')} />
             <div className='page'>
                 <div className='sticky-top'>
@@ -51,7 +58,7 @@ const DiningHallPage = () => {
                 {/* Display user statistics */}
                 <HallStats location={name}/>
                 {/* Display menu */}
-                <Menu location={name}/>
+                <Menu location={name} callback={setSyncing}/>
                 <div className='divider'></div>
                 {/* Display general posts */}
                 <ReviewList location={name} />

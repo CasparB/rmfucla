@@ -286,7 +286,7 @@ button.new-review {
 .data-wrapper {
 	background-color: var(--place);
     padding: 13px 15px;
-    width: calc(100% - 26px);
+    width: calc(100% - 30px);
     min-height: 20px;
     border-radius: var(--br-large);
     box-shadow: var(--box-shadow);
@@ -686,9 +686,11 @@ button.new-review {
 }
 
 /* MenuPage */
+.menu-wrapper {
+    padding: 0 5px 15px 5px;;
+}
 .menu-item {
-    margin-top: 10px;
-    margin-left: 5px;
+    margin: 8px 0;
 }
 .themebtn{
     display: flex;

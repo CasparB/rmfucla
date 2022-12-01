@@ -87,10 +87,10 @@ const HomePage = () => {
                 </div>
                 {/* Food Search */}
                 <FoodSearch foods={foods}/>
-                {/* Display food recommendations */}
-                <Recommendations foods={foods}/>
                 {/* Display dining halls */}
                 <DiningHallList />
+                {/* Display food recommendations */}
+                <Recommendations foods={foods}/>
                 <div className='divider'></div>
                 {/* Display general posts */}
                 <ReviewList />

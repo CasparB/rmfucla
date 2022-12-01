@@ -27,7 +27,7 @@ const NewReviewPage = () => {
     const { user } = UserAuth();
 
     const retrieveMenu = async () => {
-        setMessage('Downloading Menus');
+        setMessage('Loading Menus');
         setSyncing(true);
         const foods = await getFoods();
         setMenu(foods);

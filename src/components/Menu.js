@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { getFoods } from '../script/fbAPI'
 
-const Menu = ({location}) => {
+const Menu = ({location, callback}) => {
     // UserStats will use the user context to gather
     // dining hall recommendations for the logged in user. It
     // will display these recommendations in some neat form.
@@ -58,6 +58,8 @@ const Menu = ({location}) => {
             setDinner(dinnerData);
         if (extendedData.length)
             setExtended(extendedData);
+        
+        callback(false);
     }, [menu]);
 
     return (

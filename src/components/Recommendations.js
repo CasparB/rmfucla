@@ -126,9 +126,6 @@ const Recommendations =  ({foods}) => {
     };
 
     useEffect(() => {
-        // const usr_recs = getUsers();
-        // console.log("user recomendations");
-        // console.log(usr_recs)
         if (foods && foods.length > 0)
             getUsers();
     }, [foods]);
