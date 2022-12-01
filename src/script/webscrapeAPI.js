@@ -56,8 +56,21 @@ export const cafeteriaFood = async () => {
         foods = [];
         $('.menu-block').each((i, elem) => {
           $(elem).find('.recipelink').each((i, el) => {
+            let food_string = $(el).text();
+            const words = food_string.split(" ");
+            let final_string = "";
+            for(let i = 0; i < words.length; i++){
+              let curr_word = (words[i]).toLowerCase();
+              let char = (curr_word.charAt(0)).toUpperCase();
+              for(let ind = 1; ind < curr_word.length; ind++){
+                char = char.concat(curr_word.charAt(ind));
+              }
+              final_string = final_string.concat(char);
+              final_string = final_string.concat(" ");
+            }
+            console.log(final_string);
             const obj = {
-              name: $(el).text(),
+              name: final_string,
               location: name[0].slice(0, -1),
               type: $(elem).find('.col-header').text(),
               category: '',
