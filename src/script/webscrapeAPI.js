@@ -26,7 +26,8 @@ const condenseData = (arr) => {
       currentName = sorted[i].name;
     }
     else {
-      condensed[condensed.length-1].type = condensed[condensed.length-1].type.concat(sorted[i].type);
+      if (!condensed[condensed.length-1].type.includes(sorted[i].type))
+        condensed[condensed.length-1].type = condensed[condensed.length-1].type.concat(sorted[i].type);
     }
   }
   return condensed;

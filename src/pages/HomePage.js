@@ -62,9 +62,11 @@ const HomePage = () => {
 
     useEffect(() => {
         // Set user name
-        console.log(user.photoURL);
-        if (user.displayName)
-            setName(user.displayName.replace(/ .*/,''));
+        if (user.displayName) {
+            let formatted = user.displayName.replace(/ .*/,'').toLowerCase();
+            formatted = formatted.charAt(0).toUpperCase() + formatted.substring(1);
+            setName(formatted);
+        }
     }, [user]);
 
     useEffect(() => {

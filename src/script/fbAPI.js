@@ -38,7 +38,7 @@ export const addFood = async (food) => {
         data = docSnap.data();
         const mostRecentUploadDate = data.dates[data.dates.length-1].toDate();
         if (sameDate(mostRecentUploadDate, td)) {
-            console.log('FOOD ALREADY UPLOADED TODAY');
+            // FOOD ALREADY UPLOADED TODAY
             return false;
         }
         const dates = data.dates.concat( [ td ] )
@@ -68,7 +68,7 @@ export const addReview = async (review) => {
     const foodRef = doc(db, 'foods', fid);
     const foodDocSnap = await getDoc(foodRef);
     if (!foodDocSnap.exists()) {
-        console.log('FOOD DOES NOT EXIST');
+        // FOOD DOES NOT EXIST
         return false;
     }
     const td = new Date();
@@ -82,7 +82,7 @@ export const addReview = async (review) => {
     const qSnap = await getDocs(q);
 
     if (!qSnap.empty) {
-        console.log('AUTHOR ALREADY SUBMITTED REVIEW')
+        // AUTHOR ALREADY SUBMITTED REVIEW
         return false;
     }
 
@@ -174,7 +174,7 @@ export const doMenuSync = async () => {
     const ref = doc(db, 'config', 'sync-dates');
     const docSnap = await getDoc(ref);
     if (!docSnap.exists()) {
-        console.log('DATABASE ERROR: NO sync-dates DOC');
+        // DATABASE ERROR: NO sync-dates DOC
         return false;
     }
     const data = docSnap.data();
@@ -191,7 +191,7 @@ export const didMenuSync = async () => {
     const ref = doc(db, 'config', 'sync-dates');
     const docSnap = await getDoc(ref);
     if (!docSnap.exists()) {
-        console.log('DATABASE ERROR: NO sync-dates DOC');
+        // DATABASE ERROR: NO sync-dates DOC
         return false;
     }
     const data = docSnap.data();
@@ -210,7 +210,7 @@ export const getShortFormReviews = async (food) => {
     const ref = doc(db, 'foods', id);
     const docSnap = await getDoc(ref);
     if (!docSnap.exists()) {
-        console.log('FOOD DOES NOT EXIST');
+        // FOOD DOES NOT EXIST
         return false;
     }
     const data = docSnap.data();
@@ -234,7 +234,7 @@ export const performLikeAction = async (user, review) => {
 
     const qSnap = await getDocs(q);
     if (qSnap.empty) {
-        console.log('REVIEW DOES NOT EXIST');
+        //  REVIEW DOES NOT EXIST
         return false;
     }
     qSnap.forEach((doc) => {
@@ -265,7 +265,7 @@ export const getLikes = async (review) => {
         where('foodid', '==', fid));
     const qSnap = await getDocs(q);
     if (qSnap.empty) {
-        console.log('REVIEW DOES NOT EXIST');
+        // REVIEW DOES NOT EXIST
         return false;
     }
     let data;
@@ -285,7 +285,7 @@ export const validFood = (food) => {
         !food.type ||
         !(food.type.length)
     ) {
-        console.log('INVALID FOOD OBJECT')
+        // INVALID FOOD OBJECT
         return false;
     }
     return true;
@@ -302,7 +302,7 @@ export const validReview = (review) => {
         !review.food ||
         !validFood(review.food)
     ) {
-        console.log('INVALID REVIEW OBJECT')
+        // INVALID REVIEW OBJECT
         return false;
     }
     return true;

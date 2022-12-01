@@ -367,7 +367,7 @@ button.new-review {
     margin: 4px 0 4px 0;
     width: calc(100% - 24px);
     min-height: 20px;
-    max-height: 100px;
+    max-height: 140px;
     overflow-y: scroll;
 }
 .result {
