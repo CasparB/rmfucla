@@ -26,3 +26,9 @@
 				font-display: swap;
 				font-style: normal;
 }
+@font-face {
+	font-family: 'SFMono-Bold';
+	src: local('SFMono-Bold'), url('../assets/fonts/SFMono-Bold.otf') format('otf');
+				font-display: swap;
+				font-style: normal;
+}
