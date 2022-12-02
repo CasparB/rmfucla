@@ -3,6 +3,8 @@
 A project by American Aussies Group for 35L. This web app provides students with a clean and easy way to see which dining hall foods are eating
 for the day. We created an app that allows students to rate all the different types of Dining Hall Foods.
 
+Project Presentation: https://docs.google.com/presentation/d/1KQVCiHmqa3h7OHLbTAwLLZhZYgeHV7LxtCm0ZnNHyio/edit?usp=sharing
+
 ## Built With:
 
 - [React](https://reactjs.org) - React.js for Frontend
