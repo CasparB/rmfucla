@@ -113,7 +113,7 @@ export const otherFoods = async () => {
                 for(let i = 0; i < 4; i++){
                   const o = opt[i];
                 
-                    $('.menu-block').each((i, elem) => {
+                    $(e).find('.menu-block').each((i, elem) => {
                   $(elem).find('.recipelink').each((i, el) => {
                     let sections = $(elem).find('h2').text();
                     if(sections.length === 0){
@@ -129,12 +129,28 @@ export const otherFoods = async () => {
                   });
                 });
           }
+            }else if(type_period == "Breakfast"){
+              $(e).find('.menu-block').each((i, elem) => {
+                $(elem).find('.recipelink').each((i, el) => {
+                  let sections = $(elem).find('h2').text();
+                  if(sections.length === 0){
+                    sections = $(elem).find('h3').text();
+                  }
+                  const obj = {
+                    name: $(el).text(),
+                    location: name,
+                    type: "Breakfast",
+                    category: sections,
+                  }
+                  foods.push(obj);
+                });
+              });
             }else if(type_period == "Lunch & Dinner"){
               const opt = ['Lunch', 'Dinner', 'Extended Dinner'];
               for(let i = 0; i < 3; i++){
                 const o = opt[i];
               
-                  $('.menu-block').each((i, elem) => {
+                  $(e).find('.menu-block').each((i, elem) => {
                 $(elem).find('.recipelink').each((i, el) => {
                   let sections = $(elem).find('h2').text();
                   if(sections.length === 0){
@@ -157,7 +173,7 @@ export const otherFoods = async () => {
                 for(let i = 0; i < 4; i++){
                   const o = opt[i];
                 
-                    $('.menu-block').each((i, elem) => {
+                    $(e).find('.menu-block').each((i, elem) => {
                   $(elem).find('.recipelink').each((i, el) => {
                     let sections = $(elem).find('h2').text();
                     if(sections.length === 0){
@@ -174,7 +190,7 @@ export const otherFoods = async () => {
                 });
           }
               }else{
-                  $('.menu-block').each((i, elem) => {
+                  $(e).find('.menu-block').each((i, elem) => {
                   $(elem).find('.recipelink').each((i, el) => {
                     let sections = $(elem).find('h2').text();
                     if(sections.length === 0){
