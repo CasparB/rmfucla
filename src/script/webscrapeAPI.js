@@ -89,7 +89,7 @@ export const cafeteriaFood = async () => {
 export const otherFoods = async () => {
   const API_KEY = '35L-american-aussies';
   const render = true;
-  const list = ['http://menu.dining.ucla.edu/Menus/HedrickStudy','http://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'http://menu.dining.ucla.edu/Menus/BruinCafe', 'http://menu.dining.ucla.edu/Menus/Drey', 'http://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
+  const list = ['https://menu.dining.ucla.edu/Menus/HedrickStudy','https://menu.dining.ucla.edu/Menus/EpicAtAckerman', 'https://menu.dining.ucla.edu/Menus/BruinCafe', 'https://menu.dining.ucla.edu/Menus/Drey', 'https://menu.dining.ucla.edu/Menus/DeNeveLateNight'];
   const places_index = ['The Study at Hedrick', "Epic at Ackerman", "Bruin Cafe", "The Drey", "De Neve Late Night"];
   let halls_food = [];
   for(let index = 0; index < list.length; index++){
@@ -273,7 +273,7 @@ export const getTimes = async () => {
   }
   const API_KEY = '35L-american-aussies';
   const render = true;
-    const link = "http://menu.dining.ucla.edu/Hours";
+    const link = "https://menu.dining.ucla.edu/Hours";
     const test = axios(link, {params: {
       'url': link,
       'api_key': API_KEY,

@@ -12,7 +12,6 @@ import Protected from './components/Protected';
 document.documentElement.setAttribute('color-scheme', 'light');
 
 function App() {
-  console.clear()
 
 	return (
     <Router>
