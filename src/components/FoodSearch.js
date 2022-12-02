@@ -2,6 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { average } from '../script/helpers';
+
+// Icons
+import { IoMdStarOutline, IoMdStar } from 'react-icons/io'
 
 const FoodSearch = ({foods}) => {
     const [results, setResults] = useState([]);
@@ -46,17 +50,6 @@ const FoodSearch = ({foods}) => {
                         cur_types.push('ED');
                 }
                 all_type.push(cur_types);
-                // let result_string = ""
-                // for(let ind = 0; ind < type.length; ind++){
-                //    result_string = result_string.concat(type[ind]);
-                //    const next = ind + 1;
-                //    if( next < type.length){
-                //     result_string = result_string.concat(" and ");
-                //    }else{
-                //     result_string = result_string.concat(".");
-                //    }
-                // }
-                // all_type.push(result_string);
             }
         }
         setResults(temp);
@@ -84,16 +77,29 @@ const FoodSearch = ({foods}) => {
                             {
                             results.map((result, i) => (
                                 <div key={i} className='result'>
-                                    <p className='food-rec'>{result.name} at </p>
-                                    <p className='rec-location'>{result.location}</p>
-                                    {
-                                    results_type[i].map((tag, i) => (
-                                        <div key={i} className={`tag ${tag}`}>
-                                            <p>{tag}</p>
-                                        </div> 
-                                    ))
+                                    {(result.reviews.length === 0) &&
+                                        <div className='menu-rating-wrapper search'>
+                                            <p className='menu-rating-text outline'>N/A</p>
+                                            <IoMdStarOutline className='menu-star outline'/>
+                                        </div>
                                     }
-                                    {/* <p className='rec-location'>{results_type[i]}</p> */}
+                                    {(result.reviews.length > 0) &&
+                                        <div className='menu-rating-wrapper search'>
+                                            <p className='menu-rating-text'>{average(result.reviews)}</p>
+                                            <IoMdStar className='menu-star'/>
+                                        </div>
+                                    }
+                                    <div>   
+                                        <p className='food-rec'>{result.name} at </p>
+                                        <p className='rec-location'>{result.location}</p>
+                                        {
+                                        results_type[i].map((tag, i) => (
+                                            <div key={i} className={`tag ${tag}`}>
+                                                <p>{tag}</p>
+                                            </div> 
+                                        ))
+                                        }
+                                    </div>
                                 </div> 
                             ))
                             }

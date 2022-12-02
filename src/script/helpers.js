@@ -9,6 +9,15 @@ export const sameDate = (date1, date2) => {
     )
 }
 
+export const average = (arr) => {
+    let sum = 0;
+    for (var i = 0; i < arr.length; i++) {
+        sum += arr[i].rating;
+    }
+    sum /= arr.length;
+    return sum.toFixed(1);
+}
+
 export const docID = (str) => {
     let id = '';
     for (let i = 0; i < str.length; i++) {

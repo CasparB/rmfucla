@@ -10,7 +10,7 @@ import { TbSortAscending, TbSortDescending } from 'react-icons/tb';
 
 const ReviewList = ({location, author, showDate}) => {
     const [reviews, setReviews] = useState([]);
-    const [filter, setFilter] = useState('');
+    const [filter, setFilter] = useState('Time');
     const [ascending, setAscending] = useState(false);
 
     const options = [

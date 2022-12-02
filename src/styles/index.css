@@ -371,7 +371,8 @@ button.new-review {
     overflow-y: scroll;
 }
 .result {
-    margin-bottom: 7px;
+    margin-bottom: 8px;
+    display: flex;
 }
 .results-wrapper:last-child {
     margin: 0;
@@ -729,6 +730,34 @@ button.new-review {
 }
 .menu-item {
     margin: 8px 0;
+    display: flex;
+}
+.menu-star {
+    margin-top: 7px;
+    height: 15px;
+    width: 15px;
+    flex-shrink: 0;
+    color: var(--star-rating);
+    margin-right: 3px;
+}
+.menu-star.outline {
+    color: var(--outline);
+}
+.menu-rating-wrapper {
+    display: flex;
+}
+.menu-rating-wrapper.search {
+    margin-top: -4px;
+}
+.menu-rating-text {
+    font-family: 'SFMono-Bold';
+    font-size: 10px;
+    margin-top: 10px;
+    margin-right: 3px;
+    color: var(--star-rating);
+}
+.menu-rating-text.outline {
+    color: var(--outline);
 }
 .themebtn{
     display: flex;

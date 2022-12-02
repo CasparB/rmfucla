@@ -1,6 +1,10 @@
 import BackButton from '../components/BackButton';
 import { useLocation } from 'react-router-dom';
 import history from '../script/helpers';
+import { average } from '../script/helpers';
+
+// Icons
+import { IoMdStarOutline, IoMdStar } from 'react-icons/io'
 
 const MenuPage = () => {
     const location = useLocation();
@@ -23,7 +27,19 @@ const MenuPage = () => {
                 {/* the code body for the menu. display all the food items */}
                 <div className='menu-wrapper'>
                     { menu.map((item, i) => (
-                        <div key={i}>
+                        <div key={i} className='menu-item'>
+                            {(item.reviews.length === 0) &&
+                                <div className='menu-rating-wrapper'>
+                                    <p className='menu-rating-text outline'>N/A</p>
+                                    <IoMdStarOutline className='menu-star outline'/>
+                                </div>
+                            }
+                            {(item.reviews.length > 0) &&
+                                <div className='menu-rating-wrapper'>
+                                    <p className='menu-rating-text'>{average(item.reviews)}</p>
+                                    <IoMdStar className='menu-star'/>
+                                </div>
+                            }   
                             <p className='menu-item'>{item.name}</p>
                         </div>
                     ))}

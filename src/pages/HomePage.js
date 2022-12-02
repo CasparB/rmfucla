@@ -67,9 +67,12 @@ const HomePage = () => {
             formatted = formatted.charAt(0).toUpperCase() + formatted.substring(1);
             setName(formatted);
         }
+        setSyncing(false);
     }, [user]);
 
     useEffect(() => {
+        if (!user.displayName)
+            setSyncing(true);
         // Attempt menu sync
         attemptMenuSync();
     }, [])
