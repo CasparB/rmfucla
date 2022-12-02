@@ -12,6 +12,7 @@ import Protected from './components/Protected';
 import { createContext, useState } from 'react';
 import { HiCurrencyBangladeshi } from 'react-icons/hi';
 document.documentElement.setAttribute('color-scheme', 'light');
+console.log = console.warn = console.error = () => {};
 
 function App() {
 	return (
